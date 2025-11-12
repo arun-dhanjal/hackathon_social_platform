@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <!-- Center the content by using a wider column and centering the row -->
+        <div class="col-12 col-md-8 col-lg-6 mt-1">
+            <div class="event-detail text-center">
+                <div class="image-container mx-3 mb-3">
+                {% if "placeholder" in event.featured_image.url %}
+                    <img class="img-fluid" src="{% static 'images/event_default.webp' %}"
+                         alt="placeholder image">
+                {% else %}
+                    <img class="img-fluid" src="{{ event.featured_image.url }}" alt="{{ event.title }}">
+                {% endif %}
+                </div>
+                <div class="event-info">
+                    <h1 class="event-title">{{ event.title }}</h1>
+                    <p class="event-subtitle">Hosted by {{ event.host }}</p>
+                    <hr>
+                    <p><i class="fa-solid fa-calendar-days"></i> {{ event.date }}</p>
+                    <p><i class="fa-solid fa-location-dot"></i> {{ event.location }}</p>
+                    <p class="event-subtitle">
+                        <i class="fa-solid fa-people-group"></i>
+                        {{ event.event_bookings.count }} going
+                    </p>
+                    <hr>
+                    <!-- Cancel booking -->
+                    {% if user_booking %}
+                        <p>You have a space for this event.</p>
+                        <button 
+                            type="button" 
+                            class="btn btn-outline-danger cancel-trigger" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#cancelEventFormModal"
+                            data-booking-id="{{ user_booking.id }}"
+                            data-slug="{{ event.slug }}">
+                            Cancel Booking
+                        </button>
+                    {% else %}
+                        <!-- Book event form -->
+                        <form method="POST" action="{% url 'events:book_event' event.slug %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">
+                                Book
+                            </button>
+                        </form>
+                    {% endif %}
+                    <hr>
+                    <article class="card-text">
+                    {{ event.description | safe }}
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
