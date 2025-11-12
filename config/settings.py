@@ -125,7 +125,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Django Allauth settings
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'  # Allow login with username or email
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_USERNAME_REQUIRED = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

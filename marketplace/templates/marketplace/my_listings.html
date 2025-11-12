@@ -41,6 +41,14 @@
                     </p>
                     {% endif %}
                     <a href="{% url 'marketplace:listing_detail' listing.pk %}" class="btn btn-sm btn-primary">View Details</a>
+                    {% if not listing.bids.exists and not listing.is_sold %}
+                    <form method="POST" action="{% url 'marketplace:delete_listing' listing.pk %}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this listing?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </form>
+                    {% endif %}
                 </div>
             </div>
         </div>
