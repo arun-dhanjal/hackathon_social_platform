@@ -16,7 +16,7 @@ def post_detail(request, id):
     queryset = Post.objects.filter(accepted=True)
     post = get_object_or_404(queryset, id=id)
 
-    comments = post.comments.all().order_by("-created_on")
+    comments = post.comments.all().order_by("created_on")
     comment_count = post.comments.filter(accepted=True).count()
 
     return render(
