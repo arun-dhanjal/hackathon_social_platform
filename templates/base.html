@@ -1,109 +1,99 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Hackathon Social Platform{% endblock %}</title>
-    
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+    <meta name="description" content="Connect with your neighbours, share local updates, and build a welcoming community space. Discover events, conversations, and resources that bring your area to life.">
+    <title>Our Corner</title>
+    <link rel="icon" type="image/png" href="{% static 'favicon/favicon.png' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    
-    {% block extra_css %}{% endblock %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'feed:home' %}">
-                <i class="bi bi-trophy"></i> Hackathon Platform
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'marketplace:marketplace_feed' %}">
-                            <i class="bi bi-shop"></i> Marketplace
-                        </a>
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'marketplace:my_bids' %}">
-                            <i class="bi bi-hammer"></i> My Bids
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'marketplace:my_listings' %}">
-                            <i class="bi bi-bag"></i> My Listings
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
-                <ul class="navbar-nav">
-                    {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-person-circle"></i> {{ user.username }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="/admin/">Admin Panel</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
-                        </ul>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_login' %}">
-                            <i class="bi bi-box-arrow-in-right"></i> Login
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_signup' %}">
-                            <i class="bi bi-person-plus"></i> Sign Up
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Site header -->
+    <nav class="navbar sticky-top mb-3">
+        <div class="container-fluid flex-column flex-lg-row justify-content-between align-items-center">
+
+            <!-- Site logo and name -->
+            <h1 class="my-0 ms-2">
+                <a class="navbar-brand my-3 d-flex align-items-center" href="{% url 'feed' %}">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo: house with location pin" class="site-title me-3">
+                    <img src="{% static 'images/site-title.png' %}" alt="Site title: Our Corner" class="site-title">
+                </a>
+            </h1>
+
+            <!-- Authentication -->
+            <div class="d-flex flex-row align-items-center">
+                <a class="mb-3 mb-lg-0 fs-1" href="{% url 'user' %}">
+                    <i class="bi bi-person-circle user-icon"></i>
+                </a>
             </div>
+
         </div>
     </nav>
 
-    <!-- Messages -->
-    {% if messages %}
-    <div class="container mt-3">
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <!-- Icon navigation -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6 d-flex flex-column align-items-center gap-4">
+
+                <!-- Icons -->
+                <div class="d-flex justify-content-evenly w-100">
+                    <a href="{% url 'feed' %}" class="nav-icon {% if request.resolver_match.url_name == 'feed' %}active{% endif %}" aria-label="Home">
+                        <i class="bi bi-house-door-fill fs-1"></i>
+                    </a>
+                    <a href="{% url 'events' %}" class="nav-icon {% if request.resolver_match.url_name == 'events' %}active{% endif %}" aria-label="Reviews">
+                        <i class="bi bi-calendar2-week fs-1"></i>
+                    </a>
+                    <a href="{% url 'marketplace' %}" class="nav-icon {% if request.resolver_match.url_name == 'marketplace' %}active{% endif %}" aria-label="Leaderboards">
+                        <i class="bi bi-shop-window fs-1"></i>
+                    </a>
+                </div>
+
+                <!-- Separator line -->
+                <hr class="w-100 my-0">
+
+            </div>
         </div>
-        {% endfor %}
     </div>
+
+    <!-- User action feedback messages -->
+     {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
     {% endif %}
 
-    <!-- Main Content -->
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+    <!-- Main block content to display child templates in other apps -->
+    <div class="container mt-3">
+        {% block content %}{% endblock %}
+    </div>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white mt-5 py-4">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2025 Hackathon Social Platform. All rights reserved.</p>
-            <p class="mb-0">
-                <a href="{% url 'marketplace:marketplace_feed' %}" class="text-white-50">Marketplace</a> |
-                <a href="/admin/" class="text-white-50">Admin</a>
-            </p>
+    <!-- Site footer -->
+    <footer class="text-center py-4 mt-auto shadow-sm">
+        <div class="container">
+            <p class="mb-0">© {% now "Y" %} Our Corner</p>
+            <small class="text-muted">Built with Django, Bootstrap, and a sense of community.</small>
         </div>
     </footer>
 
-    <!-- Bootstrap 5 JS Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    {% block extra_js %}{% endblock %}
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script> 
+
 </body>
+
 </html>
