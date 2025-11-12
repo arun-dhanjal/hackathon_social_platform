@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div>
+        <h1 class="my-2 py-2">
+            My Events
+        </h1>
+    </div>
+    <div id="myevents-tabs">      
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-host-tab" data-bs-toggle="tab" data-bs-target="#nav-host" type="button" role="tab" aria-controls="nav-host" aria-selected="true">Host</button>
+                <button class="nav-link" id="nav-booked-tab" data-bs-toggle="tab" data-bs-target="#nav-booked" type="button" role="tab" aria-controls="nav-booked" aria-selected="false">Booked</button>
+                <button class="nav-link" id="nav-past-tab" data-bs-toggle="tab" data-bs-target="#nav-past" type="button" role="tab" aria-controls="nav-past" aria-selected="false">Past</button>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <!-- HOSTED EVENTS -->
+            <div class="tab-pane fade show active" id="nav-host" role="tabpanel" aria-labelledby="nav-host-tab">
+                <!-- Host Event button trigger modal -->
+                <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#host-event-modal">
+                    Host Event
+                </button>
+                <div class="published-events">
+                    <h3>Published Events</h3>
+                    {% if published_events %}
+                    <div class="row row-cols-1 row-cols-md-3 g-3">
+                        {% for event in published_events %}  
+                        <div class="col-md-4">
+                            <div class="event-card card mb-4 border-dark shadow">
+                                <div class="card-body">
+                                    <div class="image-container">
+                                        {% if "placeholder" in event.featured_image.url %}
+                                        <img class="card-img-top" src="{% static 'images/event_default.webp' %}" alt="Event placeholder image">
+                                        {% else %}
+                                        <img class="card-img-top" src="{{ event.featured_image.url }}" alt="{{ event.title }}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="event-card-title">
+                                        <a href="{% url 'events:event_detail' event.slug %}" class="event-link">
+                                            <h3 class="card-title">{{ event.title|truncatewords:4 }}</h3>
+                                        </a>
+                                    </div>
+                                    <hr>
+                                    <div class="event-card-details">
+                                        <p class="card-text h6">
+                                            <i class="fa-solid fa-calendar-days"></i> {{ event.date }}
+                                        </p>
+                                        <p class="card-text h6">
+                                            <i class="fa-solid fa-location-dot"></i> {{ event.location }}
+                                        </p>    
+                                    </div>                                        
+                                </div>
+                            </div>    
+                        </div>  
+                        {% endfor %}    
+                    </div>
+                    {% else %}
+                    <p class="text-muted">You haven't published any events yet.</p>
+                    {% endif %}    
+                </div>
+                <div class="draft-events">
+                    <h3>Draft Events</h3>
+                    {% if draft_events %}
+                    <div class="row row-cols-1 row-cols-md-3 g-3">
+                        {% for event in draft_events %}  
+                        <div class="col-md-4">
+                            <div class="event-card card mb-4 border-dark shadow">
+                                <div class="card-body">
+                                    <div class="image-container">
+                                        {% if "placeholder" in event.featured_image.url %}
+                                        <img class="card-img-top" src="{% static 'images/event_default.webp' %}" alt="Event placeholder image">
+                                        {% else %}
+                                        <img class="card-img-top" src="{{ event.featured_image.url }}" alt="{{ event.title }}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="event-card-title">
+                                        <a href="{% url 'events:event_detail' event.slug %}" class="event-link">
+                                            <h3 class="card-title">{{ event.title|truncatewords:4 }}</h3>
+                                        </a>
+                                    </div>
+                                    <hr>
+                                    <div class="event-card-details">
+                                        <p class="card-text h6">
+                                            <i class="fa-solid fa-calendar-days"></i> {{ event.date }}
+                                        </p>
+                                        <p class="card-text h6">
+                                            <i class="fa-solid fa-location-dot"></i> {{ event.location }}
+                                        </p>    
+                                    </div>                                        
+                                </div>
+                            </div>    
+                        </div>  
+                        {% endfor %}    
+                    </div>
+                    {% else %}
+                    <p class="text-muted">You haven't made any draft events yet.</p>
+                    {% endif %}    
+                </div>                    
+            </div>
+            <!-- BOOKED EVENTS -->
+            <div class="tab-pane fade" id="nav-booked" role="tabpanel" aria-labelledby="nav-booked-tab">
+                <div class="booked-events">
+                    <h3>Booked Events</h3>
+                    {% if booked_upcoming %}
+                    <div class="row row-cols-1 row-cols-md-3 g-3">
+                        {% for booking in booked_upcoming %}  
+                        <div class="col-md-4">
+                            <div class="event-card card mb-4 border-dark shadow">
+                                <div class="card-body">
+                                    <div class="image-container">
+                                        {% if "placeholder" in booking.event.featured_image.url %}
+                                        <img class="card-img-top" src="{% static 'images/event_default.webp' %}" alt="Event placeholder image">
+                                        {% else %}
+                                        <img class="card-img-top" src="{{ booking.event.featured_image.url }}" alt="{{ booking.event.title }}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="event-card-title">
+                                        <a href="{% url 'events:event_detail' booking.event.slug %}" class="event-link">
+                                            <h3 class="card-title">{{ booking.event.title|truncatewords:4 }}</h3>
+                                        </a>                                        
+                                    </div>
+                                    <hr>
+                                    <div class="event-card-details">
+                                        <p class="card-text h6">
+                                            <i class="fa-solid fa-calendar-days"></i> {{ booking.event.date }}
+                                        </p>
+                                        <p class="card-text h6">
+                                            <i class="fa-solid fa-location-dot"></i> {{ booking.event.location }}
+                                        </p>    
+                                    </div>                                        
+                                </div>
+                            </div>    
+                        </div>  
+                        {% endfor %}    
+                    </div>
+                    {% else %}
+                    <p class="text-muted">You haven't booked any events yet.</p>
+                    {% endif %}    
+                </div> 
+            </div>
+            <!-- PAST EVENTS -->
+            <div class="tab-pane fade" id="nav-past" role="tabpanel" aria-labelledby="nav-past-tab">
+                <h3>Past Events</h3> 
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Host event form modal -->
+<div class="modal fade" id="host-event-modal" tabindex="-1" role="dialog" aria-labelledby="host-event-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="POST">                   
+            <div class="modal-header">
+                <h5 class="modal-title" id="host-event-modal-title">Host an event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% csrf_token %}       
+                {{ event_form | crispy }}                     
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" name="save_draft" class="btn btn-outline-warning">Save as Draft</button>
+                <button type="submit" name="publish" class="btn btn-success">Publish</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
