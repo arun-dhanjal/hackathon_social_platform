@@ -1,3 +1,8 @@
 from django.urls import path
+from . import views
 
-urlpatterns = []
+app_name = 'user'
+
+urlpatterns = [
+    # Add user URLs here when views are created
+]

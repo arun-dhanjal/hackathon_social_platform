@@ -1,3 +1,7 @@
 from django.urls import path
 
-urlpatterns = []
+app_name = 'events'
+
+urlpatterns = [
+    # Add your events URLs here
+]
