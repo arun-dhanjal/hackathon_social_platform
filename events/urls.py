@@ -1,3 +1,9 @@
 from django.urls import path
+from django.http import HttpResponse
 
-urlpatterns = []
+def dummy_events_view(request):
+	return HttpResponse("Dummy events view")
+
+urlpatterns = [
+	path('dummy/', dummy_events_view, name='events'),
+]
