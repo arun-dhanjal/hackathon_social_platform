@@ -209,3 +209,23 @@ def accept_bid(request, listing_pk, bid_pk):
     
     return redirect('marketplace:listing_detail', pk=listing_pk)
 
+
+@login_required
+def delete_listing(request, pk):
+    """Allow seller to delete their listing if no bids have been placed"""
+    listing = get_object_or_404(Listing, pk=pk)
+    
+    # Only the seller can delete the listing
+    if listing.seller != request.user:
+        messages.error(request, "You can only delete your own listings.")
+        return redirect('marketplace:listing_detail', pk=pk)
+    
+    # Prevent deletion if bids exist
+    if listing.bids.exists():
+        messages.error(request, "Cannot delete listing with existing bids.")
+        return redirect('marketplace:listing_detail', pk=pk)
+    
+    # Delete the listing
+    listing.delete()
+    messages.success(request, "Listing deleted successfully.")
+    return redirect('marketplace:my_listings')
