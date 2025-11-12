@@ -51,10 +51,10 @@
                     <a href="{% url 'feed:feed' %}" class="nav-icon {% if request.resolver_match.url_name == 'feed' %}active{% endif %}" aria-label="Home">
                         <i class="bi bi-house-door-fill fs-1"></i>
                     </a>
-                    <a href="{% url 'events:events_feed' %}" class="nav-icon {% if request.resolver_match.url_name == 'events' %}active{% endif %}" aria-label="Events">
+                    <a href="{% url 'events:events_feed' %}" class="nav-icon {% if request.resolver_match.url_name == 'events_feed' %}active{% endif %}" aria-label="Events">
                         <i class="bi bi-calendar2-week fs-1"></i>
                     </a>
-                    <a href="{% url 'marketplace:marketplace_feed' %}" class="nav-icon {% if request.resolver_match.url_name == 'marketplace' %}active{% endif %}" aria-label="Marketplace">
+                    <a href="{% url 'marketplace:marketplace_feed' %}" class="nav-icon {% if request.resolver_match.url_name == 'marketplace_feed' %}active{% endif %}" aria-label="Marketplace">
                         <i class="bi bi-shop-window fs-1"></i>
                     </a>
                 </div>
