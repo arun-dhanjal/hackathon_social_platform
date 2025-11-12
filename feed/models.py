@@ -22,7 +22,7 @@ class Post(models.Model):
         ordering = ["-created_on"]
 
     def __str__(self):
-        return f"Post `{self.title}` by {self.author}"
+        return f"{self.title} - {self.author}"
 
 
 class Comment(models.Model):
@@ -44,4 +44,4 @@ class Comment(models.Model):
         ordering = ["created_on"]
 
     def __str__(self):
-        return f"Comment on post `{self.post}` by {self.author}"
+        return f"{self.author} commented on: {self.post} by {self.author}"
