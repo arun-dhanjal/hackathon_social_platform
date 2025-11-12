@@ -8,3 +8,5 @@ env.py
 # Ignore SQLite database files (not used - using PostgreSQL)
 *.sqlite3
 *.db
+
+*.staticfiles
