@@ -1,0 +1,99 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Connect with your neighbours, share local updates, and build a welcoming community space. Discover events, conversations, and resources that bring your area to life.">
+    <title>Our Corner</title>
+    <link rel="icon" type="image/png" href="{% static 'favicon/favicon.png' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Site header -->
+    <nav class="navbar sticky-top mb-3">
+        <div class="container-fluid flex-column flex-lg-row justify-content-between align-items-center">
+
+            <!-- Site logo and name -->
+            <div class="my-0 ms-2">
+                <a class="navbar-brand my-3 d-flex align-items-center" href="/">
+                    <!-- Text-based logo as fallback -->
+                    <span class="site-title-text fs-3 fw-bold">Our Corner</span>
+                </a>
+            </div>
+
+            <!-- Authentication -->
+            <div class="d-flex flex-row align-items-center">
+                <a class="mb-3 mb-lg-0 fs-1" href="/user/">
+                    <i class="bi bi-person-circle user-icon"></i>
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Icon navigation -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6 d-flex flex-column align-items-center gap-4">
+
+                <!-- Icons -->
+                <div class="d-flex justify-content-evenly w-100">
+                    <a href="/feed/" class="nav-icon {% if request.resolver_match.url_name == 'feed' %}active{% endif %}" aria-label="Home">
+                        <i class="bi bi-house-door-fill fs-1"></i>
+                    </a>
+                    <a href="/events/" class="nav-icon {% if request.resolver_match.url_name == 'events' %}active{% endif %}" aria-label="Reviews">
+                        <i class="bi bi-calendar2-week fs-1"></i>
+                    </a>
+                    <a href="/marketplace/" class="nav-icon {% if request.resolver_match.url_name == 'marketplace' %}active{% endif %}" aria-label="Leaderboards">
+                        <i class="bi bi-shop-window fs-1"></i>
+                    </a>
+                </div>
+
+                <!-- Separator line -->
+                <hr class="w-100 my-0">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- User action feedback messages -->
+     {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Main block content to display child templates in other apps -->
+    <div class="container mt-3">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Site footer -->
+    <footer class="text-center py-4 mt-auto shadow-sm">
+        <div class="container">
+            <p class="mb-0">© {% now "Y" %} Our Corner</p>
+            <small class="text-muted">Built with Django, Bootstrap, and a sense of community.</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script> 
+
+</body>
+
+</html>

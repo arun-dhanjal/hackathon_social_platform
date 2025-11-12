@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Sign Up</h4>
+                </div>
+                <div class="card-body">
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <strong>Please fix the following errors:</strong>
+                        <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ field.label }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    <form method="post" id="signup-form">
+                        {% csrf_token %}
+                        
+                        <!-- Account Information -->
+                        <h5>Account Information</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                {{ form.username|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.email|as_crispy_field }}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                {{ form.password1|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.password2|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <hr>
+                        <h5>Security Questions</h5>
+                        <p class="text-muted">Please answer these security questions for password recovery.</p>
+
+                        <!-- Security Question 1 -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="question_1" class="form-label">Security Question 1*</label>
+                                <select class="form-select" id="question_1" name="question_1" required>
+                                    <option value="">Select a question</option>
+                                    {% for value, text in security_questions %}
+                                    <option value="{{ value }}">{{ text }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="answer_1" class="form-label">Answer 1*</label>
+                                <input type="text" class="form-control" id="answer_1" name="answer_1" required>
+                            </div>
+                        </div>
+
+                        <!-- Security Question 2 -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="question_2" class="form-label">Security Question 2*</label>
+                                <select class="form-select" id="question_2" name="question_2" required>
+                                    <option value="">Select a question</option>
+                                    {% for value, text in security_questions %}
+                                    <option value="{{ value }}">{{ text }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="answer_2" class="form-label">Answer 2*</label>
+                                <input type="text" class="form-control" id="answer_2" name="answer_2" required>
+                            </div>
+                        </div>
+
+                        <!-- Security Question 3 -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="question_3" class="form-label">Security Question 3*</label>
+                                <select class="form-select" id="question_3" name="question_3" required>
+                                    <option value="">Select a question</option>
+                                    {% for value, text in security_questions %}
+                                    <option value="{{ value }}">{{ text }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="answer_3" class="form-label">Answer 3*</label>
+                                <input type="text" class="form-control" id="answer_3" name="answer_3" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+                    </form>
+
+                    <div class="mt-3 text-center">
+                        <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const questionSelects = document.querySelectorAll('select[id^="question_"]');
+    
+    function updateAvailableQuestions() {
+        const selectedValues = Array.from(questionSelects).map(select => select.value);
+        
+        questionSelects.forEach((select, index) => {
+            const currentValue = select.value;
+            const currentSelectId = select.id;
+            
+            Array.from(select.options).forEach(option => {
+                if (option.value && option.value !== '' && option.value !== currentValue) {
+                    // Check if this option is selected in any other dropdown
+                    if (selectedValues.includes(option.value) && selectedValues.indexOf(option.value) !== index) {
+                        option.style.display = 'none';
+                        option.disabled = true;
+                    } else {
+                        option.style.display = '';
+                        option.disabled = false;
+                    }
+                }
+            });
+        });
+    }
+    
+    questionSelects.forEach(select => {
+        select.addEventListener('change', updateAvailableQuestions);
+    });
+    
+    // Initial update
+    updateAvailableQuestions();
+});
+</script>
+{% endblock %}
