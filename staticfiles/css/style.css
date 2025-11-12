@@ -1,0 +1,190 @@
+/* === CSS Variables === */
+:root {
+    --button-yellow: #f0e3c3;
+    --hover-yellow: #f6f2e6;
+    --pastel-yellow: #FFF8E8;
+    --pastel-orange: #FA8B5C;
+    --pastel-grey: #6B6968;
+    --pending-bg: #fff8df;
+    --pending-text: #5a5caa;
+    --page-bg: #f5f5f5;
+}
+
+
+/* === Header styling === */
+
+/* Header background and lower shadow */
+.navbar {
+    background: linear-gradient(to right, var(--pastel-yellow), var(--pastel-orange));
+    padding-top: 0;
+    padding-bottom: 0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* Custom padding and margins to override Bootstrap defaults */
+.navbar-brand {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
+}
+
+/* Site logo and title kept at consistent height */
+.site-title {
+    height: 40px;
+    width: auto;
+}
+
+/* User icon */
+.user-icon {
+    color: var(--pastel-grey);
+    transition: color 0.2s ease;
+}
+
+.user-icon:hover {
+    color: var(--hover-yellow);
+}
+
+/* === Navigation icons styling === */
+
+/* Background for navigation icons matches main page body background */
+.icon-navigation {
+    background-color: var(--page-bg);
+}
+
+/* Nav icons transition from red to black and stay red when active */
+.nav-icon {
+  color: var(--pastel-grey);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-icon:hover {
+  color: var(--pastel-orange);
+  
+}
+
+.nav-icon.active {
+  color: var(--pastel-orange);
+  border-bottom: 2px solid var(--pastel-orange);
+}
+
+
+/* === Main body styling === */
+
+/* Background of main content set to slightly off-white */
+body {
+    background-color: var(--page-bg);
+}
+
+
+/* === Button styling === */
+
+/* Majority of buttons are red with var(--pastel-grey) text and change to lighter red when hovered over */
+.btn {
+    color: var(--pastel-grey);
+    background-color: var(--button-yellow);
+}
+
+.btn:hover {
+    color: var(--pastel-grey);
+    background-color: var(--hover-yellow);
+}
+
+/* Special case with edit and delete buttons that are icons - they transition from light grey to red */
+.edit-button {
+    color: var(--pastel-grey);
+    transition: color 0.2s ease;
+}
+
+.edit-button:hover {
+    color: var(--button-yellow);
+}
+
+.delete-button {
+    color: var(--pastel-grey);
+    transition: color 0.2s ease;
+}
+
+.delete-button:hover {
+    color: var(--button-yellow);
+}
+
+/* Page buttons styled similar to other main buttons */
+.page-link {
+    color: var(--pastel-grey);
+    background-color: var(--button-yellow);
+}
+
+.page-link:hover {
+    color: var(--pastel-grey);
+    background-color: var(--hover-yellow);
+}
+
+.page-indicator {
+    color: var(--pastel-grey);
+    background-color: var(--button-yellow);
+    pointer-events: none; /* prevents hover animation */
+}
+
+
+/* === Image styling === */
+
+/* Image container ensures all images are in consistently sized square boxes */
+.image-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+/* Image itself is slightly smaller than container to allow shadow to show */
+.image-box img {
+    width: 90%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+
+/* === Pending approval styling === */
+
+/* Light yellowish card with blue text to ensure accessibility */
+.pending-approval-card {
+    background-color: var(--pending-bg);
+}
+
+.pending-approval-text {
+    color: var(--pending-text);
+    font-weight: bold;
+}
+
+
+/* === Footer styling === */
+
+footer {
+    background: linear-gradient(to right, var(--pastel-yellow), var(--pastel-orange));
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+
+/* === Media queries === */
+
+/* Media query to ensure header shrinks on very small screens to avoid overspill */
+@media (max-width: 450px) {
+    
+    /* Handles site logo and title */
+    .site-title {
+        height: 28px;
+    }
+
+    /* Handles the login status text */
+    .smaller-font {
+        font-size: 0.75rem;
+    }
+}
+
+/* Media query to ensure no overspill in leaderboards on small screens */
+@media (max-width: 450px) {
+    table {
+        font-size: 0.7rem;
+    }
+}
