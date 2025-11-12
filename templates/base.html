@@ -25,7 +25,7 @@
 
             <!-- Site logo and name -->
             <h1 class="my-0 ms-2">
-                <a class="navbar-brand my-3 d-flex align-items-center" href="{% url 'feed' %}">
+                <a class="navbar-brand my-3 d-flex align-items-center" href="{% url 'feed:home' %}">
                     <img src="{% static 'images/logo.png' %}" alt="Logo: house with location pin" class="site-title me-3">
                     <img src="{% static 'images/site-title.png' %}" alt="Site title: Our Corner" class="site-title">
                 </a>
@@ -33,7 +33,7 @@
 
             <!-- Authentication -->
             <div class="d-flex flex-row align-items-center">
-                <a class="mb-3 mb-lg-0 fs-1" href="{% url 'user' %}">
+                <a class="mb-3 mb-lg-0 fs-1" href="{% url 'account_login' %}">
                     <i class="bi bi-person-circle user-icon"></i>
                 </a>
             </div>
@@ -48,13 +48,13 @@
 
                 <!-- Icons -->
                 <div class="d-flex justify-content-evenly w-100">
-                    <a href="{% url 'feed' %}" class="nav-icon {% if request.resolver_match.url_name == 'feed' %}active{% endif %}" aria-label="Home">
+                    <a href="{% url 'feed:home' %}" class="nav-icon {% if request.resolver_match.url_name == 'feed' %}active{% endif %}" aria-label="Home">
                         <i class="bi bi-house-door-fill fs-1"></i>
                     </a>
-                    <a href="{% url 'events' %}" class="nav-icon {% if request.resolver_match.url_name == 'events' %}active{% endif %}" aria-label="Reviews">
+                    <a href="#" class="nav-icon {% if request.resolver_match.url_name == 'events' %}active{% endif %}" aria-label="Events">
                         <i class="bi bi-calendar2-week fs-1"></i>
                     </a>
-                    <a href="{% url 'marketplace' %}" class="nav-icon {% if request.resolver_match.url_name == 'marketplace' %}active{% endif %}" aria-label="Leaderboards">
+                    <a href="{% url 'marketplace:marketplace_feed' %}" class="nav-icon {% if request.resolver_match.url_name == 'marketplace' %}active{% endif %}" aria-label="Marketplace">
                         <i class="bi bi-shop-window fs-1"></i>
                     </a>
                 </div>
