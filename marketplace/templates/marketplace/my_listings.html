@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/marketplace.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>My Auction Listings</h2>
+        <a href="{% url 'marketplace:create_listing' %}" class="btn btn-primary">Create New Listing</a>
+    </div>
+    
+    {% if listings %}
+    <div class="row">
+        {% for listing in listings %}
+        <div class="col-md-6 mb-3">
+            <div class="card marketplace-card">
+                {% if listing.image %}
+                <img src="{{ listing.image.url }}" class="card-img-top marketplace-card-img" alt="{{ listing.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ listing.title }}</h5>
+                    <p><strong>Starting Price:</strong> ${{ listing.starting_price }}</p>
+                    <p><strong>Current Highest Bid:</strong> 
+                        {% with highest=listing.get_highest_bid %}
+                            {% if highest %}
+                                ${{ highest.amount }} by {{ highest.bidder.username }}
+                            {% else %}
+                                No bids yet
+                            {% endif %}
+                        {% endwith %}
+                    </p>
+                    <p><strong>Total Bids:</strong> {{ listing.bids.count }}</p>
+                    {% if listing.ends_at %}
+                    <p><strong>Ends:</strong> {{ listing.ends_at|date:"M d, Y H:i" }}
+                        {% if listing.is_auction_ended %}
+                        <span class="badge bg-danger">Ended</span>
+                        {% endif %}
+                    </p>
+                    {% endif %}
+                    <a href="{% url 'marketplace:listing_detail' listing.pk %}" class="btn btn-sm btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        You haven't created any auction listings yet. <a href="{% url 'marketplace:create_listing' %}">Create one now!</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

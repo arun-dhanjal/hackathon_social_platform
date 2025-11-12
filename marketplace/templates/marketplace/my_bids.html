@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>My Bids</h2>
+    
+    {% if bids %}
+    <div class="row">
+        {% for bid in bids %}
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'marketplace:listing_detail' bid.listing.pk %}">{{ bid.listing.title }}</a>
+                    </h5>
+                    <p><strong>Your Bid:</strong> ${{ bid.amount }}</p>
+                    <p><strong>Current Highest:</strong> 
+                        {% with highest=bid.listing.get_highest_bid %}
+                            {% if highest %}
+                                ${{ highest.amount }}
+                                {% if highest.id == bid.id %}
+                                <span class="badge bg-success">You're winning!</span>
+                                {% else %}
+                                <span class="badge bg-warning">Outbid</span>
+                                {% endif %}
+                            {% endif %}
+                        {% endwith %}
+                    </p>
+                    <p><small class="text-muted">Placed on {{ bid.created_at|date:"M d, Y H:i" }}</small></p>
+                    <a href="{% url 'marketplace:listing_detail' bid.listing.pk %}" class="btn btn-sm btn-primary">View Listing</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        You haven't placed any bids yet. <a href="{% url 'marketplace:marketplace_feed' %}">Browse listings</a> to get started!
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

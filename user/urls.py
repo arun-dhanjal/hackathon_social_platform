@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import feed
+from . import views
+
+app_name = 'user'
 
 urlpatterns = [
-    path("", views.feed, name="fee"d"),
+    # Add user URLs here when views are created
 ]
