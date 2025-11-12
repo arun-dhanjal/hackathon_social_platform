@@ -4,3 +4,9 @@ env.py
 # Ignore Python bytecode files
 */__pycache__/
 *.pyc
+
+# Ignore SQLite database files (not used - using PostgreSQL)
+*.sqlite3
+*.db
+
+*.staticfiles

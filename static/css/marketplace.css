@@ -1,0 +1,49 @@
+/* Marketplace - Auction Listing Styles */
+
+/* Card images in grid views (marketplace feed, my listings) */
+.marketplace-card-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Detail page hero image */
+.listing-detail-img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Ensure cards have consistent height */
+.marketplace-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.marketplace-card .card-body {
+    flex: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .marketplace-card-img {
+        height: 200px;
+    }
+    
+    .listing-detail-img {
+        height: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .marketplace-card-img {
+        height: 180px;
+    }
+    
+    .listing-detail-img {
+        height: 250px;
+    }
+}

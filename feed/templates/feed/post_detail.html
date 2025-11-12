@@ -21,17 +21,20 @@
 
             <hr>
 
-            {% for comment in comments %}
-            {% if comment.accepted or comment.author == user %}
-            <div class="card mb-2">
-                <div class="card-body">
-                    <h5 class="card-text">{{ comment.author.username }}</h5>
-                    <p class="card-text"><small class="text-muted">{{ comment.created_on }}</small></p>
-                    <p class="card-text">{{ comment.content }}</p>
+            <div class="mb-4">
+                {% for comment in comments %}
+                {% if comment.accepted or comment.author == user %}
+                
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h5 class="card-text">{{ comment.author.username }}</h5>
+                        <p class="card-text"><small class="text-muted">{{ comment.created_on }}</small></p>
+                        <p class="card-text">{{ comment.content }}</p>
+                    </div>
                 </div>
+                {% endif %}
+                {% endfor %}
             </div>
-            {% endif %}
-            {% endfor %}
         </div>
     </div>
 </div>

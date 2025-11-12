@@ -21,7 +21,7 @@
                     {% endif %}
 
                     <!-- Button to see full post -->
-                    <a href="{% url 'post_detail' post.id %}" class="btn btn-primary mt-3">Read More</a>
+                    <a href="{% url 'feed:post_detail' post.id %}" class="btn btn-primary mt-3">Read More</a>
                 </div>
             </div>
             {% endfor %}

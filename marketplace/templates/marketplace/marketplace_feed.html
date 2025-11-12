@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/marketplace.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Marketplace</h2>
+        <div>
+            {% if user.is_authenticated %}
+            <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-primary me-2">Create Classified</a>
+            <a href="{% url 'marketplace:create_listing' %}" class="btn btn-success">Create Auction</a>
+            {% else %}
+            <a href="{% url 'account_login' %}" class="btn btn-primary">Login to Post</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-tabs mb-4" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="auctions-tab" data-bs-toggle="tab" data-bs-target="#auctions" type="button" role="tab">
+                Auctions <span class="badge bg-primary">{{ listings.count }}</span>
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="selling-tab" data-bs-toggle="tab" data-bs-target="#selling" type="button" role="tab">
+                For Sale <span class="badge bg-success">{{ selling_posts.count }}</span>
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="buying-tab" data-bs-toggle="tab" data-bs-target="#buying" type="button" role="tab">
+                Wanted <span class="badge bg-info">{{ buying_posts.count }}</span>
+            </button>
+        </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+        <!-- Auctions Tab -->
+        <div class="tab-pane fade show active" id="auctions" role="tabpanel">
+            {% if listings %}
+            <div class="row">
+                {% for listing in listings %}
+                <div class="col-md-4 mb-4">
+                    <div class="card marketplace-card">
+                        {% if listing.image %}
+                        <img src="{{ listing.image.url }}" class="card-img-top marketplace-card-img" alt="{{ listing.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ listing.title }}</h5>
+                            <p class="card-text">{{ listing.description|truncatewords:20 }}</p>
+                            
+                            <div class="mb-2">
+                                <strong>Starting Price:</strong> ${{ listing.starting_price }}
+                            </div>
+                            
+                            {% with highest=listing.get_highest_bid %}
+                            {% if highest %}
+                            <div class="alert alert-success py-2">
+                                <strong>Current Bid:</strong> ${{ highest.amount }}
+                            </div>
+                            {% else %}
+                            <div class="alert alert-info py-2">
+                                <strong>No bids yet</strong>
+                            </div>
+                            {% endif %}
+                            {% endwith %}
+                            
+                            {% if listing.ends_at %}
+                            <p class="text-muted small">
+                                <i class="bi bi-clock"></i> Ends: {{ listing.ends_at|date:"M d, Y H:i" }}
+                                {% if listing.is_auction_ended %}
+                                <span class="badge bg-danger">Ended</span>
+                                {% endif %}
+                            </p>
+                            {% endif %}
+                            
+                            <a href="{% url 'marketplace:listing_detail' listing.pk %}" class="btn btn-primary btn-sm">View & Bid</a>
+                        </div>
+                        <div class="card-footer text-muted small">
+                            Posted by {{ listing.seller.username }} | {{ listing.created_at|timesince }} ago
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                <h4>No auctions yet!</h4>
+                <p>Be the first to create an auction listing.</p>
+                {% if user.is_authenticated %}
+                <a href="{% url 'marketplace:create_listing' %}" class="btn btn-success">Create First Auction</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Selling Posts Tab -->
+        <div class="tab-pane fade" id="selling" role="tabpanel">
+            {% if selling_posts %}
+            <div class="row">
+                {% for post in selling_posts %}
+                <div class="col-md-4 mb-4">
+                    <div class="card marketplace-card">
+                        {% if post.image %}
+                        <img src="{{ post.image.url }}" class="card-img-top marketplace-card-img" alt="{{ post.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.description|truncatewords:20 }}</p>
+                            <h4 class="text-success">${{ post.price }}</h4>
+                        </div>
+                        <div class="card-footer text-muted small">
+                            Posted by {{ post.seller.username }} | {{ post.created_at|timesince }} ago
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                <h4>No items for sale yet!</h4>
+                <p>Be the first to post an item for sale.</p>
+                {% if user.is_authenticated %}
+                <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-primary">Create Classified Ad</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Buying Posts Tab -->
+        <div class="tab-pane fade" id="buying" role="tabpanel">
+            {% if buying_posts %}
+            <div class="row">
+                {% for post in buying_posts %}
+                <div class="col-md-4 mb-4">
+                    <div class="card marketplace-card">
+                        {% if post.image %}
+                        <img src="{{ post.image.url }}" class="card-img-top marketplace-card-img" alt="{{ post.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.description|truncatewords:20 }}</p>
+                            <p><strong>Budget:</strong> <span class="text-success">${{ post.min_price }}+</span></p>
+                        </div>
+                        <div class="card-footer text-muted small">
+                            Posted by {{ post.buyer.username }} | {{ post.created_at|timesince }} ago
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                <h4>No wanted items yet!</h4>
+                <p>Looking to buy something? Post what you're looking for.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Quick Links for Authenticated Users -->
+{% if user.is_authenticated %}
+<div class="container mt-4">
+    <div class="card bg-light">
+        <div class="card-body">
+            <h5>Your Activity</h5>
+            <a href="{% url 'marketplace:my_listings' %}" class="btn btn-outline-primary btn-sm me-2">My Auctions</a>
+            <a href="{% url 'marketplace:my_bids' %}" class="btn btn-outline-success btn-sm">My Bids</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
