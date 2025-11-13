@@ -12,6 +12,9 @@ urlpatterns = [
     path('selling/<int:pk>/', views.selling_post_detail, name='selling_post_detail'),
     path('selling/<int:pk>/commit-buy/', views.commit_to_buy, name='commit_to_buy'),
     
+    # Buying posts (wanted ads)
+    path('buying/create/', views.create_buying_post, name='create_buying_post'),
+    
     # Auction listings
     path('listing/create/', views.create_listing, name='create_listing'),
     path('listing/<int:pk>/', views.listing_detail, name='listing_detail'),

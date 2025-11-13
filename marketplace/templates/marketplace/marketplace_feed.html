@@ -11,8 +11,11 @@
         <h2>Marketplace</h2>
         <div>
             {% if user.is_authenticated %}
-            <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-primary me-2">Create Classified</a>
-            <a href="{% url 'marketplace:create_listing' %}" class="btn btn-success">Create Auction</a>
+            <div class="btn-group" role="group">
+                <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-success"><i class="bi bi-tag"></i> Sell Item</a>
+                <a href="{% url 'marketplace:create_buying_post' %}" class="btn btn-info"><i class="bi bi-search"></i> Want Item</a>
+                <a href="{% url 'marketplace:create_listing' %}" class="btn btn-primary"><i class="bi bi-hammer"></i> Create Auction</a>
+            </div>
             {% else %}
             <a href="{% url 'account_login' %}" class="btn btn-primary">Login to Post</a>
             {% endif %}
@@ -139,7 +142,7 @@
                 <h4>No items for sale yet!</h4>
                 <p>Be the first to post an item for sale.</p>
                 {% if user.is_authenticated %}
-                <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-primary">Create Classified Ad</a>
+                <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-success"><i class="bi bi-tag"></i> Sell Item</a>
                 {% endif %}
             </div>
             {% endif %}
@@ -171,6 +174,9 @@
             <div class="alert alert-info">
                 <h4>No wanted items yet!</h4>
                 <p>Looking to buy something? Post what you're looking for.</p>
+                {% if user.is_authenticated %}
+                <a href="{% url 'marketplace:create_buying_post' %}" class="btn btn-info"><i class="bi bi-search"></i> Post Wanted Ad</a>
+                {% endif %}
             </div>
             {% endif %}
         </div>
@@ -279,8 +285,9 @@
             {% else %}
             <div class="alert alert-info">
                 You haven't created any listings yet. 
-                <a href="{% url 'marketplace:create_listing' %}" class="btn btn-primary btn-sm">Create Auction</a>
-                <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-success btn-sm">Create Classified</a>
+                <a href="{% url 'marketplace:create_listing' %}" class="btn btn-primary btn-sm"><i class="bi bi-hammer"></i> Create Auction</a>
+                <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-success btn-sm"><i class="bi bi-tag"></i> Sell Item</a>
+                <a href="{% url 'marketplace:create_buying_post' %}" class="btn btn-info btn-sm"><i class="bi bi-search"></i> Want Item</a>
             </div>
             {% endif %}
         </div>
