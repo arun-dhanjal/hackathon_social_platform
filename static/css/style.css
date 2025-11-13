@@ -93,6 +93,12 @@ body {
     border-color: transparent;
 }
 
+.btn-muted {
+    background-color: var(--page-bg);
+    color: var(--pastel-grey);
+    border-color: transparent;
+}
+
 /* Special case with edit and delete buttons that are icons - they transition from light grey to red */
 .edit-button {
     color: var(--pastel-grey);
@@ -147,6 +153,60 @@ body {
 }
 
 
+/* === Events styling === */
+
+/* Generic */
+.section {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Event cards */
+.card-img-top {
+    height: 20vh;
+}
+
+/* Event detail specific image: smaller, centered, and center-cropped */
+.event-detail .image-container {
+    width: 280px;
+    height: 280px;
+    margin: 0.5rem auto 1rem auto;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.event-detail .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* Force centering in case utility classes interfere */
+.event-detail .image-container {
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Event links */
+.event-link {
+    color: var(--pastel-grey);
+}
+
+.event-link:hover {
+    color: var(--hover-orange);
+}
+
+/* My Events page */
+#myevents-tabs .nav-tabs .nav-link {
+    color: var(--pastel-grey);
+    font-weight: 500;
+    font-size: 1.15em;
+}
+
 /* === Footer styling === */
 
 footer {
@@ -176,5 +236,18 @@ footer {
 @media (max-width: 450px) {
     table {
         font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Event detail image */
+    .event-detail .image-container {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+    }
+
+    .event-detail .image-container img {
+        height: 100%;
     }
 }
