@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # deployed.
 DEBUG = "DEVELOPMENT" in os.environ
 
-ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1', ]
 
 
 # Application definition
@@ -45,23 +45,26 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cloudinary_storage',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
     'crispy_forms',
     'crispy_bootstrap5',
     'cloudinary',
     'feed',
     'events',
     'marketplace',
-    'user',
+    'user',  # Your custom user app
 ]
 
-SITE_ID = 1
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+# Authentication settings for custom user app
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 
+# Login/Logout URLs for custom user app
+LOGIN_URL = 'user:login'
+LOGIN_REDIRECT_URL = '/'  # Redirect to home after login
+LOGOUT_REDIRECT_URL = '/'  # Redirect to home after logout
+
+# Crispy Forms configuration
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
@@ -74,7 +77,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -101,29 +103,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# Database configuration with proper error handling
-DATABASE_URL = os.environ.get("DATABASE_URL", "postgresql://neondb_owner:npg_FgsZR9MWb8Sr@ep-long-dust-aggdj4tj.c-2.eu-central-1.aws.neon.tech/alive_smell_rank_585650")
-
-if DATABASE_URL:
-    # Handle bytes-like object if needed
-    if isinstance(DATABASE_URL, bytes):
-        DATABASE_URL = DATABASE_URL.decode('utf-8')
-    
-    DATABASES = {
-        "default": dj_database_url.parse(DATABASE_URL)
-    }
-else:
-    # Fallback to SQLite for development
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-
-# Add SSL requirement for Neon PostgreSQL
-if 'postgresql' in DATABASE_URL:
-    DATABASES['default']['OPTIONS'] = {'sslmode': 'require'}
+# Use your PostgreSQL database
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgresql://neondb_owner:npg_e6FZPMLnC1Gt@ep-divine-bread-ag3myez5.c-2.eu-central-1.aws.neon.tech/bacon_stop_aloe_125606',
+        conn_max_age=600,
+        ssl_require=True
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -142,8 +129,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -164,19 +149,30 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# Media files configuration for profile pictures
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Cloudinary configuration (to force HTTPS)
-CLOUDINARY_STORAGE = {
-    'CLOUDINARY_URL': os.environ.get("CLOUDINARY_URL"),
-    'secure': True,  # Force HTTPS for all Cloudinary URLs
+CLOUDINARY = {
+    "CLOUDINARY_URL": os.environ.get("CLOUDINARY_URL"),
+    "secure": True,  # Force HTTPS for all Cloudinary URLs
 }
 
-# Static files storage for Cloudinary
-STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+# File storage configuration
+if 'CLOUDINARY_URL' in os.environ:
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+else:
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
-# Media files configuration
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# Security settings for production
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
