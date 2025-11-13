@@ -4,17 +4,30 @@ from django.contrib import messages
 from django.db import transaction
 from django.utils import timezone
 from decimal import Decimal, InvalidOperation
-from .models import SellingPost, BuyingPost, MarketComment, Bid, Listing
+from .models import SellingPost, BuyingPost, MarketComment, Bid, Listing, Notification
 
 
 def marketplace_feed(request):
     selling_posts = SellingPost.objects.all().order_by('-created_at')
     buying_posts = BuyingPost.objects.all().order_by('-created_at')
     listings = Listing.objects.all().order_by('-created_at')
+    
+    # Get user's listings if authenticated
+    my_listings = []
+    my_selling_posts = []
+    my_buying_posts = []
+    if request.user.is_authenticated:
+        my_listings = Listing.objects.filter(seller=request.user).order_by('-created_at')
+        my_selling_posts = SellingPost.objects.filter(seller=request.user).order_by('-created_at')
+        my_buying_posts = BuyingPost.objects.filter(buyer=request.user).order_by('-created_at')
+    
     context = {
         'selling_posts': selling_posts,
         'buying_posts': buying_posts,
         'listings': listings,
+        'my_listings': my_listings,
+        'my_selling_posts': my_selling_posts,
+        'my_buying_posts': my_buying_posts,
     }
     return render(request, 'marketplace/marketplace_feed.html', context)
 
@@ -133,7 +146,7 @@ def place_bid(request, pk):
 
             # Validate bid amount
             if amount < minimum_bid:
-                messages.error(request, f"Minimum bid is ${minimum_bid}. Your bid of ${amount} is too low.")
+                messages.error(request, f"Minimum bid is £{minimum_bid}. Your bid of £{amount} is too low.")
                 return redirect('marketplace:listing_detail', pk=pk)
 
             # Create the bid
@@ -147,7 +160,7 @@ def place_bid(request, pk):
             listing.current_price = amount
             listing.save(update_fields=['current_price', 'updated_at'])
 
-            messages.success(request, f"Your bid of ${amount} was placed successfully!")
+            messages.success(request, f"Your bid of £{amount} was placed successfully!")
             return redirect('marketplace:listing_detail', pk=pk)
 
     except Exception as e:
@@ -171,6 +184,60 @@ def my_listings(request):
         'listings': listings,
     }
     return render(request, 'marketplace/my_listings.html', context)
+
+
+def selling_post_detail(request, pk):
+    """Display detail page for a selling post"""
+    post = get_object_or_404(SellingPost, pk=pk)
+    context = {
+        'post': post,
+    }
+    return render(request, 'marketplace/selling_post_detail.html', context)
+
+
+@login_required
+def commit_to_buy(request, pk):
+    """Commit to buy a selling post"""
+    if request.method != 'POST':
+        return redirect('marketplace:selling_post_detail', pk=pk)
+    
+    post = get_object_or_404(SellingPost, pk=pk)
+    
+    # Can't buy your own post
+    if post.seller == request.user:
+        messages.error(request, "You cannot buy your own item.")
+        return redirect('marketplace:selling_post_detail', pk=pk)
+    
+    # Check if already sold
+    if post.is_sold:
+        messages.error(request, "This item has already been sold.")
+        return redirect('marketplace:selling_post_detail', pk=pk)
+    
+    # Mark as sold and assign buyer
+    try:
+        with transaction.atomic():
+            post.buyer = request.user
+            post.is_sold = True
+            post.save(update_fields=['buyer', 'is_sold'])
+            
+            # Create notification for seller
+            Notification.objects.create(
+                recipient=post.seller,
+                sender=request.user,
+                notification_type='purchase',
+                message=f"{request.user.username} has committed to buy your item '{post.title}' for £{post.price}.",
+                related_selling_post=post
+            )
+        
+        messages.success(
+            request,
+            f"You've committed to buy '{post.title}' for £{post.price}. "
+            f"The seller {post.seller.username} has been notified and will contact you."
+        )
+    except Exception as e:
+        messages.error(request, f"An error occurred: {str(e)}")
+    
+    return redirect('marketplace:selling_post_detail', pk=pk)
 
 
 @login_required
@@ -201,13 +268,35 @@ def accept_bid(request, listing_pk, bid_pk):
         
         messages.success(
             request, 
-            f"You've accepted {bid.bidder.username}'s bid of ${bid.amount}. "
+            f"You've accepted {bid.bidder.username}'s bid of £{bid.amount}. "
             f"Please contact them to complete the transaction."
         )
     except Exception as e:
         messages.error(request, f"An error occurred: {str(e)}")
     
     return redirect('marketplace:listing_detail', pk=listing_pk)
+
+
+@login_required
+def notifications(request):
+    """Display all notifications for the current user"""
+    user_notifications = Notification.objects.filter(recipient=request.user).order_by('-created_at')
+    unread_count = user_notifications.filter(is_read=False).count()
+    
+    context = {
+        'notifications': user_notifications,
+        'unread_count': unread_count,
+    }
+    return render(request, 'marketplace/notifications.html', context)
+
+
+@login_required
+def mark_notification_read(request, pk):
+    """Mark a notification as read"""
+    notification = get_object_or_404(Notification, pk=pk, recipient=request.user)
+    notification.is_read = True
+    notification.save()
+    return redirect('marketplace:notifications')
 
 
 @login_required

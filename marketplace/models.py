@@ -4,11 +4,36 @@ from django.db import models
 from cloudinary.models import CloudinaryField
 from django.utils import timezone
 
+class Notification(models.Model):
+    """Notification system for marketplace transactions"""
+    NOTIFICATION_TYPES = (
+        ('purchase', 'Purchase Commitment'),
+        ('bid', 'New Bid'),
+        ('bid_accepted', 'Bid Accepted'),
+    )
+    
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_notifications')
+    notification_type = models.CharField(max_length=20, choices=NOTIFICATION_TYPES)
+    message = models.TextField()
+    related_listing = models.ForeignKey('Listing', on_delete=models.CASCADE, null=True, blank=True)
+    related_selling_post = models.ForeignKey('SellingPost', on_delete=models.CASCADE, null=True, blank=True)
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return f"{self.notification_type} notification from {self.sender.username} to {self.recipient.username}"
+
 class SellingPost (models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    seller = models.ForeignKey(User, on_delete=models.CASCADE)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='selling_posts')
+    buyer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='purchases')
+    is_sold = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     image = CloudinaryField('image', default='placeholder')
     
@@ -104,7 +129,7 @@ class Bid(models.Model):
         ]
 
     def __str__(self):
-        return f'Bid of ${self.amount} by {self.bidder.username} on {self.listing.title}'
+        return f'Bid of £{self.amount} by {self.bidder.username} on {self.listing.title}'
 
     def clean(self):
         """Validate bid before saving"""

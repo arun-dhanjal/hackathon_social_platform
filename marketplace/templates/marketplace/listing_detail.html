@@ -19,11 +19,11 @@
                     
                     <div class="row mt-3">
                         <div class="col-md-6">
-                            <p><strong>Starting Price:</strong> ${{ listing.starting_price }}</p>
+                            <p><strong>Starting Price:</strong> £{{ listing.starting_price }}</p>
                             {% if listing.reserve_price %}
-                            <p><strong>Reserve Price:</strong> ${{ listing.reserve_price }}</p>
+                            <p><strong>Reserve Price:</strong> £{{ listing.reserve_price }}</p>
                             {% endif %}
-                            <p><strong>Minimum Increment:</strong> ${{ listing.min_increment }}</p>
+                            <p><strong>Minimum Increment:</strong> £{{ listing.min_increment }}</p>
                         </div>
                         <div class="col-md-6">
                             <p><strong>Seller:</strong> {{ listing.seller.username }}</p>
@@ -71,7 +71,7 @@
                         <div class="form-group">
                             <label for="amount">Bid Amount</label>
                             <div class="input-group">
-                                <span class="input-group-text">$</span>
+                                <span class="input-group-text">£</span>
                                 <input 
                                     type="number" 
                                     class="form-control" 
@@ -82,7 +82,7 @@
                                     value="{{ minimum_bid }}"
                                     required>
                             </div>
-                            <small class="form-text text-muted">Minimum bid: ${{ minimum_bid }}</small>
+                            <small class="form-text text-muted">Minimum bid: £{{ minimum_bid }}</small>
                         </div>
                         <button type="submit" class="btn btn-primary mt-2">Place Bid</button>
                     </form>
@@ -109,12 +109,12 @@
                     {% if listing.is_sold %}
                     <div class="alert alert-success">
                         <strong><i class="bi bi-check-circle"></i> SOLD!</strong><br>
-                        Winning bid: ${{ listing.accepted_bid.amount }}<br>
+                        Winning bid: £{{ listing.accepted_bid.amount }}<br>
                         Winner: {{ listing.accepted_bid.bidder.username }}
                     </div>
                     {% elif highest_bid %}
                     <div class="alert alert-success">
-                        <strong>Highest Bid:</strong> ${{ highest_bid.amount }}<br>
+                        <strong>Highest Bid:</strong> £{{ highest_bid.amount }}<br>
                         <small>by {{ highest_bid.bidder.username }} on {{ highest_bid.created_at|date:"M d, H:i" }}</small>
                     </div>
                     {% else %}
@@ -128,7 +128,7 @@
                         <li class="list-group-item">
                             <div class="d-flex justify-content-between align-items-start">
                                 <div>
-                                    <strong>${{ bid.amount }}</strong>
+                                    <strong>£{{ bid.amount }}</strong>
                                     {% if listing.accepted_bid and listing.accepted_bid.id == bid.id %}
                                     <span class="badge bg-success">ACCEPTED</span>
                                     {% elif bid.id == highest_bid.id %}
@@ -142,7 +142,7 @@
                                     
                                     <!-- Accept Bid Button (only for seller) -->
                                     {% if is_seller and not listing.is_sold and user.is_authenticated %}
-                                    <form method="POST" action="{% url 'marketplace:accept_bid' listing.pk bid.pk %}" class="mt-1" onsubmit="return confirm('Accept this bid of ${{ bid.amount }} from {{ bid.bidder.username }}? This will mark the item as sold.');">
+                                    <form method="POST" action="{% url 'marketplace:accept_bid' listing.pk bid.pk %}" class="mt-1" onsubmit="return confirm('Accept this bid of £{{ bid.amount }} from {{ bid.bidder.username }}? This will mark the item as sold.');">
                                         {% csrf_token %}
                                         <button type="submit" class="btn btn-success btn-sm">
                                             <i class="bi bi-check-lg"></i> Accept
@@ -176,7 +176,7 @@ document.getElementById('bidForm')?.addEventListener('submit', function(e) {
     
     if (amount < minimum) {
         e.preventDefault();
-        alert(`Bid must be at least $${minimum.toFixed(2)}`);
+        alert(`Bid must be at least £${minimum.toFixed(2)}`);
         return false;
     }
 });
