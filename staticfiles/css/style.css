@@ -43,6 +43,16 @@
     color: var(--hover-yellow);
 }
 
+.dropdown-toggle::after {
+  display: none !important; /* Ensures that the dropdown-toggle icon doesn't display */
+}
+
+
+/* === Custom header on User pages === */
+.custom-header {
+    color: var(--pastel-grey);
+    background-color: var(--button-orange);
+}
 
 /* === Navigation icons styling === */
 
@@ -77,6 +87,11 @@ body {
 }
 
 
+/* === Card styling === */
+.card {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
 /* === Button styling === */
 
 /* Majority of buttons are orange with grey text and change to lighter orange when hovered over */
@@ -99,7 +114,7 @@ body {
     border-color: transparent;
 }
 
-/* Special case with edit and delete buttons that are icons - they transition from light grey to red */
+/* Special case with edit and delete buttons that are icons - they transition from light grey to orange */
 .edit-button {
     color: var(--pastel-grey);
     transition: color 0.2s ease;
@@ -150,6 +165,12 @@ body {
     width: 90%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
+}
+
+/* === Feed styling === */
+.not-accepted-post {
+    border: 2px dashed var(--pastel-orange);
+    background-color: var(--pastel-yellow);
 }
 
 
