@@ -22,11 +22,11 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ listing.title }}</h5>
-                    <p><strong>Starting Price:</strong> ${{ listing.starting_price }}</p>
+                    <p><strong>Starting Price:</strong> £{{ listing.starting_price }}</p>
                     <p><strong>Current Highest Bid:</strong> 
                         {% with highest=listing.get_highest_bid %}
                             {% if highest %}
-                                ${{ highest.amount }} by {{ highest.bidder.username }}
+                                £{{ highest.amount }} by {{ highest.bidder.username }}
                             {% else %}
                                 No bids yet
                             {% endif %}

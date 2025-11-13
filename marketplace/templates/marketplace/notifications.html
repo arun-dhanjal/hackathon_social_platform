@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h2>Notifications 
+                {% if unread_count > 0 %}
+                <span class="badge bg-danger">{{ unread_count }} new</span>
+                {% endif %}
+            </h2>
+            
+            {% if notifications %}
+            <div class="list-group mt-3">
+                {% for notification in notifications %}
+                <div class="list-group-item {% if not notification.is_read %}list-group-item-info{% endif %}">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                            {% if notification.notification_type == 'purchase' %}
+                            <i class="bi bi-cart-check text-success"></i> Purchase Commitment
+                            {% elif notification.notification_type == 'bid' %}
+                            <i class="bi bi-hammer text-primary"></i> New Bid
+                            {% elif notification.notification_type == 'bid_accepted' %}
+                            <i class="bi bi-check-circle text-success"></i> Bid Accepted
+                            {% endif %}
+                        </h5>
+                        <small>{{ notification.created_at|timesince }} ago</small>
+                    </div>
+                    <p class="mb-1">{{ notification.message }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">From: <strong>{{ notification.sender.username }}</strong></small>
+                        <div>
+                            {% if notification.related_selling_post %}
+                            <a href="{% url 'marketplace:selling_post_detail' notification.related_selling_post.pk %}" class="btn btn-sm btn-primary">View Item</a>
+                            {% endif %}
+                            {% if notification.related_listing %}
+                            <a href="{% url 'marketplace:listing_detail' notification.related_listing.pk %}" class="btn btn-sm btn-primary">View Listing</a>
+                            {% endif %}
+                            {% if not notification.is_read %}
+                            <form method="POST" action="{% url 'marketplace:mark_notification_read' notification.pk %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-secondary">Mark as Read</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info mt-3">
+                <i class="bi bi-inbox"></i> You have no notifications yet.
+            </div>
+            {% endif %}
+            
+            <div class="mt-3">
+                <a href="{% url 'marketplace:marketplace_feed' %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Back to Marketplace
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

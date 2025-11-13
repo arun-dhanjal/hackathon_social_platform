@@ -9,6 +9,8 @@ urlpatterns = [
     
     # Selling posts (classifieds)
     path('selling/create/', views.create_selling_post, name='create_selling_post'),
+    path('selling/<int:pk>/', views.selling_post_detail, name='selling_post_detail'),
+    path('selling/<int:pk>/commit-buy/', views.commit_to_buy, name='commit_to_buy'),
     
     # Auction listings
     path('listing/create/', views.create_listing, name='create_listing'),
@@ -20,4 +22,6 @@ urlpatterns = [
     # User views
     path('my-bids/', views.my_bids, name='my_bids'),
     path('my-listings/', views.my_listings, name='my_listings'),
+    path('notifications/', views.notifications, name='notifications'),
+    path('notifications/<int:pk>/mark-read/', views.mark_notification_read, name='mark_notification_read'),
 ]
