@@ -43,6 +43,16 @@
     color: var(--hover-yellow);
 }
 
+.dropdown-toggle::after {
+  display: none !important; /* Ensures that the dropdown-toggle icon doesn't display */
+}
+
+
+/* === Custom header on User pages === */
+.custom-header {
+    color: var(--pastel-grey);
+    background-color: var(--button-orange);
+}
 
 /* === Navigation icons styling === */
 
@@ -99,7 +109,7 @@ body {
     border-color: transparent;
 }
 
-/* Special case with edit and delete buttons that are icons - they transition from light grey to red */
+/* Special case with edit and delete buttons that are icons - they transition from light grey to orange */
 .edit-button {
     color: var(--pastel-grey);
     transition: color 0.2s ease;
