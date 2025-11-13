@@ -7,18 +7,20 @@
 <div class="container">
     <div class="row">
         <div class="col text-end">
-            Events
+            <p class="btn disabled">Events</p>
         </div>
         <div class="col text-start">
-            <p><a href="{% url 'events:my_events' %}" class="">My Events</a></p>
+            <p><a href="{% url 'events:my_events' %}" class="btn">My Events</a></p>
         </div>
-    </div>   
-    <div class="row">        
-        <div class="section col-12 mt-1 left">
-            <div class="row">
-                <h1 class="my-2 py-2">
-                    All events
-                </h1>
+    </div>
+    <!-- Tell user if there are no events -->
+    {% if event_list %}   
+        <div class="row">        
+            <div class="section col-12 mt-1 left">
+                <div class="row">
+                    <h1 class="my-2 py-2">
+                        All events
+                    </h1>
                     {% for event in event_list %}
                     <div class="col-md-4">
                         <div class="event-card card mb-4 border-dark shadow">
@@ -52,20 +54,30 @@
                 <div class="row">
                     {% endif %}
                     {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
-    {% if is_paginated %}
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            {% if page_obj.has_previous %}
-            <li><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; PREV</a></li>
-            {% endif %}
-            {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link">NEXT &raquo;</a></li>
-            {% endif %}
-        </ul>
-    </nav>
+        {% if is_paginated %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; PREV</a></li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}" class="page-link">NEXT &raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    {% else %}
+        <div>
+            <h1 class="my-2 py-2">
+                All events
+            </h1>
+            <p class="text-muted">
+                There are currently no events.
+            </p>
+        </div>
     {% endif %}
 </div>
 
