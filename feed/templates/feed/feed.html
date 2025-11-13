@@ -26,7 +26,7 @@
 
             <!-- Posts -->
             {% for post in posts %}
-                <div class="card mb-4 {% if not post.accepted and post.author == user %}pending-approval-card{% elif not post.accepted %} d-none{% endif %}">
+                <div class="card mb-4 {% if not post.accepted and post.author == user %}not-accepted-post{% elif not post.accepted %} d-none{% endif %}">
                     <div class="card-body">
                         <h3 class="card-title d-flex fw-bold">{{ post.title }}</h3>
                         <h5 class="card-text">{{ post.author.username }}</h5>

@@ -152,6 +152,12 @@ body {
     object-fit: cover;
 }
 
+/* === Feed styling === */
+.not-accepted-post {
+    border: 2px dashed var(--pastel-orange);
+    background-color: var(--pastel-yellow);
+}
+
 
 /* === Events styling === */
 
