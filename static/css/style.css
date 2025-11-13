@@ -87,6 +87,11 @@ body {
 }
 
 
+/* === Card styling === */
+.card {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
 /* === Button styling === */
 
 /* Majority of buttons are orange with grey text and change to lighter orange when hovered over */
