@@ -11,7 +11,7 @@
             <p><a href="{% url 'events:events_feed' %}" class="btn btn-muted">Events</a></p>
         </div>
         <div class="col text-start">
-            <p><a href="{% url 'events:my_events' %}" class="btn btn-muted">My Events</a></p>
+            <p><a href="{% if user.is_authenticated %} {% url 'events:my_events' %} {% else %} {% url 'user:login' %} {% endif %}" class="btn btn-muted">My Events</a></p>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -27,7 +27,7 @@
                 {% endif %}
                 </div>
                 <div class="event-info">
-                    <h1 class="event-title mx-2">{{ event.title }}</h1>
+                    <h1 class="event-title mx-3">{{ event.title }}</h1>
                     <p class="event-subtitle">Hosted by {{ event.host }}</p>
                     <hr>
                     <div id="events-info" class="row">
@@ -79,11 +79,13 @@
                         {% endif %}
                     </div>    
                     {% endif %}
-                    <!-- Edit event if user is host -->                   
-                    {% if user.is_authenticated and event.host == user %}
+                    <!-- Edit event if user is host -->
+                    <!-- Can't edit/delete if the event has already past -->                   
+                    {% if user.is_authenticated and event.host == user and not event.date < now %}
                     <hr>
                     <div id="edit-details" class="section">                    
                         <div id="edit-details-btnsConatiner">
+                            
                             <button 
                                 class="btn btn-outline-secondary edit-btn" 
                                 data-bs-toggle="modal" 

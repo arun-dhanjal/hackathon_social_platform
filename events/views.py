@@ -159,6 +159,12 @@ def my_events(request):
     # Drafts removed: treat all hosted events as published
     published_events = hosted_events.filter(date__gte=now)
 
+    # Published past events hosted by the user
+    published_past = (
+        hosted_events.filter(date__lt=now, status=1)
+        .order_by('-date')
+    )
+
     # Booked Events
     booked_upcoming = Booking.objects.filter(
         user=request.user,
@@ -198,6 +204,7 @@ def my_events(request):
         "events/my_events.html",
         {
             'published_events': published_events,
+            'published_past': published_past,
             'event_form': event_form,
             'booked_upcoming': booked_upcoming,
             'booked_past': booked_past,

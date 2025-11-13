@@ -10,7 +10,7 @@
             <p><a href="{% url 'events:events_feed' %}" class="btn">Events</a></p>
         </div>
         <div class="col text-start">
-            <p><a href="{% url 'events:my_events' %}" class="btn btn-muted">My Events</a></p>
+            <p><a href="{% if user.is_authenticated %} {% url 'events:my_events' %} {% else %} {% url 'user:login' %} {% endif %}" class="btn btn-muted">My Events</a></p>
         </div>
     </div>
     <!-- Tell user if there are no events -->
