@@ -32,7 +32,7 @@ def signup_view(request):
             
             # Log the user in
             login(request, user)
-            messages.success(request, 'Account created successfully! Welcome to Hackathon Social Platform!')
+            messages.success(request, 'Account created successfully! Welcome to Our Corner!')
             return redirect('user:profile')
     else:
         form = CustomUserCreationForm()
