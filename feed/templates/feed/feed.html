@@ -27,5 +27,31 @@
             {% endfor %}
         </div>
     </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <!-- Previous -->
+            {% if page_obj.has_previous %}
+            <li>
+                <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&larr; Previous </a>
+            </li>
+            {% endif %}
+
+            <!-- Current page number -->
+            <li class="page-item">
+                <div class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div>
+            </li>
+
+            <!-- Next -->
+            {% if page_obj.has_next %}
+            <li>
+                <a href="?page={{ page_obj.next_page_number }}" class="page-link"> Next &rarr;</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
 </div>
 {% endblock %}
