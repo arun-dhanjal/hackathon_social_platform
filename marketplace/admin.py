@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SellingPost, BuyingPost, MarketComment, Listing, Bid
+from .models import SellingPost, BuyingPost, MarketComment, Listing, Bid, Notification
 
 
 @admin.register(Listing)
@@ -54,4 +54,13 @@ class MarketCommentAdmin(admin.ModelAdmin):
     list_display = ['post', 'author', 'created_at']
     list_filter = ['created_at']
     search_fields = ['content', 'author__username', 'post__title']
+
+
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    """Admin interface for notifications"""
+    list_display = ['recipient', 'sender', 'notification_type', 'is_read', 'created_at']
+    list_filter = ['notification_type', 'is_read', 'created_at']
+    search_fields = ['recipient__username', 'sender__username', 'message']
+    readonly_fields = ['created_at']
 

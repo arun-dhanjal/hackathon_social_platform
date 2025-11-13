@@ -13,11 +13,11 @@
                     <h5 class="card-title">
                         <a href="{% url 'marketplace:listing_detail' bid.listing.pk %}">{{ bid.listing.title }}</a>
                     </h5>
-                    <p><strong>Your Bid:</strong> ${{ bid.amount }}</p>
+                    <p><strong>Your Bid:</strong> £{{ bid.amount }}</p>
                     <p><strong>Current Highest:</strong> 
                         {% with highest=bid.listing.get_highest_bid %}
                             {% if highest %}
-                                ${{ highest.amount }}
+                                £{{ highest.amount }}
                                 {% if highest.id == bid.id %}
                                 <span class="badge bg-success">You're winning!</span>
                                 {% else %}
