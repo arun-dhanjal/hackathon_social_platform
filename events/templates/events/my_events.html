@@ -6,6 +6,14 @@
 
 <div class="container">
     <div class="row">
+        <div class="row events-pages-section">
+            <div class="col text-end">
+                <p><a href="{% url 'events:events_feed' %}" class="btn btn-muted">Events</a></p>
+            </div>
+            <div class="col text-start">
+                <p><a href="{% url 'events:my_events' %}" class="btn">My Events</a></p>
+            </div>
+        </div>
         <div>
             <h1 class="my-2 py-2">
                 My Events
@@ -24,11 +32,11 @@
                 <!-- HOSTED EVENTS -->
                 <div class="tab-pane fade show active" id="nav-host" role="tabpanel" aria-labelledby="nav-host-tab">
                     <!-- Host Event button trigger modal -->
-                    <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#host-event-modal">
+                    <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#host-event-modal">
                         Host Event
                     </button>
                     <div class="published-events">
-                        <h3>Published Events</h3>
+                        <h3 class="my-3">Published Events</h3>
                         {% if published_events %}
                         <div class="row row-cols-1 row-cols-md-3 g-3">
                             {% for event in published_events %}  
@@ -50,10 +58,10 @@
                                         <hr>
                                         <div class="event-card-details">
                                             <p class="card-text h6">
-                                                <i class="fa-solid fa-calendar-days"></i> {{ event.date }}
+                                                <i class="bi bi-calendar-event"></i> {{ event.date }}
                                             </p>
                                             <p class="card-text h6">
-                                                <i class="fa-solid fa-location-dot"></i> {{ event.location }}
+                                                <i class="bi bi-geo-alt-fill"></i> {{ event.location }}
                                             </p>    
                                         </div>                                        
                                     </div>
@@ -69,7 +77,7 @@
                 <!-- BOOKED EVENTS -->
                 <div class="tab-pane fade" id="nav-booked" role="tabpanel" aria-labelledby="nav-booked-tab">
                     <div class="booked-events">
-                        <h3>Booked Events</h3>
+                        <h3 class="my-3">Booked Events</h3>
                         {% if booked_upcoming %}
                         <div class="row row-cols-1 row-cols-md-3 g-3">
                             {% for booking in booked_upcoming %}  
@@ -91,10 +99,10 @@
                                         <hr>
                                         <div class="event-card-details">
                                             <p class="card-text h6">
-                                                <i class="fa-solid fa-calendar-days"></i> {{ booking.event.date }}
+                                                <i class="bi bi-calendar-event"></i> {{ booking.event.date }}
                                             </p>
                                             <p class="card-text h6">
-                                                <i class="fa-solid fa-location-dot"></i> {{ booking.event.location }}
+                                                <i class="bi bi-geo-alt-fill"></i> {{ booking.event.location }}
                                             </p>    
                                         </div>                                        
                                     </div>
@@ -110,7 +118,7 @@
                 <!-- PAST EVENTS -->
                 <div class="tab-pane fade" id="nav-past" role="tabpanel" aria-labelledby="nav-past-tab">
                     <div class="past-booked-events">
-                        <h3>Past Booked Events</h3>
+                        <h3 class="my-3">Past Booked Events</h3>
                         {% if booked_past %}
                         <div class="row row-cols-1 row-cols-md-3 g-3">
                             {% for past in booked_past %}  
@@ -132,10 +140,10 @@
                                         <hr>
                                         <div class="event-card-details">
                                             <p class="card-text h6">
-                                                <i class="fa-solid fa-calendar-days"></i> {{ past.event.date }}
+                                                <i class="bi bi-calendar-event"></i> {{ past.event.date }}
                                             </p>
                                             <p class="card-text h6">
-                                                <i class="fa-solid fa-location-dot"></i> {{ past.event.location }}
+                                                <i class="bi bi-geo-alt-fill"></i> {{ past.event.location }}
                                             </p>    
                                         </div>                                        
                                     </div>
