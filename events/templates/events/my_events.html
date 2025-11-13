@@ -41,7 +41,7 @@
                         <div class="row row-cols-1 row-cols-md-3 g-3">
                             {% for event in published_events %}  
                             <div class="col-md-4">
-                                <div class="event-card card mb-4 border-dark shadow">
+                                <div class="event-card card mb-4">
                                     <div class="card-body">
                                         <div class="image-container">
                                             {% if "placeholder" in event.featured_image.url %}
@@ -82,7 +82,7 @@
                         <div class="row row-cols-1 row-cols-md-3 g-3">
                             {% for booking in booked_upcoming %}  
                             <div class="col-md-4">
-                                <div class="event-card card mb-4 border-dark shadow">
+                                <div class="event-card card mb-4">
                                     <div class="card-body">
                                         <div class="image-container">
                                             {% if "placeholder" in booking.event.featured_image.url %}
@@ -123,7 +123,7 @@
                         <div class="row row-cols-1 row-cols-md-3 g-3">
                             {% for past in booked_past %}  
                             <div class="col-md-4">
-                                <div class="event-card card mb-4 border-dark shadow">
+                                <div class="event-card card mb-4">
                                     <div class="card-body">
                                         <div class="image-container">
                                             {% if "placeholder" in booking.event.featured_image.url %}

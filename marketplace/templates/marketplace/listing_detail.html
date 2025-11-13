@@ -9,7 +9,7 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-8">
-            <div class="card mb-4">
+            <div class="card mb-3">
                 {% if listing.image %}
                 <img src="{{ listing.image.url }}" class="card-img-top listing-detail-img" alt="{{ listing.title }}">
                 {% endif %}
@@ -63,7 +63,7 @@
 
             <!-- Bid Form -->
             {% if not is_ended and not listing.is_sold and not is_seller and user.is_authenticated %}
-            <div class="card mb-4">
+            <div class="card mb-3">
                 <div class="card-body">
                     <h4>Place Your Bid</h4>
                     <form method="POST" action="{% url 'marketplace:place_bid' listing.pk %}" id="bidForm">
