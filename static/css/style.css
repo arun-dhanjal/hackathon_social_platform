@@ -1,12 +1,11 @@
 /* === CSS Variables === */
 :root {
-    --button-yellow: #f0e3c3;
+    --button-orange: #FDC1A2;
+    --hover-orange: #fcdbca;
     --hover-yellow: #f6f2e6;
     --pastel-yellow: #FFF8E8;
     --pastel-orange: #FA8B5C;
     --pastel-grey: #6B6968;
-    --pending-bg: #fff8df;
-    --pending-text: #5a5caa;
     --page-bg: #f5f5f5;
 }
 
@@ -44,6 +43,7 @@
     color: var(--hover-yellow);
 }
 
+
 /* === Navigation icons styling === */
 
 /* Background for navigation icons matches main page body background */
@@ -51,7 +51,7 @@
     background-color: var(--page-bg);
 }
 
-/* Nav icons transition from red to black and stay red when active */
+/* Nav icons transition from grey to orange and stay orange when active */
 .nav-icon {
   color: var(--pastel-grey);
   text-decoration: none;
@@ -79,15 +79,18 @@ body {
 
 /* === Button styling === */
 
-/* Majority of buttons are red with var(--pastel-grey) text and change to lighter red when hovered over */
+/* Majority of buttons are orange with grey text and change to lighter orange when hovered over */
 .btn {
     color: var(--pastel-grey);
-    background-color: var(--button-yellow);
+    background-color: var(--button-orange);
+    border-color: transparent;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
 }
 
 .btn:hover {
     color: var(--pastel-grey);
-    background-color: var(--hover-yellow);
+    background-color: var(--hover-orange);
+    border-color: transparent;
 }
 
 /* Special case with edit and delete buttons that are icons - they transition from light grey to red */
@@ -97,7 +100,7 @@ body {
 }
 
 .edit-button:hover {
-    color: var(--button-yellow);
+    color: var(--button-orange);
 }
 
 .delete-button {
@@ -106,23 +109,23 @@ body {
 }
 
 .delete-button:hover {
-    color: var(--button-yellow);
+    color: var(--button-orange);
 }
 
 /* Page buttons styled similar to other main buttons */
 .page-link {
     color: var(--pastel-grey);
-    background-color: var(--button-yellow);
+    background-color: var(--button-orange);
 }
 
 .page-link:hover {
     color: var(--pastel-grey);
-    background-color: var(--hover-yellow);
+    background-color: var(--hover-orange);
 }
 
 .page-indicator {
     color: var(--pastel-grey);
-    background-color: var(--button-yellow);
+    background-color: var(--button-orange);
     pointer-events: none; /* prevents hover animation */
 }
 
@@ -141,19 +144,6 @@ body {
     width: 90%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-}
-
-
-/* === Pending approval styling === */
-
-/* Light yellowish card with blue text to ensure accessibility */
-.pending-approval-card {
-    background-color: var(--pending-bg);
-}
-
-.pending-approval-text {
-    color: var(--pending-text);
-    font-weight: bold;
 }
 
 
