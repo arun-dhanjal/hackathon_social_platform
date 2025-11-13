@@ -17,7 +17,7 @@
                 <a href="{% url 'marketplace:create_listing' %}" class="btn btn-primary btn-sm"><i class="bi bi-hammer"></i> <span class="d-none d-sm-inline">Create Auction</span></a>
             </div>
             {% else %}
-            <a href="{% url 'account_login' %}" class="btn btn-primary btn-sm">Login to Post</a>
+            <a href="{% url 'user:login' %}" class="btn btn-primary">Login to Post</a>
             {% endif %}
         </div>
     </div>
