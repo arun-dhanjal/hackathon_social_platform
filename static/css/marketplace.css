@@ -3,17 +3,19 @@
 /* Card images in grid views (marketplace feed, my listings) */
 .marketplace-card-img {
     width: 100%;
-    height: 250px;
-    object-fit: cover;
+    max-height: 350px;
+    object-fit: contain;
     object-position: center;
+    background-color: #f8f9fa;
 }
 
 /* Detail page hero image */
 .listing-detail-img {
     width: 100%;
-    height: 400px;
-    object-fit: cover;
+    max-height: 350px;
+    object-fit: contain;
     object-position: center;
+    background-color: #f8f9fa;
 }
 
 /* Ensure cards have consistent height */
@@ -28,22 +30,43 @@
 }
 
 /* Responsive adjustments */
+@media (max-width: 992px) {
+    .marketplace-card-img {
+        height: 300px;
+    }
+}
+
 @media (max-width: 768px) {
     .marketplace-card-img {
-        height: 200px;
+        height: 280px;
     }
     
     .listing-detail-img {
-        height: 300px;
+        max-height: 350px;
+    }
+    
+    /* Stack buttons vertically on mobile */
+    .btn-group-vertical button,
+    .btn-group-vertical a {
+        width: 100%;
     }
 }
 
 @media (max-width: 576px) {
     .marketplace-card-img {
-        height: 180px;
+        height: 250px;
     }
     
     .listing-detail-img {
-        height: 250px;
+        max-height: 300px;
+    }
+    
+    /* Smaller text on very small screens */
+    .card-title {
+        font-size: 1rem;
+    }
+    
+    .card-text {
+        font-size: 0.875rem;
     }
 }
