@@ -43,6 +43,16 @@
     color: var(--hover-yellow);
 }
 
+.dropdown-toggle::after {
+  display: none !important; /* Ensures that the dropdown-toggle icon doesn't display */
+}
+
+
+/* === Custom header on User pages === */
+.custom-header {
+    color: var(--pastel-grey);
+    background-color: var(--button-orange);
+}
 
 /* === Navigation icons styling === */
 
@@ -99,7 +109,7 @@ body {
     border-color: transparent;
 }
 
-/* Special case with edit and delete buttons that are icons - they transition from light grey to red */
+/* Special case with edit and delete buttons that are icons - they transition from light grey to orange */
 .edit-button {
     color: var(--pastel-grey);
     transition: color 0.2s ease;
@@ -164,6 +174,19 @@ body {
 /* Event cards */
 .card-img-top {
     height: 20vh;
+}
+
+.event-card .event-card-title {
+    display: flex;
+    align-items: center; /* vertical center */
+    justify-content: center; /* horizontal center */
+    text-align: center;
+}
+
+/* remove extra spacing that breaks centering */
+.event-card .event-card-title .card-title {
+    margin: 0;
+    
 }
 
 /* Event detail specific image: smaller, centered, and center-cropped */
@@ -249,5 +272,37 @@ footer {
 
     .event-detail .image-container img {
         height: 100%;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media screen and (min-width: 768px) {
+    /*  Events cards */
+    .event-card .event-card-title {
+        min-height: 122px;
+    }
+
+    .event-card .event-card-details {
+        min-height: 85px;
+    }
+}
+
+/* Large devices (tablets, 992px and up) */
+@media screen and (min-width: 992px) { 
+    /*  Events cards */
+    .event-card .event-card-title {
+        min-height: 96px;
+    }
+
+    .event-card .event-card-details {
+        min-height: 55px;
+    }
+}
+
+/* Extra-large devices (tablets, 1200px and up) */
+@media screen and (min-width: 1200px) {
+    /*  Events cards */
+    .event-card .event-card-title {
+        min-height: 68px;
     }
 }

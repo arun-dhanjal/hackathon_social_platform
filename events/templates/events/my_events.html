@@ -52,7 +52,7 @@
                                         </div>
                                         <div class="event-card-title">
                                             <a href="{% url 'events:event_detail' event.slug %}" class="event-link">
-                                                <h3 class="card-title">{{ event.title|truncatewords:4 }}</h3>
+                                                <h3 class="card-title">{{ event.title|truncatewords:3 }}</h3>
                                             </a>
                                         </div>
                                         <hr>
@@ -61,7 +61,7 @@
                                                 <i class="bi bi-calendar-event"></i> {{ event.date }}
                                             </p>
                                             <p class="card-text h6">
-                                                <i class="bi bi-geo-alt-fill"></i> {{ event.location }}
+                                                <i class="bi bi-geo-alt-fill"></i> {{ event.location|truncatewords:4 }}
                                             </p>    
                                         </div>                                        
                                     </div>
@@ -93,7 +93,7 @@
                                         </div>
                                         <div class="event-card-title">
                                             <a href="{% url 'events:event_detail' booking.event.slug %}" class="event-link">
-                                                <h3 class="card-title">{{ booking.event.title|truncatewords:4 }}</h3>
+                                                <h3 class="card-title">{{ booking.event.title|truncatewords:3 }}</h3>
                                             </a>                                        
                                         </div>
                                         <hr>
@@ -102,7 +102,7 @@
                                                 <i class="bi bi-calendar-event"></i> {{ booking.event.date }}
                                             </p>
                                             <p class="card-text h6">
-                                                <i class="bi bi-geo-alt-fill"></i> {{ booking.event.location }}
+                                                <i class="bi bi-geo-alt-fill"></i> {{ booking.event.location|truncatewords:4 }}
                                             </p>    
                                         </div>                                        
                                     </div>
@@ -134,7 +134,7 @@
                                         </div>
                                         <div class="event-card-title">
                                             <a href="{% url 'events:event_detail' past.event.slug %}" class="event-link">
-                                                <h3 class="card-title">{{ past.event.title|truncatewords:4 }}</h3>
+                                                <h3 class="card-title">{{ past.event.title|truncatewords:3}}</h3>
                                             </a>                                        
                                         </div>
                                         <hr>
@@ -143,7 +143,7 @@
                                                 <i class="bi bi-calendar-event"></i> {{ past.event.date }}
                                             </p>
                                             <p class="card-text h6">
-                                                <i class="bi bi-geo-alt-fill"></i> {{ past.event.location }}
+                                                <i class="bi bi-geo-alt-fill"></i> {{ past.event.location|truncatewords:4 }}
                                             </p>    
                                         </div>                                        
                                     </div>
