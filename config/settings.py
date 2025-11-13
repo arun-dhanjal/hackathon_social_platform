@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # deployed.
 DEBUG = "DEVELOPMENT" in os.environ
 
-ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1', ]
+ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -101,27 +101,45 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
+# Database configuration with proper error handling
+DATABASE_URL = os.environ.get("DATABASE_URL", "postgresql://neondb_owner:npg_FgsZR9MWb8Sr@ep-long-dust-aggdj4tj.c-2.eu-central-1.aws.neon.tech/alive_smell_rank_585650")
+
+if DATABASE_URL:
+    # Handle bytes-like object if needed
+    if isinstance(DATABASE_URL, bytes):
+        DATABASE_URL = DATABASE_URL.decode('utf-8')
+    
+    DATABASES = {
+        "default": dj_database_url.parse(DATABASE_URL)
+    }
+else:
+    # Fallback to SQLite for development
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+# Add SSL requirement for Neon PostgreSQL
+if 'postgresql' in DATABASE_URL:
+    DATABASES['default']['OPTIONS'] = {'sslmode': 'require'}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.'
-        'UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.'
-        'MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.'
-        'CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.'
-        'NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -152,7 +170,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Cloudinary configuration (to force HTTPS)
-CLOUDINARY = {
-    "CLOUDINARY_URL": os.environ.get("CLOUDINARY_URL"),
-    "secure": True,  # Force HTTPS for all Cloudinary URLs
+CLOUDINARY_STORAGE = {
+    'CLOUDINARY_URL': os.environ.get("CLOUDINARY_URL"),
+    'secure': True,  # Force HTTPS for all Cloudinary URLs
 }
+
+# Static files storage for Cloudinary
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+
+# Media files configuration
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
