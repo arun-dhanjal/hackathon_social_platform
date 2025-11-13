@@ -7,23 +7,34 @@
         <div class="col-sm-10 col-md-8 col-lg-6">
             <!-- Create post -->
              <div class="mb-4">
-                <h2 class= "mb-3 fw-bold">Join the conversation:</h2>
+                {% if user.is_authenticated %}
+                <h2 class= "mb-3 fw-bold text-center">Join the conversation!</h2>
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form|crispy }}
                     <button type="submit" class="btn mb-3" aria-label="Submit new post">Submit</button>
                 </form>
+                {% else %}
+                <h2 class="mb-3 fw-bold text-center">Welcome to Our Corner! Register an account to get chatting!</h2>
+                <div class="d-flex justify-content-center">
+                    <button onclick="location.href='{% url 'account_signup' %}'" class="btn mb-3" aria-label="Sign up">Sign Up</button>
+                </div>
+                {% endif %}
             </div>
 
             <hr>
 
             <!-- Posts -->
             {% for post in posts %}
-            <div class="card mb-4">
+            <div class="card mb-4 {% if not post.accepted and post.author == user %}
+                pending-approval-card {% elif not post.accepted %} d-none {% endif %}">
                 <div class="card-body">
-                    <h3 class="card-title d-flex">{{ post.title }}</h5>
+                    <h3 class="card-title d-flex fw-bold">{{ post.title }}</h5>
                     <h5 class="card-text">{{ post.author.username }}</h5>
-                    <p class="card-text"><small class="text-muted">{{ post.created_on }}</small></p>
+                    <p class="card-text">
+                        <small class="text-muted">{{ post.created_on }}</small>
+                        {% if not post.accepted %}<small class="text-muted">- awaiting approval</small>{% endif %}
+                    </p>
                     <p class="card-text">{{ post.content }}</p>
 
                     {% if post.image %}

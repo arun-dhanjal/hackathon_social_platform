@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic
 from django.contrib import messages
+from django.db import models
 from .models import Post, Comment
 from .forms import PostForm
 
@@ -10,7 +11,14 @@ class Feed(generic.ListView):
     template_name = "feed/feed.html"
     context_object_name = "posts"
     paginate_by = 6
-    queryset = Post.objects.filter(accepted=True).order_by("-created_on")
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_authenticated:
+            return Post.objects.filter(
+                (models.Q(accepted=True)) | (models.Q(author=user))
+            ).order_by("-created_on").distinct()
+        return Post.objects.filter(accepted=True).order_by("-created_on")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
