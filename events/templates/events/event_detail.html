@@ -6,11 +6,19 @@
 {% block content %}
 
 <div class="container">
+    <div class="row events-pages-section">
+        <div class="col text-end">
+            <p><a href="{% url 'events:events_feed' %}" class="btn btn-muted">Events</a></p>
+        </div>
+        <div class="col text-start">
+            <p><a href="{% url 'events:my_events' %}" class="btn btn-muted">My Events</a></p>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <!-- Center the content by using a wider column and centering the row -->
         <div class="col-12 col-md-8 col-lg-6 mt-1">
-            <div class="event-detail text-center">
-                <div class="image-container mx-3 mb-3">
+            <div class="card event-detail text-center">
+                <div class="image-container mb-3">
                 {% if "placeholder" in event.featured_image.url %}
                     <img class="img-fluid" src="{% static 'images/event_default.webp' %}"
                          alt="placeholder image">
@@ -22,19 +30,28 @@
                     <h1 class="event-title">{{ event.title }}</h1>
                     <p class="event-subtitle">Hosted by {{ event.host }}</p>
                     <hr>
-                    <p><i class="fa-solid fa-calendar-days"></i> {{ event.date }}</p>
-                    <p><i class="fa-solid fa-location-dot"></i> {{ event.location }}</p>
+                    <div id="events-info" class="row">
+                        <div class="col text-end">
+                            <p><i class="bi bi-calendar-event"></i> {{ event.date }}</p>
+                        </div>
+                        <div class="col text-start">
+                            <p><i class="bi bi-geo-alt-fill"></i> {{ event.location }}</p>
+                        </div>
+                    </div>
                     <p class="event-subtitle">
                         <i class="fa-solid fa-people-group"></i>
                         {{ event.event_bookings.count }} going
                     </p>
                     <hr>
+                    <article class="card-body card-text">
+                    {{ event.description | safe }}
+                    </article>
                     {% if event.date < now %}   
-                    <div id="event-booking-details">
+                    <div id="event-booking-details" class="section">
                         <p>This event has already past.<p>
                     </div> 
                     {% else %}
-                    <div id="event-booking-details">
+                    <div id="event-booking-details" class="section">
                         <!-- Cancel booking -->
                         {% if user.is_authenticated %}
                             {% if user_booking %}
@@ -65,7 +82,7 @@
                     <!-- Edit event if user is host -->                   
                     {% if user.is_authenticated and event.host == user %}
                     <hr>
-                    <div id="edit-details">                    
+                    <div id="edit-details" class="section">                    
                         <div id="edit-details-btnsConatiner">
                             <button 
                                 class="btn btn-outline-secondary edit-btn" 
@@ -91,11 +108,7 @@
                             </button>                        
                         </div>
                     {% endif %}            
-                    </div>
-                    <hr>
-                    <article class="card-text">
-                    {{ event.description | safe }}
-                    </article>
+                    </div>                  
                 </div>
             </div>
         </div>
