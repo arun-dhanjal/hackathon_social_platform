@@ -166,6 +166,19 @@ body {
     height: 20vh;
 }
 
+.event-card .event-card-title {
+    display: flex;
+    align-items: center; /* vertical center */
+    justify-content: center; /* horizontal center */
+    text-align: center;
+}
+
+/* remove extra spacing that breaks centering */
+.event-card .event-card-title .card-title {
+    margin: 0;
+    
+}
+
 /* Event detail specific image: smaller, centered, and center-cropped */
 .event-detail .image-container {
     width: 280px;
@@ -249,5 +262,37 @@ footer {
 
     .event-detail .image-container img {
         height: 100%;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media screen and (min-width: 768px) {
+    /*  Events cards */
+    .event-card .event-card-title {
+        min-height: 122px;
+    }
+
+    .event-card .event-card-details {
+        min-height: 85px;
+    }
+}
+
+/* Large devices (tablets, 992px and up) */
+@media screen and (min-width: 992px) { 
+    /*  Events cards */
+    .event-card .event-card-title {
+        min-height: 96px;
+    }
+
+    .event-card .event-card-details {
+        min-height: 55px;
+    }
+}
+
+/* Extra-large devices (tablets, 1200px and up) */
+@media screen and (min-width: 1200px) {
+    /*  Events cards */
+    .event-card .event-card-title {
+        min-height: 68px;
     }
 }

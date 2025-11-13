@@ -52,6 +52,27 @@ def create_selling_post(request):
     return render(request, 'marketplace/create_selling_post.html')
 
 @login_required
+def create_buying_post(request):
+    """Create a buying post (wanted ad)"""
+    if request.method == 'POST':
+        title = request.POST['title']
+        description = request.POST['description']
+        min_price = request.POST['min_price']
+        image = request.FILES.get('image')
+        buyer = request.user
+
+        BuyingPost.objects.create(
+            title=title,
+            description=description,
+            min_price=min_price,
+            buyer=buyer,
+            image=image
+        )
+        messages.success(request, 'Wanted ad created successfully!')
+        return redirect('marketplace:marketplace_feed')
+    return render(request, 'marketplace/create_buying_post.html')
+
+@login_required
 def create_listing(request):
     """Create an auction-style listing"""
     if request.method == 'POST':

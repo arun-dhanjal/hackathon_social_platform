@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Wanted Ad{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Create Wanted Ad</h2>
+                    <p class="text-muted">Let others know what you're looking to buy</p>
+                    
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="title" name="title" required 
+                                   placeholder="e.g., Looking for iPhone 13">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="description" name="description" rows="4" required
+                                      placeholder="Describe what you're looking for..."></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="min_price" class="form-label">Maximum Budget (£) <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="min_price" name="min_price" 
+                                   step="0.01" min="0" required placeholder="e.g., 500.00">
+                            <small class="text-muted">Maximum amount you're willing to pay</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Reference Image (Optional)</label>
+                            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                            <small class="text-muted">Upload an image of what you're looking for</small>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-plus-circle"></i> Create Wanted Ad
+                            </button>
+                            <a href="{% url 'marketplace:marketplace_feed' %}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

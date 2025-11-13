@@ -7,7 +7,7 @@ app_name = 'user'
 urlpatterns = [
     # Authentication URLs
     path('login/', views.CustomLoginView.as_view(), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='user/logout.html'), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='user/logout.html', next_page=None), name='logout'),
     path('signup/', views.signup_view, name='signup'),
     
     # Profile URLs

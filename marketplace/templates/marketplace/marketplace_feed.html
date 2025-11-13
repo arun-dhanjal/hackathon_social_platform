@@ -7,14 +7,17 @@
 
 {% block content %}
 <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Marketplace</h2>
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
+        <h2 class="mb-0">Marketplace</h2>
         <div>
             {% if user.is_authenticated %}
-            <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-primary me-2">Create Classified</a>
-            <a href="{% url 'marketplace:create_listing' %}" class="btn btn-success">Create Auction</a>
+            <div class="btn-group-vertical btn-group-md d-flex flex-column flex-sm-row gap-2" role="group">
+                <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-success btn-sm"><i class="bi bi-tag"></i> <span class="d-none d-sm-inline">Sell Item</span></a>
+                <a href="{% url 'marketplace:create_buying_post' %}" class="btn btn-info btn-sm"><i class="bi bi-search"></i> <span class="d-none d-sm-inline">Want Item</span></a>
+                <a href="{% url 'marketplace:create_listing' %}" class="btn btn-primary btn-sm"><i class="bi bi-hammer"></i> <span class="d-none d-sm-inline">Create Auction</span></a>
+            </div>
             {% else %}
-            <a href="{% url 'account_login' %}" class="btn btn-primary">Login to Post</a>
+            <a href="{% url 'user:login' %}" class="btn btn-primary">Login to Post</a>
             {% endif %}
         </div>
     </div>
@@ -52,7 +55,7 @@
             {% if listings %}
             <div class="row">
                 {% for listing in listings %}
-                <div class="col-md-4 mb-4">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                     <div class="card marketplace-card">
                         {% if listing.image %}
                         <img src="{{ listing.image.url }}" class="card-img-top marketplace-card-img" alt="{{ listing.title }}">
@@ -111,7 +114,7 @@
             {% if selling_posts %}
             <div class="row">
                 {% for post in selling_posts %}
-                <div class="col-md-4 mb-4">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                     <div class="card marketplace-card">
                         {% if post.image %}
                         <img src="{{ post.image.url }}" class="card-img-top marketplace-card-img" alt="{{ post.title }}">
@@ -139,7 +142,7 @@
                 <h4>No items for sale yet!</h4>
                 <p>Be the first to post an item for sale.</p>
                 {% if user.is_authenticated %}
-                <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-primary">Create Classified Ad</a>
+                <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-success"><i class="bi bi-tag"></i> Sell Item</a>
                 {% endif %}
             </div>
             {% endif %}
@@ -150,7 +153,7 @@
             {% if buying_posts %}
             <div class="row">
                 {% for post in buying_posts %}
-                <div class="col-md-4 mb-4">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                     <div class="card marketplace-card">
                         {% if post.image %}
                         <img src="{{ post.image.url }}" class="card-img-top marketplace-card-img" alt="{{ post.title }}">
@@ -171,6 +174,9 @@
             <div class="alert alert-info">
                 <h4>No wanted items yet!</h4>
                 <p>Looking to buy something? Post what you're looking for.</p>
+                {% if user.is_authenticated %}
+                <a href="{% url 'marketplace:create_buying_post' %}" class="btn btn-info"><i class="bi bi-search"></i> Post Wanted Ad</a>
+                {% endif %}
             </div>
             {% endif %}
         </div>
@@ -231,7 +237,7 @@
             <h4 class="mb-3 mt-4">My Items For Sale</h4>
             <div class="row">
                 {% for post in my_selling_posts %}
-                <div class="col-md-4 mb-4">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                     <div class="card marketplace-card">
                         {% if post.image %}
                         <img src="{{ post.image.url }}" class="card-img-top marketplace-card-img" alt="{{ post.title }}">
@@ -259,7 +265,7 @@
             <h4 class="mb-3 mt-4">My Wanted Ads</h4>
             <div class="row">
                 {% for post in my_buying_posts %}
-                <div class="col-md-4 mb-4">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                     <div class="card marketplace-card">
                         {% if post.image %}
                         <img src="{{ post.image.url }}" class="card-img-top marketplace-card-img" alt="{{ post.title }}">
@@ -279,8 +285,9 @@
             {% else %}
             <div class="alert alert-info">
                 You haven't created any listings yet. 
-                <a href="{% url 'marketplace:create_listing' %}" class="btn btn-primary btn-sm">Create Auction</a>
-                <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-success btn-sm">Create Classified</a>
+                <a href="{% url 'marketplace:create_listing' %}" class="btn btn-primary btn-sm"><i class="bi bi-hammer"></i> Create Auction</a>
+                <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-success btn-sm"><i class="bi bi-tag"></i> Sell Item</a>
+                <a href="{% url 'marketplace:create_buying_post' %}" class="btn btn-info btn-sm"><i class="bi bi-search"></i> Want Item</a>
             </div>
             {% endif %}
         </div>
