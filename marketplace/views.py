@@ -4,7 +4,9 @@ from django.contrib import messages
 from django.db import transaction
 from django.utils import timezone
 from decimal import Decimal, InvalidOperation
-from .models import SellingPost, BuyingPost, MarketComment, Bid, Listing, Notification
+from .models import (
+    SellingPost, BuyingPost, MarketComment, Bid, Listing, Notification
+)
 
 
 def marketplace_feed(request):
@@ -17,9 +19,15 @@ def marketplace_feed(request):
     my_selling_posts = []
     my_buying_posts = []
     if request.user.is_authenticated:
-        my_listings = Listing.objects.filter(seller=request.user).order_by('-created_at')
-        my_selling_posts = SellingPost.objects.filter(seller=request.user).order_by('-created_at')
-        my_buying_posts = BuyingPost.objects.filter(buyer=request.user).order_by('-created_at')
+        my_listings = Listing.objects.filter(
+            seller=request.user
+        ).order_by('-created_at')
+        my_selling_posts = SellingPost.objects.filter(
+            seller=request.user
+        ).order_by('-created_at')
+        my_buying_posts = BuyingPost.objects.filter(
+            buyer=request.user
+        ).order_by('-created_at')
 
     context = {
         'selling_posts': selling_posts,
@@ -30,6 +38,7 @@ def marketplace_feed(request):
         'my_buying_posts': my_buying_posts,
     }
     return render(request, 'marketplace/marketplace_feed.html', context)
+
 
 @login_required
 def create_selling_post(request):
@@ -50,6 +59,7 @@ def create_selling_post(request):
         messages.success(request, 'Selling post created successfully!')
         return redirect('marketplace:marketplace_feed')
     return render(request, 'marketplace/create_selling_post.html')
+
 
 @login_required
 def create_buying_post(request):
@@ -72,6 +82,7 @@ def create_buying_post(request):
         return redirect('marketplace:marketplace_feed')
     return render(request, 'marketplace/create_buying_post.html')
 
+
 @login_required
 def create_listing(request):
     """Create an auction-style listing"""
@@ -89,7 +100,9 @@ def create_listing(request):
                 title=title,
                 description=description,
                 starting_price=Decimal(starting_price),
-                reserve_price=Decimal(reserve_price) if reserve_price else None,
+                reserve_price=(
+                    Decimal(reserve_price) if reserve_price else None
+                ),
                 min_increment=Decimal(min_increment),
                 ends_at=ends_at if ends_at else None,
                 seller=request.user,
@@ -102,6 +115,8 @@ def create_listing(request):
 
     return render(request, 'marketplace/create_listing.html')
 
+
+@login_required
 def listing_detail(request, pk):
     """Display a single listing with all bids"""
     listing = get_object_or_404(Listing, pk=pk)
@@ -120,9 +135,13 @@ def listing_detail(request, pk):
     }
     return render(request, 'marketplace/listing_detail.html', context)
 
+
 @login_required
 def place_bid(request, pk):
-    """Place a bid on a listing with atomic transaction and race condition protection"""
+    """
+    Place a bid on a listing with atomic transaction
+    and race condition protection
+    """
     if request.method != 'POST':
         return redirect('marketplace:listing_detail', pk=pk)
 
@@ -166,7 +185,11 @@ def place_bid(request, pk):
 
             # Validate bid amount
             if amount < minimum_bid:
-                messages.error(request, f"Minimum bid is £{minimum_bid}. Your bid of £{amount} is too low.")
+                messages.error(
+                    request,
+                    f"Minimum bid is £{minimum_bid}. "
+                    f"Your bid of £{amount} is too low."
+                )
                 return redirect('marketplace:listing_detail', pk=pk)
 
             # Create the bid
@@ -180,26 +203,38 @@ def place_bid(request, pk):
             listing.current_price = amount
             listing.save(update_fields=['current_price', 'updated_at'])
 
-            messages.success(request, f"Your bid of £{amount} was placed successfully!")
+            messages.success(
+                request,
+                f"Your bid of £{amount} was placed successfully!"
+            )
             return redirect('marketplace:listing_detail', pk=pk)
 
     except Exception as e:
-        messages.error(request, f"An error occurred while placing your bid: {str(e)}")
+        messages.error(
+            request,
+            f"An error occurred while placing your bid: {str(e)}"
+        )
         return redirect('marketplace:listing_detail', pk=pk)
+
 
 @login_required
 def my_bids(request):
     """Show all bids placed by the current user"""
-    bids = Bid.objects.filter(bidder=request.user).select_related('listing').order_by('-created_at')
+    bids = Bid.objects.filter(
+        bidder=request.user
+    ).select_related('listing').order_by('-created_at')
     context = {
         'bids': bids,
     }
     return render(request, 'marketplace/my_bids.html', context)
 
+
 @login_required
 def my_listings(request):
     """Show all listings created by the current user"""
-    listings = Listing.objects.filter(seller=request.user).order_by('-created_at')
+    listings = Listing.objects.filter(
+        seller=request.user
+    ).order_by('-created_at')
     context = {
         'listings': listings,
     }
@@ -245,14 +280,18 @@ def commit_to_buy(request, pk):
                 recipient=post.seller,
                 sender=request.user,
                 notification_type='purchase',
-                message=f"{request.user.username} has committed to buy your item '{post.title}' for £{post.price}.",
+                message=(
+                    f"{request.user.username} has committed to buy "
+                    f"your item '{post.title}' for £{post.price}."
+                ),
                 related_selling_post=post
             )
 
         messages.success(
             request,
             f"You've committed to buy '{post.title}' for £{post.price}. "
-            f"The seller {post.seller.username} has been notified and will contact you."
+            f"The seller {post.seller.username} has been notified and "
+            f"will contact you."
         )
     except Exception as e:
         messages.error(request, f"An error occurred: {str(e)}")
@@ -271,7 +310,10 @@ def accept_bid(request, listing_pk, bid_pk):
 
     # Only the seller can accept bids
     if listing.seller != request.user:
-        messages.error(request, "You can only accept bids on your own listings.")
+        messages.error(
+            request,
+            "You can only accept bids on your own listings."
+        )
         return redirect('marketplace:listing_detail', pk=listing_pk)
 
     # Check if already sold
@@ -284,19 +326,12 @@ def accept_bid(request, listing_pk, bid_pk):
         with transaction.atomic():
             listing.accepted_bid = bid
             listing.is_sold = True
-            listing.save(update_fields=['accepted_bid', 'is_sold', 'updated_at'])
-
-            # Create notification for the bidder
-            Notification.objects.create(
-                recipient=bid.bidder,
-                sender=request.user,
-                notification_type='bid_accepted',
-                message=f'Your bid of £{bid.amount} was accepted for {listing.title}',
-                related_listing=listing
+            listing.save(
+                update_fields=['accepted_bid', 'is_sold', 'updated_at']
             )
 
         messages.success(
-            request,
+            request, 
             f"You've accepted {bid.bidder.username}'s bid of £{bid.amount}. "
             f"Please contact them to complete the transaction."
         )
@@ -309,7 +344,9 @@ def accept_bid(request, listing_pk, bid_pk):
 @login_required
 def notifications(request):
     """Display all notifications for the current user"""
-    user_notifications = Notification.objects.filter(recipient=request.user).order_by('-created_at')
+    user_notifications = Notification.objects.filter(
+        recipient=request.user
+    ).order_by('-created_at')
     unread_count = user_notifications.filter(is_read=False).count()
 
     context = {
@@ -322,7 +359,9 @@ def notifications(request):
 @login_required
 def mark_notification_read(request, pk):
     """Mark a notification as read"""
-    notification = get_object_or_404(Notification, pk=pk, recipient=request.user)
+    notification = get_object_or_404(
+        Notification, pk=pk, recipient=request.user
+    )
     notification.is_read = True
     notification.save()
     return redirect('marketplace:notifications')
@@ -347,5 +386,3 @@ def delete_listing(request, pk):
     listing.delete()
     messages.success(request, "Listing deleted successfully.")
     return redirect('marketplace:my_listings')
-
-
