@@ -16,7 +16,8 @@ class HostEventForm(forms.ModelForm):
                 attrs={'type': 'datetime-local', 'class': 'form-control'}
             ),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(
+                attrs={'class': 'form-control', 'cols': 4}),
             'featured_image': forms.ClearableFileInput(
                 attrs={'class': 'form-control'}
             ),
