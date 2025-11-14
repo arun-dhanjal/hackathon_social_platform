@@ -6,6 +6,7 @@ from django.http import HttpResponseForbidden
 from django.db import models
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
+from .search import search_all
 
 
 # Create your views here.
@@ -134,3 +135,30 @@ def delete_post(request, id):
     post.delete()
     messages.success(request, "Post deleted successfully.")
     return redirect("feed:feed")
+
+
+def search_view(request):
+    """
+    Global search view across all content types.
+    Searches posts, events, marketplace items.
+    """
+    query = request.GET.get('q', '').strip()
+
+    if query:
+        results = search_all(query)
+    else:
+        results = {
+            'posts': [],
+            'events': [],
+            'selling_posts': [],
+            'buying_posts': [],
+            'listings': [],
+            'total_count': 0,
+            'query': ''
+        }
+
+    return render(
+        request,
+        "feed/search_results.html",
+        results
+    )
