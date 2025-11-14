@@ -35,7 +35,7 @@
                         <div>
                             {% if post.author == request.user %}
                                 <div>
-                                    <a href="{% url 'feed:edit_post' post.id %}" class="edit-button btn-sm p-0 me-3">
+                                    <a href="{% url 'feed:edit_post' post.id %}" class="edit-button btn-sm p-0 me-3 text-decoration-none">
                                         <i class="bi bi-pencil-square fs-4" aria-label="Edit"></i>
                                     </a>
                                     <a href="#" class="delete-button btn-sm p-0" data-bs-toggle="modal" data-bs-target="#deleteModal{{ post.pk }}" aria-label="Delete">
