@@ -67,16 +67,14 @@ As a user, I want to share posts and comment on other users' posts so I can inte
 - Logged-in users can create posts and comments.
 - Comments are attached to the relevant post.
 
-### #3 Edit and Delete Posts/Comments (should-have)
+### #3 Edit and Delete Posts (should-have)
 
-As a user, I want to be able to edit/delete my posts and comments so I can make changes if I've made a mistake or want to remove something I've posted.
+As a user, I want to be able to edit/delete my posts so I can make changes if I've made a mistake or want to remove something I've posted.
 
 **Acceptance Criteria**
 
 - Users can edit their own posts.
 - Users can delete their own posts.
-- Users can edit their own comments.
-- Users can deletetheir own comments.
 
 ### #4 Events Section (must-have)
 
@@ -511,8 +509,35 @@ The back-end databases were designed at the start of the project with the intent
   * Retains same colour scheme as the site header for thematic consistency
 
 ***[Arun's section]***
+#### Site header
+
+  ![< Site header >](/readme-docs/feature-site-header.png)
+
+  * Site header contains site logo, site title, and User icon for authentication options
+
+  * Site logo and header serve as navigation links to Feed page (essentially the home page)
+
+  * User icon redirects to Login page if logged out; has a dropdown menu with Profile, Change Password, and Logout if logged in
+
+  * Site header sticks to the top of the window on every page in the site
+
+#### Site footer
+
+  ![ Site footer ](/readme-docs/feature-site-footer.png)
+
+  * Site footer that features at the bottom of every page in the site
+
+  * Contains minimal information about the application
+
+  * Retains same colour scheme as the site header for thematic consistency
 
 ***[Mortaza's section]***
+user/admin.py
+![Python linter user/admin.py screenshot](/readme-docs/python-linter-user-admin.png)
+
+user/models.py
+![Python linter user/admin.py screenshot](/readme-docs/python-linter-user-models.png)
+
 
 ***[Adam's section]***
 
