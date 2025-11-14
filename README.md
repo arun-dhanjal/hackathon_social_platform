@@ -205,9 +205,7 @@ Although other fonts could have been implemented, the default fonts work very we
 
 ### Page Layout
 
-Wireframes were created based on the initial page layout designs for various screen sizes. The final deployed application has some minor stylistic changes/additions, but for the most part follows the same general design. Wireframes shown below:
-
-***WIREFRAMES STILL PENDING - EXAMPLES BELOW***
+Wireframes were created based on the initial page layout designs for various screen sizes. The final deployed application has some minor stylistic changes/additions, and the layout of content differs between the main sections, but for the most part follows the same general design. Wireframes shown below:
 
 #### Wireframe Mobile
 ![Wireframe Mobile](/readme-docs/wireframe-mobile.png)
