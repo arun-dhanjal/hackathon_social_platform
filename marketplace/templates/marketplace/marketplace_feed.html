@@ -300,7 +300,7 @@
 <!-- Quick Links for Authenticated Users -->
 {% if user.is_authenticated %}
 <div class="container mt-4">
-    <div class="card bg-light">
+    <div class="card bg-light mb-3">
         <div class="card-body">
             <h5>Your Activity</h5>
             <a href="{% url 'marketplace:my_bids' %}" class="btn btn-outline-success btn-sm">My Bids</a>

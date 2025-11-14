@@ -3,7 +3,7 @@ from django.views import generic
 from django.contrib import messages
 from django.db import models
 from .models import Post, Comment
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 
 
 # Create your views here.
@@ -33,7 +33,7 @@ class Feed(generic.ListView):
             post.save()
             messages.add_message(
                 request, messages.SUCCESS,
-                'Post submitted and awaiting approval'
+                "Post submitted and awaiting approval."
             )
         return self.get(request, *args, **kwargs)
 
@@ -44,6 +44,20 @@ def post_detail(request, id):
 
     comments = post.comments.all().order_by("created_on")
     comment_count = post.comments.filter(accepted=True).count()
+    
+    if request.method == "POST":
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.author = request.user
+            comment.post = post
+            comment.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                "Comment submitted and awaiting approval."
+            )
+    
+    comment_form = CommentForm()
 
     return render(
         request,
@@ -52,5 +66,6 @@ def post_detail(request, id):
             "post": post,
             "comments": comments,
             "comment_count": comment_count,
+            "comment_form": comment_form,
         }
     )

@@ -11,7 +11,7 @@
                 <p><a href="{% url 'events:events_feed' %}" class="btn btn-muted">Events</a></p>
             </div>
             <div class="col text-start">
-                <p><a href="{% url 'events:my_events' %}" class="btn">My Events</a></p>
+                <p><a href="{% if user.is_authenticated %} {% url 'events:my_events' %} {% else %} {% url 'user:login' %} {% endif %}" class="btn">My Events</a></p>
             </div>
         </div>
         <div>
@@ -41,7 +41,7 @@
                         <div class="row row-cols-1 row-cols-md-3 g-3">
                             {% for event in published_events %}  
                             <div class="col-md-4">
-                                <div class="event-card card mb-4 border-dark shadow">
+                                <div class="event-card card mb-4">
                                     <div class="card-body">
                                         <div class="image-container">
                                             {% if "placeholder" in event.featured_image.url %}
@@ -73,6 +73,44 @@
                         <p class="text-muted">You haven't published any events yet.</p>
                         {% endif %}    
                     </div>
+                    <div class="published-past-events">
+                        <h3 class="my-3">Published Past Events</h3>
+                        {% if published_past %}
+                        <div class="row row-cols-1 row-cols-md-3 g-3">
+                            {% for event in published_past %}  
+                            <div class="col-md-4">
+                                <div class="event-card card mb-4 border-dark shadow">
+                                    <div class="card-body">
+                                        <div class="image-container">
+                                            {% if "placeholder" in event.featured_image.url %}
+                                            <img class="card-img-top" src="{% static 'images/event_default.webp' %}" alt="Event placeholder image">
+                                            {% else %}
+                                            <img class="card-img-top" src="{{ event.featured_image.url }}" alt="{{ event.title }}">
+                                            {% endif %}
+                                        </div>
+                                        <div class="event-card-title">
+                                            <a href="{% url 'events:event_detail' event.slug %}" class="event-link">
+                                                <h3 class="card-title">{{ event.title|truncatewords:3 }}</h3>
+                                            </a>
+                                        </div>
+                                        <hr>
+                                        <div class="event-card-details">
+                                            <p class="card-text h6">
+                                                <i class="bi bi-calendar-event"></i> {{ event.date }}
+                                            </p>
+                                            <p class="card-text h6">
+                                                <i class="bi bi-geo-alt-fill"></i> {{ event.location|truncatewords:4 }}
+                                            </p>    
+                                        </div>                                        
+                                    </div>
+                                </div>    
+                            </div>  
+                            {% endfor %}    
+                        </div>
+                        {% else %}
+                        <p class="text-muted">You don't have any published past events yet.</p>
+                        {% endif %}    
+                    </div>
                 </div>
                 <!-- BOOKED EVENTS -->
                 <div class="tab-pane fade" id="nav-booked" role="tabpanel" aria-labelledby="nav-booked-tab">
@@ -82,7 +120,7 @@
                         <div class="row row-cols-1 row-cols-md-3 g-3">
                             {% for booking in booked_upcoming %}  
                             <div class="col-md-4">
-                                <div class="event-card card mb-4 border-dark shadow">
+                                <div class="event-card card mb-4">
                                     <div class="card-body">
                                         <div class="image-container">
                                             {% if "placeholder" in booking.event.featured_image.url %}
@@ -123,7 +161,7 @@
                         <div class="row row-cols-1 row-cols-md-3 g-3">
                             {% for past in booked_past %}  
                             <div class="col-md-4">
-                                <div class="event-card card mb-4 border-dark shadow">
+                                <div class="event-card card mb-4">
                                     <div class="card-body">
                                         <div class="image-container">
                                             {% if "placeholder" in booking.event.featured_image.url %}
@@ -161,7 +199,7 @@
         {% else %}
         <div>
             <p>
-                Please <a href="{% url 'account_login' %}">Log in</a> to view your events.
+                Please <a href="{% url 'user:login' %}">Log in</a> to view your events.
             </p>
         </div>
         {% endif %}  
