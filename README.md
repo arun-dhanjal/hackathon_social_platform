@@ -885,28 +885,6 @@ Feed Search
 
 ***[Rich's section]***
 
-#### Marketplace HTML Validation
-
-![Marketplace HTML validation screenshot](/readme-docs/marketplace-stuff/html-validation-marketplace.png)
-
-#### Marketplace Python Linting
-
-marketplace/models.py
-![Python linter marketplace/models.py screenshot](/readme-docs/marketplace-stuff/python-linter-marketplace-models.png)
-
-marketplace/admin.py
-![Python linter marketplace/admin.py screenshot](/readme-docs/marketplace-stuff/python-linter-marketplace-admin.png)
-
-marketplace/urls.py
-![Python linter marketplace/urls.py screenshot](/readme-docs/marketplace-stuff/python-linter-marketplace-urls.png)
-
-marketplace/views.py
-![Python linter marketplace/views.py screenshot](/readme-docs/marketplace-stuff/python-linter-marketplace-views.png)
-
-#### Database Schema (ERD)
-
-[View Full Database ERD Diagram](/readme-docs/marketplace-stuff/social-ERD.png)
-
 ### [W3C Validator: CSS](https://jigsaw.w3.org/css-validator/)
 
 ![CSS validation screenshot](/readme-docs/css-validation.png)
