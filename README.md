@@ -775,7 +775,7 @@ Responsivity tests were carried out to ensure that the application displayed cor
 
 ## Validation
 
-Various validation software were used to validate and/or lint the code in each of the files written for this project, with any raised errors being fixed before closing off the project. The screenshots below show evidence of this:
+Various validation software were used to validate and/or lint the code in each of the files written for this project. Most errors or bugs were identified and fixed, however some remain and will need to fixed in a further iteration of this project. Screenshots evidencing validation process below:
 
 ### [W3C Validator: HTML](https://validator.w3.org/)
 
@@ -846,7 +846,11 @@ My Events
 
 ### [W3C Validator: CSS](https://jigsaw.w3.org/css-validator/)
 
+style.css
 ![CSS validation screenshot](/readme-docs/css-validation.png)
+
+marketplace.css
+![CSS validation screenshot](/readme-docs/css-marketplace-validation.png)
 
 ### [CI Python Linter: Python](https://pep8ci.herokuapp.com/)
 
