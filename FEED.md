@@ -127,3 +127,21 @@
 #### feed/views.py
 
 ![Python linter results for feed/views.py](readme-docs/feed/python-linter-feed-views.png)
+
+### HTML Validation
+
+#### Main Feed Page
+
+![HTML validation results for main feed page](readme-docs/feed/html-validation-feed-page.png)
+
+#### Feed Post Detail
+
+![HTML validation results for feed post detail page](readme-docs/feed/html-validation-feed-post-detail.png)
+
+#### Feed Edit Post
+
+![HTML validation results for feed edit post page](readme-docs/feed/html-validation-feed-edit-post.png)
+
+#### Feed Search
+
+![HTML validation results for feed search page](readme-docs/feed/html-validation-feed-search.png)
