@@ -827,6 +827,10 @@ manage.py
 ![Python linter manage.py screenshot](/readme-docs/python-linter-manage.png)
 
 ***[Mortaza's section]***
+user/admin.py
+![Python linter user/admin.py screenshot](/readme-docs/admin-py.png)
+
+
 
 ***[Adam's section]***
 
