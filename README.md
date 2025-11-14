@@ -67,16 +67,14 @@ As a user, I want to share posts and comment on other users' posts so I can inte
 - Logged-in users can create posts and comments.
 - Comments are attached to the relevant post.
 
-### #3 Edit and Delete Posts/Comments (should-have)
+### #3 Edit and Delete Posts (should-have)
 
-As a user, I want to be able to edit/delete my posts and comments so I can make changes if I've made a mistake or want to remove something I've posted.
+As a user, I want to be able to edit/delete my posts so I can make changes if I've made a mistake or want to remove something I've posted.
 
 **Acceptance Criteria**
 
 - Users can edit their own posts.
 - Users can delete their own posts.
-- Users can edit their own comments.
-- Users can deletetheir own comments.
 
 ### #4 Events Section (must-have)
 
