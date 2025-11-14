@@ -6,4 +6,5 @@ app_name = 'feed'
 urlpatterns = [
     path("", views.Feed.as_view(), name="feed"),
     path("post/<int:id>/", views.post_detail, name="post_detail"),
+    path("search/", views.search_view, name="search"),
 ]
