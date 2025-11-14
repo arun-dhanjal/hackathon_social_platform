@@ -19,16 +19,15 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             
-            # Create user profile with security questions
-            profile = UserProfile.objects.create(
-                user=user,
-                security_question_1=request.POST.get('question_1'),
-                security_answer_1=request.POST.get('answer_1').lower(),
-                security_question_2=request.POST.get('question_2'),
-                security_answer_2=request.POST.get('answer_2').lower(),
-                security_question_3=request.POST.get('question_3'),
-                security_answer_3=request.POST.get('answer_3').lower()
-            )
+            # Update user profile with security questions (profile auto-created by signal)
+            profile = user.userprofile
+            profile.security_question_1 = request.POST.get('question_1')
+            profile.security_answer_1 = request.POST.get('answer_1').lower()
+            profile.security_question_2 = request.POST.get('question_2')
+            profile.security_answer_2 = request.POST.get('answer_2').lower()
+            profile.security_question_3 = request.POST.get('question_3')
+            profile.security_answer_3 = request.POST.get('answer_3').lower()
+            profile.save()
             
             # Log the user in
             login(request, user)
@@ -46,9 +45,8 @@ def signup_view(request):
 
 @login_required
 def profile_view(request):
-    # Create profile if it doesn't exist
-    if not hasattr(request.user, 'userprofile'):
-        UserProfile.objects.create(user=request.user)
+    # Get or create profile if it doesn't exist (should exist due to signal)
+    profile, created = UserProfile.objects.get_or_create(user=request.user)
         
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)

@@ -1,6 +1,8 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils import timezone
+from datetime import timedelta
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
 
@@ -33,12 +35,17 @@ class PostModelTest(TestCase):
         
     def test_post_ordering(self):
         """Test that posts are ordered by created_on descending"""
+        # Make sure post2 has a later created_on time
         post2 = Post.objects.create(
             title='Second Post',
             content='Content',
             author=self.user,
             accepted=True
         )
+        # Manually set created_on to ensure proper ordering
+        post2.created_on = timezone.now() + timedelta(seconds=1)
+        post2.save()
+        
         posts = list(Post.objects.all())
         self.assertEqual(posts[0], post2)  # Newer post first
         self.assertEqual(posts[1], self.post)

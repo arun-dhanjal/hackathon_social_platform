@@ -12,9 +12,9 @@
         <div>
             {% if user.is_authenticated %}
             <div class="btn-group-vertical btn-group-md d-flex flex-column flex-sm-row gap-2" role="group">
-                <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-success btn-sm"><i class="bi bi-tag"></i> <span class="d-none d-sm-inline">Sell Item</span></a>
-                <a href="{% url 'marketplace:create_buying_post' %}" class="btn btn-info btn-sm"><i class="bi bi-search"></i> <span class="d-none d-sm-inline">Want Item</span></a>
-                <a href="{% url 'marketplace:create_listing' %}" class="btn btn-primary btn-sm"><i class="bi bi-hammer"></i> <span class="d-none d-sm-inline">Create Auction</span></a>
+                <a href="{% url 'marketplace:create_selling_post' %}" class="btn btn-success btn-sm text-nowrap">Sell Item</a>
+                <a href="{% url 'marketplace:create_buying_post' %}" class="btn btn-info btn-sm text-nowrap">Want Item</a>
+                <a href="{% url 'marketplace:create_listing' %}" class="btn btn-primary btn-sm text-nowrap">Create Auction</a>
             </div>
             {% endif %}
         </div>

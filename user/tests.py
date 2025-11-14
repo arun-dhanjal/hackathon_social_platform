@@ -17,17 +17,17 @@ class UserProfileModelTests(TestCase):
             email='test@example.com',
             password='testpass123'
         )
-        self.profile = UserProfile.objects.create(
-            user=self.user,
-            bio='Test bio',
-            location='Test City',
-            security_question_1='What city were you born in?',
-            security_answer_1='test city',
-            security_question_2='What was the name of your first pet?',
-            security_answer_2='test pet',
-            security_question_3='What is your favorite book?',
-            security_answer_3='test book'
-        )
+        # Profile is auto-created by signal, just get and update it
+        self.profile = self.user.userprofile
+        self.profile.bio = 'Test bio'
+        self.profile.location = 'Test City'
+        self.profile.security_question_1 = 'What city were you born in?'
+        self.profile.security_answer_1 = 'test city'
+        self.profile.security_question_2 = 'What was the name of your first pet?'
+        self.profile.security_answer_2 = 'test pet'
+        self.profile.security_question_3 = 'What is your favorite book?'
+        self.profile.security_answer_3 = 'test book'
+        self.profile.save()
     
     def test_user_profile_creation(self):
         """Test creating a user profile"""
@@ -51,15 +51,16 @@ class UserProfileModelTests(TestCase):
         
     def test_user_profile_optional_fields(self):
         """Test that optional fields can be blank"""
-        profile = UserProfile.objects.create(
-            user=User.objects.create_user(username='user2', password='pass123'),
-            security_question_1='Question 1',
-            security_answer_1='answer1',
-            security_question_2='Question 2',
-            security_answer_2='answer2',
-            security_question_3='Question 3',
-            security_answer_3='answer3'
-        )
+        user2 = User.objects.create_user(username='user2', password='pass123')
+        profile = user2.userprofile  # Get auto-created profile
+        profile.security_question_1 = 'Question 1'
+        profile.security_answer_1 = 'answer1'
+        profile.security_question_2 = 'Question 2'
+        profile.security_answer_2 = 'answer2'
+        profile.security_question_3 = 'Question 3'
+        profile.security_answer_3 = 'answer3'
+        profile.save()
+        
         self.assertEqual(profile.bio, '')
         self.assertEqual(profile.location, '')
         self.assertIsNone(profile.birth_date)
@@ -78,15 +79,16 @@ class UserProfileModelTests(TestCase):
         
     def test_user_profile_default_values(self):
         """Test default field values"""
-        profile = UserProfile.objects.create(
-            user=User.objects.create_user(username='user3', password='pass123'),
-            security_question_1='Q1',
-            security_answer_1='a1',
-            security_question_2='Q2',
-            security_answer_2='a2',
-            security_question_3='Q3',
-            security_answer_3='a3'
-        )
+        user3 = User.objects.create_user(username='user3', password='pass123')
+        profile = user3.userprofile  # Get auto-created profile
+        profile.security_question_1 = 'Q1'
+        profile.security_answer_1 = 'a1'
+        profile.security_question_2 = 'Q2'
+        profile.security_answer_2 = 'a2'
+        profile.security_question_3 = 'Q3'
+        profile.security_answer_3 = 'a3'
+        profile.save()
+        
         self.assertFalse(profile.is_verified)
         self.assertIsNotNone(profile.date_joined)
         self.assertIsNotNone(profile.last_active)
@@ -203,16 +205,16 @@ class ProfileViewTests(TestCase):
             email='test@example.com',
             password='testpass123'
         )
-        self.profile = UserProfile.objects.create(
-            user=self.user,
-            bio='Original bio',
-            security_question_1='Q1',
-            security_answer_1='a1',
-            security_question_2='Q2',
-            security_answer_2='a2',
-            security_question_3='Q3',
-            security_answer_3='a3'
-        )
+        # Get auto-created profile and update it
+        self.profile = self.user.userprofile
+        self.profile.bio = 'Original bio'
+        self.profile.security_question_1 = 'Q1'
+        self.profile.security_answer_1 = 'a1'
+        self.profile.security_question_2 = 'Q2'
+        self.profile.security_answer_2 = 'a2'
+        self.profile.security_question_3 = 'Q3'
+        self.profile.security_answer_3 = 'a3'
+        self.profile.save()
     
     def test_profile_view_requires_login(self):
         """Test that profile page requires authentication"""
@@ -239,22 +241,21 @@ class ProfileViewTests(TestCase):
         self.assertEqual(self.profile.location, 'New City')
         
     def test_profile_auto_creation(self):
-        """Test that profile is auto-created if it doesn't exist"""
-        user_no_profile = User.objects.create_user(
-            username='noprofile',
+        """Test that profile is auto-created by signal when user is created"""
+        user_with_profile = User.objects.create_user(
+            username='autoprofile',
             password='testpass123'
         )
-        self.client.login(username='noprofile', password='testpass123')
         
-        # Profile shouldn't exist yet
-        self.assertFalse(hasattr(user_no_profile, 'userprofile'))
+        # Profile should be auto-created by signal
+        self.assertTrue(hasattr(user_with_profile, 'userprofile'))
+        self.assertIsNotNone(user_with_profile.userprofile)
         
-        # Access profile page
+        # Access profile page to confirm it works
+        self.client.login(username='autoprofile', password='testpass123')
         response = self.client.get(reverse('user:profile'))
         
-        # Profile should now be created
-        user_no_profile.refresh_from_db()
-        self.assertTrue(hasattr(user_no_profile, 'userprofile'))
+        self.assertEqual(response.status_code, 200)
 
 
 class PasswordChangeViewTests(TestCase):
@@ -306,15 +307,15 @@ class SecurityQuestionResetTests(TestCase):
             username='testuser',
             password='testpass123'
         )
-        self.profile = UserProfile.objects.create(
-            user=self.user,
-            security_question_1='What city were you born in?',
-            security_answer_1='london',
-            security_question_2='What was the name of your first pet?',
-            security_answer_2='fluffy',
-            security_question_3='What is your favorite book?',
-            security_answer_3='python guide'
-        )
+        # Get auto-created profile and update it
+        self.profile = self.user.userprofile
+        self.profile.security_question_1 = 'What city were you born in?'
+        self.profile.security_answer_1 = 'london'
+        self.profile.security_question_2 = 'What was the name of your first pet?'
+        self.profile.security_answer_2 = 'fluffy'
+        self.profile.security_question_3 = 'What is your favorite book?'
+        self.profile.security_answer_3 = 'python guide'
+        self.profile.save()
     
     def test_security_question_reset_view_loads(self):
         """Test that security question reset page loads"""

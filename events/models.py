@@ -12,8 +12,8 @@ class Event(models.Model):
     """
     Store a single event created by host (user)
     """
-    title = models.CharField(max_length=100, unique=True)
-    slug = models.CharField(unique=True, blank=True)
+    title = models.CharField(max_length=100)
+    slug = models.CharField(max_length=200, unique=True, blank=True)
     date = models.DateTimeField()
     location = models.CharField(max_length=150)
     host = models.ForeignKey(
