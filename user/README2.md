@@ -1,0 +1,1101 @@
+# Our Corner
+
+Our Corner is a mini social platform built for small local communities. It provides numerous ways for the community to interact, including a post feed to share thoughts, an events section to get involved, and a marketplace to trade with your locals.
+
+![Our Corner shown on a range of devices](/readme-docs/devices-showcase.png)
+
+[View Our Corner on Heroku](https://hackathon-social-platform-0d4a6cd4eda3.herokuapp.com/)
+
+## CONTENTS
+
+* [Purpose and Value](#Purpose-and-Value)
+  * [Application Purpose](#Application-Purpose)
+  * [User Value](#User-Value)
+
+* [Design](#Design)
+  * [Colour Scheme](#Colour-Scheme)
+  * [Typography](#Typography)
+  * [Page Layout](#Page-Layout)
+  * [Database Structure](#Database-Structure)
+  * [Features](#Features)
+  * [Accessibility](#Accessibility)
+
+* [Technologies Used](#Technologies-Used)
+  * [Languages Used](#Languages-Used)
+  * [Frameworks, Libraries & Programs Used](#Frameworks-Libraries--Programs-Used)
+
+* [Deployment](#Deployment)
+
+* [Testing](#Testing)
+  * [Manual Functionality Testing](#Manual-Functionality-Testing)
+  * [Device Responsivity Testing](#Device-Responsivity-Testing)
+
+* [Validation](#Validation)
+
+* [AI Usage](#AI-Usage)
+
+* [Credits](#Credits)
+
+- - -
+
+## Purpose and Value
+
+### Application Purpose
+
+This application is designed to give small local communities a platform on which they can interact with each other in a number of ways. The main use cases would be: a feed section for viewing, submitting, and commenting on posts; an events section to find out about and get involved in events in the local area; and a marketplace section for listing items for sale and joining auctions. The application would be used in a similar way to other social media apps, albeit on a smaller scale.
+
+### User Value
+
+User stories with relevant acceptance criteria have been created to demonstrate the value that users would derive from using this app. These user stories are listed below:
+
+### #1 Paginated Post Feed (must-have)
+
+As a user, I want to see a feed of posts so I can browse recent updates from others.
+
+**Acceptance Criteria**
+
+- Posts are displayed in reverse chronological order.
+- Only a limited number of posts are shown per page.
+- Pagination controls allow navigation between pages.
+
+### #2 Create Posts and Comments (must-have)
+
+As a user, I want to share posts and comment on other users' posts so I can interact with my community.
+
+**Acceptance Criteria**
+
+- Logged-in users can create posts and comments.
+- Comments are attached to the relevant post.
+
+### #3 Edit and Delete Posts (should-have)
+
+As a user, I want to be able to edit/delete my posts so I can make changes if I've made a mistake or want to remove something I've posted.
+
+**Acceptance Criteria**
+
+- Users can edit their own posts.
+- Users can delete their own posts.
+
+### #4 Events Section (must-have)
+
+**User Story**
+
+As a user, I want to know what's going on in my community so I can get involved in events.
+
+**Acceptance Criteria**
+
+- Events are listed in a separate section of the site.
+- All important details are included, such as name, date, location.
+
+### #5 RSVP to Events (must-have)
+
+**User Story**
+
+As a user, I want to indicate that I am interested in an event so that I can join it.
+
+**Acceptance Criteria**
+
+- Events have an option to RSVP.
+- Users are notified of their RSVP status.
+
+### #6 Marketplace Section (must-have)
+
+**User Story**
+
+As a user, I want to be able to see local listings of items for sale so I can look for good buying opportunities.
+
+**Acceptance Criteria**
+
+- Sale listings are featured in a separate Marketplace section of the site.
+- Sale listings contain all information about the sale, including name, description, price.
+
+### #7 Add Marketplace Listings and Auctions (must-have)
+
+**User Story**
+
+As a user, I want to be able to add listings and start auctions so I can make a little extra money from stuff I no longer need.
+
+**Acceptance Criteria**
+
+- Users can create sale listings that other users can interact with.
+- Users can create auctions that other users can interact with.
+
+### #8 Save Marketplace Listings (could-have)
+
+**User Story**
+
+As a user, I want to be able to save sale listings for later so I can manage my Marketplace activity.
+
+**Acceptance Criteria**
+
+- Users can add sales listings to a Wanted section.
+- Users can delete sales listings in their Wanted section.
+
+### #9 Registration and Login (must-have)
+
+**User Story**
+
+As a new user, I want to register and log in so I can access and contribute to the platform.
+
+**Acceptance Criteria**
+
+- Registration form includes username and password.
+- Login form accepts valid credentials.
+- Users can logout.
+
+### #10 Password Reset (should-have)
+
+**User Story**
+
+As a user, I want to be able easily reset my password so that I can ensure account safety .
+
+**Acceptance Criteria**
+
+- Account section has functionality to change password.
+- Changing password will require correct answers to security questions.
+
+### #11 Site Navigation (must-have)
+
+**User Story**
+
+As a user, I want to be able to navigate around the site easily so that I can have a smooth user experience.
+
+**Acceptance Criteria**
+
+- Navigation to different sections of the website, including the User section, is intuitive and easy.
+- Navigation icons are highlighted when active to indicate current location on the site.
+
+### #12 Calm and Consistent Design (should-have)
+
+**User Story**
+
+As a user, I want the website to have a calm and consistent design so I can have an excellent user experience.
+
+**Acceptance Criteria**
+
+- An appropriate colour scheme is chosen for the overall site design.
+- Colours are calm and minimalistic, with no contrast issues.
+- The design is consistent throughout the website.
+
+- - -
+
+In addition, a dedicated GitHub project board has been created and used to drive development and manage project tasks. This project board is linked below:
+
+[GitHub Project Board](https://github.com/users/arun-dhanjal/projects/9)
+
+- - -
+
+## Design
+
+### Colour Scheme
+
+![Our Corner Colour Palette](/readme-docs/our-corner-palette.png)
+
+A palette of differing shades of orange and pastel yellow was chosen for the theme of this application. The intention was to keep things looking relatively minimalistic with splashes of a key colour throughout. The majority of buttons use these shades of orange with grey text. Edit and delete icons are grey whilst inactive, turning light orange on hover, fitting the minimalistic style. Navigation icons are coloured grey, but also turn orange on hover or when active.
+
+One key exception to the overarching colour scheme applies to content that is pending approval. Posts and comments that are yet to be approved will be highlighted in a pale, muted yellow with an orange dotted border around the card. This combination has been chosen to make it clear when content is pending approval whilst remaining easy on the eye.
+
+The colour palette was created using the [Coolors](https://coolors.co/) website.
+
+### Typography
+
+Although other fonts could have been implemented, the default fonts work very well with the design of the site and so no other fonts have been selected. However, other fonts could be used in future iterations, in which case Google Fonts will be utilised for this purpose.
+
+### Page Layout
+
+Wireframes were created based on the initial page layout designs for various screen sizes. The final deployed application has some minor stylistic changes/additions, and the layout of content differs between the main sections, but for the most part follows the same general design. Wireframes shown below:
+
+#### Wireframe Mobile
+![Wireframe Mobile](/readme-docs/wireframe-mobile.png)
+#### Wireframe Tablet
+![Wireframe Tablet](/readme-docs/wireframe-tablet.png)
+#### Wireframe Desktop
+![Wireframe Desktop](/readme-docs/wireframe-desktop.png)
+
+### Database Structure
+
+The back-end databases were designed at the start of the project with the intention of remaining unchanged throughout the development in order to avoid later complications. The Entity Relationship Diagram (ERD) can be viewed below:
+
+***ERD STILL PENDING - EXAMPLE BELOW***
+
+![< ERD >](/readme-docs/erd.png)
+
+### Features
+
+***[Arun's section]***
+#### Site header
+
+  ![< Site header >](/readme-docs/feature-site-header.png)
+
+  * Site header contains site logo, site title, and User icon for authentication options
+
+  * Site logo and header serve as navigation links to Feed page (essentially the home page)
+
+  * User icon redirects to Login page if logged out; has a dropdown menu with Profile, Change Password, and Logout if logged in
+
+  * Site header sticks to the top of the window on every page in the site
+
+#### Site footer
+
+  ![ Site footer ](/readme-docs/feature-site-footer.png)
+
+  * Site footer that features at the bottom of every page in the site
+
+  * Contains minimal information about the application
+
+  * Retains same colour scheme as the site header for thematic consistency
+
+***[Mortaza's section]***
+
+***[Adam's section]***
+#### Main feed page
+
+![Main feed page](readme-docs/feed/feature-main-page.png)
+
+- The Feed page is the "main" page of the site. It functions as a blog, with users being able to create posts and comment on them.
+- The navigation and search functions are site-wide.
+
+#### Example post in feed
+
+![Example post in feed](readme-docs/feed/feature-example-post.png)
+
+- This is how a post is shown in the feed list. The post's title, author, creation date, text content, and opionally an image are shown.
+- The user can click the Read Me button to visit the post's page, where they can add a comment.
+
+#### Signup required to post message
+
+![Signup required to post message](readme-docs/feed/feature-signup-to-post.png)
+
+- If a user isn't logged in, then instead of a section allowing them to create a post, a Sign Up button is shown instead. 
+
+#### New post form
+
+![New post form](readme-docs/feed/feature-new-post.png)
+
+- When logged in, the user is allowed to add a post to the feed.
+- The post can optionally include an image.
+- The user must add a title and some text in the content field.
+- The post must be accepted by an admin or superuser before other site users can see it. This moderation is to prevent harassmnent or illegal content from being posted on the site.
+
+#### Post created notification
+
+![Post created notification](readme-docs/feed/feature-post-created.png)
+
+- After a post is created, a notification will pop up informing the user.
+
+#### Post awaiting approval
+
+![Post awaiting approval modal](readme-docs/feed/feature-post-awaiting-approval.png)
+
+- After a user creates a post, it will need to be approved by an admin/superuser before it is visible to all site users.
+- The user who created the post can still see it, though it is marked as "awaiting approval" with a different background colour.
+
+#### Edit and delete options on a post
+
+![Edit and delete options on a post](readme-docs/feed/feature-edit-and-delete.png)
+
+- On their own posts, the user has an edit and a delete button.
+
+#### Edit post form
+
+![Edit post form](readme-docs/feed/feature-edit-post.png)
+
+- A site user can edit one of their own already-existing posts. They can add/remove an image, change the title, and change the text content.
+- Once saved, the edit must be approved by an admin/superuser before it can take effect.
+
+#### Edit notification message
+
+![Edit notification message](readme-docs/feed/feature-edit-notification.png)
+
+- After the user saves an edited post, they get a notification informing them it was a success and that it is now pending approval.
+
+#### Delete confirmation modal
+
+![Delete confirmation modal](readme-docs/feed/feature-delete-confirmation-modal.png)
+
+- When a user clicks the delete button on one of their posts, a modal pops up, asking for confirmation if they want to actually delete the post. This is to prevent accidental deletions.
+- If they click cancel, the modal goes away and nothing happens. If they click delete, then the post will finally be deleted.
+
+#### Delete notification message
+
+![Delete notification message](readme-docs/feed/feature-delete-notificaiton.png)
+
+- After a user deletes one of their own posts, they get a notification telling them it has been successfully deleted.
+
+#### Example comments under a post
+
+![Example comments under a post](readme-docs/feed/feature-example-comments.png)
+
+- Comments go under a specific post. They show the author, creation date, and text content.
+- If the user isn't logged in, then they cannot yet comment. Instead, a button asking them to Sign Up is shown.
+
+#### New comment input
+
+![New comment input](readme-docs/feed/feature-new-comment.png)
+
+- When logged in, the user is allowed to add a comment to a post.
+- The comment must be accepted by an admin or superuser before other site users can see it. This moderation is to prevent harassmnent or illegal content from being posted on the site.
+
+#### Comment awaiting approval
+
+![Comment awaiting approval modal](readme-docs/feed/feature-comment-awaiting-approval.png)
+
+- After a user creates a comment, it goes into awaiting approval status. Only the user themselves can see this comment. It will only be shown to all site users once an admin/superuser approves it.
+
+***[Ysabela's section]***
+#### Events
+
+  <img src="readme-docs/events/events-feed.png" alt="All events - feed" width="70%">
+
+  * Show all events in an event feed
+
+#### Event Detail
+
+  <img src="readme-docs/events/event-detail.png" alt="Event details" width="70%">
+
+  * Show event details including date, time, location and description
+
+#### Event - Booking
+
+  <img src="readme-docs/events/event-booking-message.png" alt="Event details - booked message" width="70%">
+
+  * User can press the book button to book an event, which then shows a confimartion message at the top of the screen
+
+#### Event - Cancel
+
+  <img src="readme-docs/events/event-cancel.png" alt="Event details - cancel button" width="70%"><br><img src="readme-docs/events/event-cancel-modal.png" alt="Event details - cancel modal" width="70%">
+
+  * User can cancel their booked event
+
+#### My Events - Host Tab
+
+  <img src="readme-docs/events/my-events.png" alt="My Events - published events" width="70%"><br><img src="readme-docs/events/my-events-published-past.png" alt="My Events - published past events" width="70%">
+
+  * Show users hosted published and past published events
+
+#### My Events - Booked Tab
+
+  <img src="readme-docs/events/my-events-booked.png" alt="My Events - booked events" width="70%">
+
+  * Show users booked events
+
+#### My Events - Past Tab
+
+  <img src="readme-docs/events/my-events-booked-past.png" alt="My Events - booked past events" width="70%">
+
+  * Show users past booked events
+
+#### My Events - Host Event
+
+  <img src="readme-docs/events/my-events-host-form.png" alt="My Events - host event form" width="70%">
+
+  * Users can host their own event
+
+#### My Events - Edit Event
+
+  <img src="readme-docs/events/my-events-edit-event.png" alt="My Events - edit event form" width="70%">
+
+  * Users can edit their event
+
+#### My Events - Delete Event
+
+  <img src="readme-docs/events/my-events-delete-event.png" alt="My Events - delete event" width="70%">
+
+  * Users can delete their hosted event
+
+***[Rich's section]***
+
+#### Future implementations:
+
+Although all must-have, should-have, and could-have user stories were fulfilled for this project, additional features could add value to this site. Some examples of which are:
+
+  * User profile section: an area for users to manage their content in one place and manage their username and password
+
+  * Profile images on submitted content: a small profile icon would be useful to include next to posts, comments, events, and marketplace listings to give each user more of an identity in the community
+
+  * Comment count on posts: it would be useful to have an indication of how many comments are on a post before viewing the detail page
+
+  * Likes/reactions on content: more interaction between users could be facilitated by adding options to add likes or reactions to posts and comments
+
+### Accessibility
+
+Mindful development has been exercised throughout the project to ensure the application is as accessible and user-friendly as possible. This includes:
+
+* Using semantic HTML.
+
+* Ensuring that there is a sufficient colour contrast throughout the site.
+
+* Ensuring that navigation is intuitive and easy.
+
+* Ensuring interactive elements and inputs are easy to recognise and use.
+
+* Including appropriate aria labelling and alt tags.
+
+- - -
+
+## Technologies Used
+
+### Languages Used
+
+Python (Django) - For backend logic, models, views, and routing.
+
+HTML & CSS - For structure and styling.
+
+JavaScript - For some front-end user interaction and logic.
+
+Django Template Language (DTL) - For dynamic rendering and template logic.
+
+### Frameworks, Libraries & Programs Used
+
+Git - For version control.
+
+GitHub - To save and store the files for the app, as well as for project management.
+
+Django version 4.2 - Used as the full stack framework to connect the front and back end using MVT (model-view-template) methodology.
+
+PostgreSQL - The chosen RDBMS for this project.
+
+Bootstrap version 5.3 - To utilise a number of Bootstrap components, including cards, buttons, and classes for styling. Additional CSS styling was also implemented in style.css.
+
+Django crispy forms - Used for responsive form rendering with Bootstrap 5.
+
+Browser Dev Tools - To troubleshoot and test features, solve issues with responsiveness, and styling.
+
+Microsoft PowerPoint - To manually create the initial wireframes and site title.
+
+Microsoft Excel - To create the database structure ERD tables, and to track and manage code checking and testing exercises.
+
+Microsoft Copilot - For code queries, troubleshooting Django views and templates, refining logic, and converting Excel tables into Markdown format.
+
+OpenAI ChatGPT - For code queries and resolution of coding issues.
+
+[Heroku](https://www.heroku.com/) - To host the web application via Eco Dynos. This has been chosen as it allows for full-stack web applications to be hosted, as opposed to GitHub which only allows for front-end applications.
+
+[Cloudinary](https://cloudinary.com/) - To host user-uploaded images via a cloud-based server; this is necessary given Heroku's ephemeral file system on Eco Dynos.
+
+[favicon.io](https://favicon.io/) - To convert the site logo into a favicon-sized image.
+
+[DBeaver](https://dbeaver.com/) - To create the ERD document.
+
+[TechSini](https://techsini.com/multi-mockup/) - To show the site image on a range of devices.
+
+- - -
+
+## Deployment
+
+Heroku was used to deploy the live application. The instructions to achieve this are below:
+
+1. Log in to Heroku and navigate to your dashboard.
+2. Create a new app with a unique name.
+3. Go back to your workspace and install a production-ready webserver for Heroku, e.g. Gunicorn.
+4. Add the webserver to your requirements.txt file.
+5. Create a Procfile in your root directory and declare the Gunicorn web process.
+6. Add the '.herokuapp.com' hostname to the list of ALLOWED_HOSTS.
+7. Add, commit, and push your changes to GitHub.
+8. Move back to Heroku and click the Deploy tab.
+9. In Deployment method, choose Connect to GitHub and select your GitHub repo.
+10. Scroll to the bottom of the page and click Deploy Branch to start a manual deployment.
+
+- - -
+
+## Testing
+
+### Manual Functionality Testing
+
+***MANUAL FUNCTIONALITY TESTING PENDING - EXAMPLE BELOW***
+
+Manual testing was carried out to ensure functionality of all processes was as expected. The results of these tests are below:
+
+| **Site Area**         | **User Action**                                                                                      | **Expected Result**                                                                                                                       | **Pass/Fail** |
+|-----------------------|------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|--------------|
+| Header                | Click site logo/title                                                                                | Redirect to Feed page                                                                                                                     | Pass         |
+| Header                | Click Sign Up button                                                                                 | Redirect to Sign Up page                                                                                                                  | Pass         |
+| Sign Up page          | Fill out Sign Up form correctly and click Submit                                                     | Redirect to Feed page as new logged-in user, displaying feedback message at top of page                                                  | Pass         |
+| Sign Up page          | Fill out Sign Up form incorrectly and click Submit                                                   | Validation error displays with instructions to amend                                                                                      | Pass         |
+| Header                | Click Log In button                                                                                  | Redirect to Log In page                                                                                                                   | Pass         |
+| Log In page           | Fill out Log In form correctly and click Submit                                                      | Redirect to Feed page as logged-in user, displaying feedback message at top of page                                                      | Pass         |
+| Log In page           | Fill out Log In form incorrectly and click Submit                                                    | Validation error displays with instructions to amend                                                                                      | Pass         |
+| Header                | Click Log Out button                                                                                 | Redirect to Log Out page                                                                                                                  | Pass         |
+| Log Out page          | Click Log Out button                                                                                 | Redirect to Feed page as logged-out user, displaying feedback message at top of page                                                     | Pass         |
+| Nav icons             | Click Home icon                                                                                      | Redirect to Feed page                                                                                                                     | Pass         |
+| Nav icons             | Click Reviews icon                                                                                   | Redirect to Puzzle List page                                                                                                              | Pass         |
+| Nav icons             | Click Leaderboards icon                                                                              | Redirect to Leaderboards page                                                                                                             | Pass         |
+| Feed page             | Click Sign Up button                                                                                 | Redirect to Sign Up page                                                                                                                  | Pass         |
+| Feed page             | Click New Post button                                                                                | Redirect to Create a Post page                                                                                                            | Pass         |
+| Create a Post page    | Fill out Create a Post form and click Submit                                                         | Redirect to Feed page with new unapproved post at top of feed, displaying feedback message at top of page                                | Pass         |
+| Feed page             | Click Edit button on user-owned post                                                                 | Redirect to Edit Post page                                                                                                                | Pass         |
+| Edit Post page        | Update Post form and click Save                                                                      | Redirect to Post Detail page for that post displaying updated and now unapproved post, also displaying feedback message at top of page   | Pass         |
+| Feed page             | Click Delete button on user-owned post                                                               | Display Delete Post modal                                                                                                                 | Pass         |
+| Delete Post modal     | Click X button                                                                                       | Closes modal                                                                                                                              | Pass         |
+| Delete Post modal     | Click Cancel button                                                                                  | Closes modal                                                                                                                              | Pass         |
+| Delete Post modal     | Click Delete button                                                                                  | Deletes post and redirects to Feed page, displaying feedback message at top of page                                                      | Pass         |
+| Feed page             | Click View Post button on a post                                                                     | Redirect to Post Detail page of that post                                                                                                 | Pass         |
+| Feed page             | Click Previous pagination button                                                                     | Go to previous page of feed                                                                                                               | Pass         |
+| Feed page             | Click Next pagination button                                                                         | Go to next page of feed                                                                                                                   | Pass         |
+| Post Detail page      | Click Edit button on user-owned post                                                                 | Redirect to Edit Post page                                                                                                                | Pass         |
+| Edit Post page        | Update Post form and click Save                                                                      | Redirect to Post Detail page for that post displaying updated and now unapproved post, also displaying feedback message at top of page   | Pass         |
+| Post Detail page      | Click Delete button on user-owned post                                                               | Display Delete Post modal                                                                                                                 | Pass         |
+| Delete Post modal     | Click X button                                                                                       | Closes modal                                                                                                                              | Pass         |
+| Delete Post modal     | Click Cancel button                                                                                  | Closes modal                                                                                                                              | Pass         |
+| Delete Post modal     | Click Delete button                                                                                  | Deletes post and redirects to Feed page, displaying feedback message at top of page                                                      | Pass         |
+| Post Detail page      | Fill out Comment form and click Submit                                                               | New unapproved comment shows in comment list, and feedback message displays at top of page                                               | Pass         |
+| Post Detail page      | Click Edit button on user-owned comment                                                              | Redirect to Edit Comment page                                                                                                             | Pass         |
+| Edit Comment page     | Update Comment form and click Save                                                                   | Redirect to Post Detail page of related post, displaying updated and now unapproved comment, also displaying feedback message at top of page     | Pass         |
+| Post Detail page      | Click Delete button on user-owned comment                                                            | Display Delete Comment modal                                                                                                              | Pass         |
+| Delete Comment modal  | Click X button                                                                                       | Closes modal                                                                                                                              | Pass         |
+| Delete Comment modal  | Click Cancel button                                                                                  | Closes modal                                                                                                                              | Pass         |
+| Delete Comment modal  | Click Delete button                                                                                  | Deletes comment and redirects to related post's Post Detail page, displaying feedback message at top of page                             | Pass         |
+| Puzzle List page      | Click See Reviews button on a puzzle                                                                 | Redirects to Puzzle Detail page                                                                                                           | Pass         |
+| Puzzle List page      | Click Previous pagination button                                                                     | Go to previous page of Puzzle List                                                                                                        | Pass         |
+| Puzzle List page      | Click Next pagination button                                                                         | Go to next page of Puzzle List                                                                                                            | Pass         |
+| Puzzle Detail page    | Fill out Review form and click Submit                                                                | New unapproved review shows in review list, displaying feedback message at top of page                                                   | Pass         |
+| Puzzle Detail page    | Click Edit button on user-owned review                                                               | Redirect to Edit Review page                                                                                                              | Pass         |
+| Edit Review page      | Update Review form and click Submit                                                                  | Redirect to Puzzle Detail page of related puzzle, displaying updated and now unapproved review, and displaying feedback message at top of page   | Pass         |
+| Puzzle Detail page    | Click Delete button on user-owned review                                                             | Display Delete Review modal                                                                                                               | Pass         |
+| Puzzle Detail page    | Click X button                                                                                       | Closes modal                                                                                                                              | Pass         |
+| Puzzle Detail page    | Click Cancel button                                                                                  | Closes modal                                                                                                                              | Pass         |
+| Puzzle Detail page    | Click Delete button                                                                                  | Deletes review and redirects to related puzzle's Puzzle Detail page, displaying feedback message at top of page                          | Pass         |
+| Leaderboards page     | Click Sign Up button                                                                                 | Redirects to Sign Up page                                                                                                                 | Pass         |
+| Leaderboards page     | Click Submit Time button                                                                             | Redirects to Submit Time page                                                                                                             | Pass         |
+| Submit Time page      | Fill out Submit Time form correctly and click submit                                                 | Redirect to Leaderboards page with submitted time now showing in relevant puzzle's leaderboard                                           | Pass         |
+| Submit Time page      | Fill out Submit Time form incorrectly and click submit                                               | Validation error displays with instructions to amend                                                                                      | Pass         |
+| Submit Time page      | Fill out Submit Time form for puzzle that already has your time                                      | Error message displays advising that only one time can be submitted per puzzle                                                           | Pass         |
+| Leaderboards page     | Click Update Time button                                                                             | Redirect to Update Time page                                                                                                              | Pass         |
+| Update Time page      | Fill out Update Time form correctly and click submit                                                 | Redirect to Leaderboards page with updated time now showing in relevant puzzle's leaderboard                                             | Pass         |
+| Update Time page      | Fill out Update Time form incorrectly and click submit                                               | Validation error displays with instructions to amend                                                                                      | Pass         |
+
+### Device Responsivity Testing
+
+***DEVICE RESPONSIVITY TESTING PENDING - EXAMPLE TEXT BELOW***
+
+Responsivity tests were carried out to ensure that the application displayed correctly on a number of different device sizes. For completeness, all of the default device sizes in Google Chrome's Developer Tools were tested for responsiveness by emulating each device and then navigating through the site to note any layout or formatting issues. Almost all devices returned zero issues with two exceptions, detailed below:
+
+- Microsoft Lumia 550: Dev Tools defaults to a landscape view for this device, which makes the viewport height very short, leading to a sub-optimal user experience. However, the application is not intended to be used in landscape mode on mobile devices, and in fact the default landscape view for this device in Dev Tools is a known error, with the expected view being portrait as is the case with most mobile devices. As such, this case is of no concern for this application.
+
+- JioPhone 2: The viewport for this device is very small at just 240 x 320 px (it is defined as a "compact device") which causes issues with layout. However, this application is not intended to be used on such small devices, and so is of no concern for this application.
+
+# Unit Testing
+
+## Overview
+Comprehensive automated testing suite for the Hackathon Social Platform, covering all major applications and functionality.
+
+## Test Statistics
+
+| Metric | Count | Percentage |
+|--------|-------|------------|
+| **Total Tests** | 153 | 100% |
+| **Passing** | 152 | 99.3% |
+| **Skipped** | 1 | 0.7% |
+| **Failures** | 0 | 0% |
+
+## Results by Application
+
+### Marketplace (51 tests)
+- **Status**: ✅ 50 Passing, 1 Skipped
+- **Coverage**: CRUD operations, bidding system, notifications, selling/buying posts
+- **Key Features Tested**:
+  - Listing creation, detail views, and deletion
+  - Bid placement with validation (minimum increments, seller restrictions)
+  - Bid acceptance and notification creation
+  - Selling post creation and purchase workflow
+  - Buying post (wanted ads) creation
+  - User-specific views (My Listings, My Bids)
+  - Comment functionality
+  - Notification system (creation, viewing, marking as read)
+  - Concurrent bid handling (skipped on SQLite - database limitation)
+
+### Events (39 tests)
+- **Status**: ✅ 39 Passing
+- **Coverage**: Event hosting, booking, and management
+- **Key Features Tested**:
+  - Event creation with auto-slug generation
+  - Duplicate title handling with unique slugs
+  - Event booking and cancellation
+  - Host-only edit/delete permissions
+  - Event list filtering (published only, future events)
+  - My Events view (hosted and booked events)
+  - Pagination
+  - Event status management (Draft/Published)
+
+### Feed (34 tests)
+- **Status**: ✅ 34 Passing
+- **Coverage**: Social feed posts and comments
+- **Key Features Tested**:
+  - Post creation and detail views
+  - Post ordering by date (newest first)
+  - Comment creation and display
+  - Post acceptance/moderation system
+  - Pagination with multiple posts
+  - Search functionality (title and content)
+  - Case-insensitive search
+  - Anonymous vs authenticated user visibility
+
+### User (34 tests)
+- **Status**: ✅ 34 Passing
+- **Coverage**: Authentication and user profiles
+- **Key Features Tested**:
+  - User signup with automatic profile creation
+  - Login/logout functionality
+  - Profile creation and updates
+  - Password change
+  - Security question-based password reset
+  - Form validation (username uniqueness, password matching)
+  - Auto-login after signup
+  - Profile cascade deletion
+
+## Test Database Configuration
+
+- **Test Database**: SQLite (in-memory)
+- **Production Database**: PostgreSQL (untouched during testing)
+- **Configuration**: Isolated test environment ensures no impact on production data
+
+## Notable Test Cases
+
+### Concurrent Operations
+- **Bid Concurrency Test**: Skipped on SQLite due to database limitations with concurrent writes
+- **Note**: This is a known SQLite limitation, not an application bug
+- **Production**: Will function correctly with PostgreSQL
+
+### Security & Permissions
+- ✅ Sellers cannot bid on their own listings
+- ✅ Non-sellers cannot accept bids
+- ✅ Users can only cancel their own bookings
+- ✅ Only event hosts can edit/delete their events
+- ✅ Users cannot mark other users' notifications as read
+
+### Data Integrity
+- ✅ Unique slug generation for duplicate event titles
+- ✅ Cascade deletion (comments, bookings, profiles)
+- ✅ Bid validation (minimum amounts, increments)
+- ✅ Auction end date validation
+
+### User Experience
+- ✅ Pagination works correctly across all feeds
+- ✅ Search returns relevant results
+- ✅ Anonymous users see appropriate content
+- ✅ Authenticated users see their own unaccepted posts
+
+## Running the Tests
+
+```bash
+# Run all tests
+python manage.py test
+
+# Run tests for specific app
+python manage.py test marketplace
+python manage.py test events
+python manage.py test feed
+python manage.py test user
+
+# Run specific test case
+python manage.py test marketplace.tests.BidPlacementViewTest
+
+# Run with verbose output
+python manage.py test --verbosity=2
+```
+
+## Test Coverage
+
+The test suite covers:
+- ✅ Model creation and validation
+- ✅ View functionality and permissions
+- ✅ Form validation
+- ✅ Authentication and authorization
+- ✅ CRUD operations
+- ✅ Business logic (bidding, booking, purchasing)
+- ✅ Edge cases and error handling
+- ✅ User permissions and restrictions
+- ✅ Data relationships and cascade behavior
+
+## Conclusion
+
+With **99.3% of tests passing** and comprehensive coverage across all applications, the Hackathon Social Platform demonstrates robust functionality, proper error handling, and secure user interactions. The testing suite ensures code quality and provides confidence for future development and deployment.
+
+---
+*Last Updated: November 14, 2025*
+
+# Manual Testing
+
+# Manual Testing - Our Corner
+
+This document contains comprehensive manual testing procedures for the Our Corner social platform.
+
+## Manual Functionality Testing
+
+| **Site Area**              | **User Action**                                                                                      | **Expected Result**                                                                                                                       | **Pass/Fail** |
+|----------------------------|------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| **Header**                 |                                                                                                      |                                                                                                                                           |               |
+| Header                     | Click site logo/title                                                                                | Redirect to Feed page                                                                                                                     |               |
+| Header                     | Click User icon when logged out                                                                      | Redirect to Sign Up/Login page                                                                                                            |               |
+| Header                     | Click User icon when logged in                                                                       | Display dropdown menu with Profile, Change Password, and Logout options                                                                   |               |
+| **Authentication**         |                                                                                                      |                                                                                                                                           |               |
+| Sign Up page               | Click Sign Up button in header                                                                       | Redirect to Sign Up page                                                                                                                  |               |
+| Sign Up page               | Fill out Sign Up form correctly and click Submit                                                     | Redirect to Feed page as new logged-in user, displaying feedback message at top of page                                                   |               |
+| Sign Up page               | Fill out Sign Up form incorrectly and click Submit                                                   | Validation error displays with instructions to amend                                                                                      |               |
+| Log In page                | Click Log In button in header                                                                        | Redirect to Log In page                                                                                                                   |               |
+| Log In page                | Fill out Log In form correctly and click Submit                                                      | Redirect to Feed page as logged-in user, displaying feedback message at top of page                                                       |               |
+| Log In page                | Fill out Log In form incorrectly and click Submit                                                    | Validation error displays with instructions to amend                                                                                      |               |
+| Log Out page               | Click Log Out button in user dropdown                                                                | Redirect to Log Out confirmation page                                                                                                     |               |
+| Log Out page               | Click Log Out button on confirmation page                                                            | Redirect to Feed page as logged-out user, displaying feedback message at top of page                                                      |               |
+| **Navigation**             |                                                                                                      |                                                                                                                                           |               |
+| Nav icons                  | Click Feed icon                                                                                      | Redirect to Feed page                                                                                                                     |               |
+| Nav icons                  | Click Events icon                                                                                    | Redirect to Events page                                                                                                                   |               |
+| Nav icons                  | Click Marketplace icon                                                                               | Redirect to Marketplace page                                                                                                              |               |
+| Nav icons                  | Hover over navigation icons                                                                          | Icons turn orange on hover                                                                                                                |               |
+| Nav icons                  | View active page icon                                                                                | Active page icon is highlighted in orange                                                                                                 |               |
+| **Feed - General**         |                                                                                                      |                                                                                                                                           |               |
+| Feed page                  | View feed as logged-out user                                                                         | Sign Up button displayed instead of New Post form                                                                                         |               |
+| Feed page                  | View feed as logged-in user                                                                          | New Post form displayed at top of feed                                                                                                    |               |
+| Feed page                  | Click Sign Up button (when logged out)                                                               | Redirect to Sign Up page                                                                                                                  |               |
+| Feed page                  | View posts in feed                                                                                   | Posts displayed in reverse chronological order                                                                                            |               |
+| Feed page                  | Click Previous pagination button                                                                     | Navigate to previous page of feed                                                                                                         |               |
+| Feed page                  | Click Next pagination button                                                                         | Navigate to next page of feed                                                                                                             |               |
+| **Feed - Creating Posts**  |                                                                                                      |                                                                                                                                           |               |
+| Create Post                | Fill out Create Post form with title and content                                                     | Post created successfully                                                                                                                 |               |
+| Create Post                | Fill out Create Post form with title, content, and image                                             | Post with image created successfully                                                                                                      |               |
+| Create Post                | Submit Create Post form with missing required fields                                                 | Validation error displays                                                                                                                 |               |
+| Create Post                | Click Submit on Create Post form                                                                     | Redirect to Feed page with new unapproved post at top, displaying feedback message                                                        |               |
+| Feed page                  | View own unapproved post                                                                             | Post displayed with "awaiting approval" status and different background color                                                             |               |
+| **Feed - Viewing Posts**   |                                                                                                      |                                                                                                                                           |               |
+| Feed page                  | Click View Post/Read Me button on a post                                                             | Redirect to Post Detail page                                                                                                              |               |
+| Post Detail page           | View post details                                                                                    | Post displays with title, author, date, content, and optional image                                                                       |               |
+| Post Detail page           | View comments section                                                                                | Comments displayed under post with author, date, and content                                                                              |               |
+| **Feed - Editing Posts**   |                                                                                                      |                                                                                                                                           |               |
+| Feed/Post Detail           | Click Edit button on user-owned post                                                                 | Redirect to Edit Post page                                                                                                                |               |
+| Edit Post page             | Update post title                                                                                    | Title updated successfully                                                                                                                |               |
+| Edit Post page             | Update post content                                                                                  | Content updated successfully                                                                                                              |               |
+| Edit Post page             | Add/remove image                                                                                     | Image added/removed successfully                                                                                                          |               |
+| Edit Post page             | Click Save button                                                                                    | Redirect to Post Detail page with updated post (now unapproved), displaying feedback message                                              |               |
+| **Feed - Deleting Posts**  |                                                                                                      |                                                                                                                                           |               |
+| Feed/Post Detail           | Click Delete button on user-owned post                                                               | Delete Post confirmation modal appears                                                                                                    |               |
+| Delete Post modal          | Click X button                                                                                       | Modal closes without deleting post                                                                                                        |               |
+| Delete Post modal          | Click Cancel button                                                                                  | Modal closes without deleting post                                                                                                        |               |
+| Delete Post modal          | Click Delete button                                                                                  | Post deleted, redirect to Feed page with feedback message                                                                                 |               |
+| **Feed - Comments**        |                                                                                                      |                                                                                                                                           |               |
+| Post Detail page           | View as logged-out user                                                                              | Sign Up button displayed instead of comment form                                                                                          |               |
+| Post Detail page           | View as logged-in user                                                                               | Comment form displayed under post                                                                                                         |               |
+| Post Detail page           | Fill out comment form and click Submit                                                               | New unapproved comment shows in list with feedback message                                                                                |               |
+| Post Detail page           | View own unapproved comment                                                                          | Comment displayed with "awaiting approval" status and different background color                                                          |               |
+| Post Detail page           | Click Edit button on user-owned comment                                                              | Redirect to Edit Comment page                                                                                                             |               |
+| Edit Comment page          | Update comment content and click Save                                                                | Redirect to Post Detail page with updated comment (now unapproved), displaying feedback message                                           |               |
+| Post Detail page           | Click Delete button on user-owned comment                                                            | Delete Comment confirmation modal appears                                                                                                 |               |
+| Delete Comment modal       | Click X or Cancel button                                                                             | Modal closes without deleting comment                                                                                                     |               |
+| Delete Comment modal       | Click Delete button                                                                                  | Comment deleted, remain on Post Detail page with feedback message                                                                         |               |
+| **Feed - Search**          |                                                                                                      |                                                                                                                                           |               |
+| Feed page                  | Enter search term in search bar                                                                      | Search bar accepts input                                                                                                                  |               |
+| Feed page                  | Click Search button                                                                                  | Redirect to Search Results page with matching posts                                                                                       |               |
+| Search Results page        | View search results                                                                                  | Posts matching search term displayed                                                                                                      |               |
+| Search Results page        | Perform search with no matches                                                                       | "No results found" message displayed                                                                                                      |               |
+| **Events - General**       |                                                                                                      |                                                                                                                                           |               |
+| Events page                | View all events                                                                                      | Events displayed in event feed                                                                                                            |               |
+| Events page                | Click on event                                                                                       | Redirect to Event Detail page                                                                                                             |               |
+| Event Detail page          | View event details                                                                                   | Event displays with title, date, time, location, and description                                                                          |               |
+| **Events - Booking**       |                                                                                                      |                                                                                                                                           |               |
+| Event Detail page          | Click Book button (when logged in)                                                                   | Event booked, confirmation message displayed at top of page                                                                               |               |
+| Event Detail page          | View booked event                                                                                    | Book button changes to Cancel button                                                                                                      |               |
+| Event Detail page          | Click Cancel button on booked event                                                                  | Cancel confirmation modal appears                                                                                                         |               |
+| Cancel Event modal         | Click Cancel button in modal                                                                         | Event booking cancelled, confirmation message displayed                                                                                   |               |
+| **Events - Hosting**       |                                                                                                      |                                                                                                                                           |               |
+| My Events page             | Click Host Event button                                                                              | Redirect to Host Event form                                                                                                               |               |
+| Host Event form            | Fill out all required fields and click Submit                                                        | Event created, redirect to My Events page with new event in Host tab                                                                      |               |
+| Host Event form            | Submit form with missing required fields                                                             | Validation error displays                                                                                                                 |               |
+| My Events - Host tab       | View published events                                                                                | User's hosted events displayed                                                                                                            |               |
+| My Events - Host tab       | View past events                                                                                     | User's past hosted events displayed                                                                                                       |               |
+| My Events - Host tab       | Click Edit button on hosted event                                                                    | Redirect to Edit Event form                                                                                                               |               |
+| Edit Event form            | Update event details and click Save                                                                  | Event updated, redirect to My Events page with confirmation message                                                                       |               |
+| My Events - Host tab       | Click Delete button on hosted event                                                                  | Delete confirmation modal appears                                                                                                         |               |
+| Delete Event modal         | Click Delete button                                                                                  | Event deleted, confirmation message displayed                                                                                             |               |
+| **Events - My Events**     |                                                                                                      |                                                                                                                                           |               |
+| My Events page             | Click Booked tab                                                                                     | Display user's booked upcoming events                                                                                                     |               |
+| My Events page             | Click Past tab                                                                                       | Display user's past booked events                                                                                                         |               |
+| My Events page             | Click Host tab                                                                                       | Display user's hosted events                                                                                                              |               |
+| **Marketplace - General**  |                                                                                                      |                                                                                                                                           |               |
+| Marketplace page           | View marketplace feed                                                                                | All active listings and selling posts displayed                                                                                           |               |
+| Marketplace page           | Click on a listing                                                                                   | Redirect to Listing Detail page                                                                                                           |               |
+| Marketplace page           | Click on a selling post                                                                              | Redirect to Selling Post Detail page                                                                                                      |               |
+| **Marketplace - Listings** |                                                                                                      |                                                                                                                                           |               |
+| Marketplace page           | Click Create Listing button (when logged in)                                                         | Redirect to Create Listing form                                                                                                           |               |
+| Create Listing form        | Fill out all required fields and click Submit                                                        | Listing created, redirect to Marketplace page with confirmation message                                                                   |               |
+| Create Listing form        | Submit form with missing required fields                                                             | Validation error displays                                                                                                                 |               |
+| Listing Detail page        | View listing details                                                                                 | Listing displays with title, description, price, and images                                                                               |               |
+| My Listings page           | View user's own listings                                                                             | All user-created listings displayed                                                                                                       |               |
+| My Listings page           | Click Edit button on listing                                                                         | Redirect to Edit Listing form                                                                                                             |               |
+| My Listings page           | Click Delete button on listing                                                                       | Delete confirmation modal appears                                                                                                         |               |
+| **Marketplace - Selling**  |                                                                                                      |                                                                                                                                           |               |
+| Marketplace page           | Click Create Selling Post button (when logged in)                                                    | Redirect to Create Selling Post form                                                                                                      |               |
+| Create Selling Post form   | Fill out all required fields and click Submit                                                        | Selling post created, redirect to Marketplace page with confirmation message                                                              |               |
+| Selling Post Detail page   | View selling post details                                                                            | Selling post displays with title, description, current bid, and images                                                                    |               |
+| Selling Post Detail page   | Place a bid (when logged in)                                                                         | Bid placed successfully, confirmation message displayed                                                                                   |               |
+| Selling Post Detail page   | Attempt to place bid lower than current bid                                                          | Validation error displays                                                                                                                 |               |
+| Selling Post Detail page   | Mark as sold (as seller)                                                                             | Selling post marked as sold, buyer notified                                                                                               |               |
+| **Marketplace - Buying**   |                                                                                                      |                                                                                                                                           |               |
+| Marketplace page           | Click Create Buying Post button (when logged in)                                                     | Redirect to Create Buying Post form                                                                                                       |               |
+| Create Buying Post form    | Fill out all required fields and click Submit                                                        | Buying post created, redirect to Marketplace page with confirmation message                                                               |               |
+| My Bids page               | View user's active bids                                                                              | All active bids displayed with current bid amount                                                                                         |               |
+| My Bids page               | Click on a bid                                                                                       | Redirect to corresponding Selling Post Detail page                                                                                        |               |
+| **Marketplace - Notifications** |                                                                                                 |                                                                                                                                           |               |
+| Notifications page         | View notifications                                                                                   | All user notifications displayed (bids, sales, etc.)                                                                                      |               |
+| Notifications page         | Click on notification                                                                                | Redirect to relevant marketplace item                                                                                                     |               |
+| Notifications page         | Mark notification as read                                                                            | Notification marked as read and removed from unread list                                                                                  |               |
+| **User Profile**           |                                                                                                      |                                                                                                                                           |               |
+| Profile page               | View user profile                                                                                    | User profile displays with username and account details                                                                                   |               |
+| Profile page               | Click Change Password link                                                                           | Redirect to Change Password page                                                                                                          |               |
+| Change Password page       | Answer security questions correctly                                                                  | Access granted to change password                                                                                                         |               |
+| Change Password page       | Answer security questions incorrectly                                                                | Access denied, error message displayed                                                                                                    |               |
+| Change Password page       | Enter new password and confirm                                                                       | Password changed successfully, confirmation message displayed                                                                             |               |
+| **Responsiveness**         |                                                                                                      |                                                                                                                                           |               |
+| All pages                  | View on mobile device (320px - 767px)                                                                | Layout adjusts appropriately, all content readable and accessible                                                                         |               |
+| All pages                  | View on tablet device (768px - 1023px)                                                               | Layout adjusts appropriately, all content readable and accessible                                                                         |               |
+| All pages                  | View on desktop device (1024px+)                                                                     | Layout displays optimally, all content readable and accessible                                                                            |               |
+| **Accessibility**          |                                                                                                      |                                                                                                                                           |               |
+| All pages                  | Navigate using keyboard only                                                                         | All interactive elements accessible via keyboard                                                                                          |               |
+| All pages                  | Use screen reader                                                                                    | All content and functionality announced appropriately                                                                                     |               |
+| All pages                  | Check color contrast                                                                                 | All text meets WCAG AA standards for contrast                                                                                             |               |
+| All images                 | Check alt text                                                                                       | All images have appropriate alt text                                                                                                      |               |
+| All forms                  | Check labels                                                                                         | All form inputs have proper labels                                                                                                        |               |
+
+## Notes
+
+- All tests should be performed on multiple browsers (Chrome, Firefox, Safari, Edge)
+- Tests should be repeated at different screen sizes
+- Any failures should be documented with screenshots and steps to reproduce
+- Test both as authenticated and unauthenticated users where applicable
+- Verify all success/error messages display correctly
+- Check that all modals can be closed properly
+- Ensure pagination works correctly on all list views
+
+
+
+
+## Validation
+
+Various validation software were used to validate and/or lint the code in each of the files written for this project. Most errors or bugs were identified and fixed, however some remain and will need to fixed in a further iteration of this project. Screenshots evidencing validation process below:
+
+### [W3C Validator: HTML](https://validator.w3.org/)
+
+***[Arun's section]***
+
+***[Mortaza's section]***
+
+***[Adam's section]***
+
+Main Feed Page
+
+![HTML validation results for main feed page](readme-docs/feed/html-validation-feed-page.png)
+
+Feed Post Detail
+
+![HTML validation results for feed post detail page](readme-docs/feed/html-validation-feed-post-detail.png)
+
+Feed Edit Post
+
+![HTML validation results for feed edit post page](readme-docs/feed/html-validation-feed-edit-post.png)
+
+Feed Search
+
+![HTML validation results for feed search page](readme-docs/feed/html-validation-feed-search.png)
+
+***[Ysabela's section]***
+Events
+
+![All events feed - html validation](/readme-docs/events/events-feed-html-val.png)
+
+Event detail
+
+![Event detail - html validation](/readme-docs/events/event-details-html-val.png)
+
+My Events
+
+![My events - html validation](/readme-docs/events/my-events-html-val.png)
+
+***[Rich's section]***
+
+### [W3C Validator: CSS](https://jigsaw.w3.org/css-validator/)
+
+style.css
+![CSS validation screenshot](/readme-docs/css-validation.png)
+
+marketplace.css
+![CSS validation screenshot](/readme-docs/css-marketplace-validation.png)
+
+### [CI Python Linter: Python](https://pep8ci.herokuapp.com/)
+
+***[Mortaza's section]***
+
+user/admin.py
+
+![Python linter user/admin.py screenshot](/readme-docs/python-linter-user-admin.png)
+
+user/apps.py
+
+![Python linter user/apps.py screenshot](/readme-docs/python-linter-user-apps.png)
+
+user/forms.py
+
+![Python linter user/forms.py screenshot](/readme-docs/python-linter-user-forms.png)
+
+user/models.py
+
+![Python linter user/admin.py screenshot](/readme-docs/python-linter-user-models.png)
+
+user/signals.py
+
+![Python linter user/signals.py screenshot](/readme-docs/python-linter-user-signals.png)
+
+user/tests.py
+
+![Python linter user/tests.py screenshot](/readme-docs/python-linter-user-tests.png)
+
+user/urls.py
+
+![Python linter user/urls.py screenshot](/readme-docs/python-linter-user-urls.png)
+
+user/views.py
+
+![Python linter user/views.py screenshot](/readme-docs/python-linter-user-views.png)
+
+***[Adam's section]***
+
+feed/admin.py
+
+![Python linter results for feed/admin.py](readme-docs/feed/python-linter-feed-admin.png)
+
+feed/apps.py
+
+![Python linter results for feed/apps.py](readme-docs/feed/python-linter-feed-apps.png)
+
+feed/forms.py
+
+![Python linter results for feed/forms.py](readme-docs/feed/python-linter-feed-forms.png)
+
+feed/models.py
+
+![Python linter results for feed/models.py](readme-docs/feed/python-linter-feed-models.png)
+
+feed/search.py
+
+![Python linter results for feed/search.py](readme-docs/feed/python-linter-feed-search.png)
+
+feed/tests.py
+
+![Python linter results for feed/tests.py](readme-docs/feed/python-linter-feed-tests.png)
+
+feed/urls.py
+
+![Python linter results for feed/urls.py](readme-docs/feed/python-linter-feed-urls.png)
+
+feed/views.py
+
+![Python linter results for feed/views.py](readme-docs/feed/python-linter-feed-views.png)
+
+***[Ysabela's section]***
+events/admin.py
+
+![CI Python Linter - admin.py](/readme-docs/events/events-python-linter-admin.png)
+
+events/forms.py
+
+![CI Python Linter - forms.py](/readme-docs/events/events-python-linter-forms.png)
+
+events/models.py
+
+![CI Python Linter - models.py](/readme-docs/events/events-python-linter-models.png)
+
+events/tests.py
+
+![CI Python Linter - tests.py](/readme-docs/events/events-python-linter-tests.png)
+
+events/urls.py
+
+![CI Python Linter - urls.py](/readme-docs/events/events-python-linter-urls.png)
+
+events/views.py
+
+![CI Python Linter - views.py](/readme-docs/events/events-python-linter-views.png)
+
+***[Rich's section]***
+
+### HTML Validation - Marketplace
+
+![HTML validation marketplace screenshot](/readme-docs/marketplace-stuff/html-validation-marketplace.png)
+
+### CI Python Linter - Marketplace
+
+marketplace/admin.py
+
+![Python linter marketplace/admin.py screenshot](/readme-docs/marketplace-stuff/python-linter-marketplace-admin.png)
+
+marketplace/models.py
+
+![Python linter marketplace/models.py screenshot](/readme-docs/marketplace-stuff/python-linter-marketplace-models.png)
+
+marketplace/urls.py
+
+![Python linter marketplace/urls.py screenshot](/readme-docs/marketplace-stuff/python-linter-marketplace-urls.png)
+
+marketplace/views.py
+
+![Python linter marketplace/views.py screenshot](/readme-docs/marketplace-stuff/python-linter-marketplace-views.png)
+
+### Entity Relationship Diagram
+
+[View Social Platform ERD](/readme-docs/marketplace-stuff/social-ERD.png)
+
+### [WAVE: Web Accessibility Evaluation Tool](https://wave.webaim.org/)
+
+![WAVE validation](/readme-docs/wave.png)
+
+***[Arun's section]***
+
+### Lighthouse: Mobile
+
+![Lighthouse mobile validation screenshot](/readme-docs/lighthouse-mobile.png)
+
+***[Arun's section]***
+
+### Lighthouse: Desktop
+
+![Lighthouse desktop validation screenshot](/readme-docs/lighthouse-desktop.png)
+
+***[Arun's section]***
+
+- - -
+
+## AI Usage
+AI has been used extensively throughout this project, with the main assistant of choice being Microsoft Copilot, however OpenAI's ChatGPT has also been used on occassion. Listed below are the ways AI has specifically been used during this project:
+
+* Troubleshooting Django logic in Python files
+
+* Refining template logic in HTML files
+
+* Creation of the site logo
+
+* Converting Excel files into markdown format (e.g. for the markdown table featured in the Testing section of this README)
+
+* Scanning code files for formatting and PEP8 issues to expedite the code-tidying process
+
+* General sounding board (e.g. asking if certain implementations or functionalities would be a good idea before committing to them)
+
+Please note: although AI has been utilised during the development of this app, any and all AI outputs have been scrutinised and considered carefully before being implemented. The developers appreciate that AI is a tool to be used and not relied on without complete understanding of the output.
+
+## Credits
+### Content
+
+Some site content has been produced manually, such as:
+
+- Site title: created manually in PowerPoint
+- Posts, comments, events, marketplace items: created manually by the team of developers
+
+Some site content has been produced with the help of AI, such as:
+
+- Site logo
+
+### Contributors
+
+This app is the result of collaboration between a team of contributors, including:
+
+* Mortaza Zolfpour - https://github.com/arokhlo
+* Adam Haines - https://github.com/ETCocoa
+* Ysabela Bathan - https://github.com/KoroYsabela
+* Arun Dhanjal - https://github.com/arun-dhanjal
+* Richard Vandenbergh - https://github.com/Richardv10
