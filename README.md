@@ -513,6 +513,10 @@ The back-end databases were designed at the start of the project with the intent
 ***[Arun's section]***
 
 ***[Mortaza's section]***
+user/admin.py
+![Python linter user/admin.py screenshot](/readme-docs/python-linter-user-admin.png)
+
+
 
 ***[Adam's section]***
 
