@@ -535,27 +535,8 @@ The back-end databases were designed at the start of the project with the intent
 user/admin.py
 ![Python linter user/admin.py screenshot](/readme-docs/python-linter-user-admin.png)
 
-user/apps.py
-![Python linter user/apps.py screenshot](/readme-docs/python-linter-user-apps.png)
-
-user/forms.py
-![Python linter user/forms.py screenshot](/readme-docs/python-linter-user-forms.png)
-
 user/models.py
 ![Python linter user/admin.py screenshot](/readme-docs/python-linter-user-models.png)
-
-user/signals.py
-![Python linter user/signals.py screenshot](/readme-docs/python-linter-user-signals.png)
-
-user/tests.py
-![Python linter user/tests.py screenshot](/readme-docs/python-linter-user-tests.png)
-
-user/urls.py
-![Python linter user/urls.py screenshot](/readme-docs/python-linter-user-urls.png)
-
-user/views.py
-![Python linter user/views.py screenshot](/readme-docs/python-linter-user-views.png)
-
 
 
 ***[Adam's section]***
@@ -793,22 +774,33 @@ Update Time page
 
 ***[Ysabela's section]***
 
+
+
+
 ***[Rich's section]***
 
-HTML Validation - Marketplace
+#### Marketplace HTML Validation
+
 ![HTML validation Marketplace screenshot](/readme-docs/marketplace-stuff/html-validation-marketplace.png)
 
-Python Linter - Marketplace Admin
+#### Marketplace Python Linter Validation
+
+marketplace/admin.py
 ![Python linter marketplace/admin.py screenshot](/readme-docs/marketplace-stuff/python-linter-marketplace-admin.png)
 
-Python Linter - Marketplace Models
+marketplace/models.py
 ![Python linter marketplace/models.py screenshot](/readme-docs/marketplace-stuff/python-linter-marketplace-models.png)
 
-Python Linter - Marketplace URLs
+marketplace/urls.py
 ![Python linter marketplace/urls.py screenshot](/readme-docs/marketplace-stuff/python-linter-marketplace-urls.png)
 
-Python Linter - Marketplace Views
+marketplace/views.py
 ![Python linter marketplace/views.py screenshot](/readme-docs/marketplace-stuff/python-linter-marketplace-views.png)
+
+ERD Diagram Link => [View Full ERD Diagram](/readme-docs/marketplace-stuff/social-ERD.png)
+
+
+
 
 ### [W3C Validator: CSS](https://jigsaw.w3.org/css-validator/)
 
