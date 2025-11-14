@@ -542,6 +542,65 @@ user/models.py
 ***[Adam's section]***
 
 ***[Ysabela's section]***
+#### Events
+
+  <img src="readme-docs/events/events-feed.png" alt="All events - feed" width="70%">
+
+  * Show all events in an event feed
+
+#### Event Detail
+
+  <img src="readme-docs/events/event-detail.png" alt="Event details" width="70%">
+
+  * Show event details including date, time, location and description
+
+#### Event - Booking
+
+  <img src="readme-docs/events/event-booking-message.png" alt="Event details - booked message" width="70%">
+
+  * User can press the book button to book an event, which then shows a confimartion message at the top of the screen
+
+#### Event - Cancel
+
+  <img src="readme-docs/events/event-cancel.png" alt="Event details - cancel button" width="70%"><br><img src="readme-docs/events/event-cancel-modal.png" alt="Event details - cancel modal" width="70%">
+
+  * User can cancel their booked event
+
+#### My Events - Host Tab
+
+  <img src="readme-docs/events/my-events.png" alt="My Events - published events" width="70%"><br><img src="readme-docs/events/my-events-published-past.png" alt="My Events - published past events" width="70%">
+
+  * Show users hosted published and past published events
+
+#### My Events - Booked Tab
+
+  <img src="readme-docs/events/my-events-booked.png" alt="My Events - booked events" width="70%">
+
+  * Show users booked events
+
+#### My Events - Past Tab
+
+  <img src="readme-docs/events/my-events-booked-past.png" alt="My Events - booked past events" width="70%">
+
+  * Show users past booked events
+
+#### My Events - Host Event
+
+  <img src="readme-docs/events/my-events-host-form.png" alt="My Events - host event form" width="70%">
+
+  * Users can host their own event
+
+#### My Events - Edit Event
+
+  <img src="readme-docs/events/my-events-edit-event.png" alt="My Events - edit event form" width="70%">
+
+  * Users can edit their event
+
+#### My Events - Delete Event
+
+  <img src="readme-docs/events/my-events-delete-event.png" alt="My Events - delete event" width="70%">
+
+  * Users can delete their hosted event
 
 ***[Rich's section]***
 
@@ -771,6 +830,17 @@ Update Time page
 ***[Adam's section]***
 
 ***[Ysabela's section]***
+Events
+
+![All events feed - html validation](/readme-docs/events/events-feed-html-val.png)
+
+Event detail
+
+![Event detail - html validation](/readme-docs/events/event-details-html-val.png)
+
+My Events
+
+![My events - html validation](/readme-docs/events/my-events-html-val.png)
 
 ***[Rich's section]***
 
@@ -858,6 +928,29 @@ user/admin.py
 ***[Adam's section]***
 
 ***[Ysabela's section]***
+events/admin.py
+
+![CI Python Linter - admin.py](/readme-docs/events/events-python-linter-admin.png)
+
+events/forms.py
+
+![CI Python Linter - forms.py](/readme-docs/events/events-python-linter-forms.png)
+
+events/models.py
+
+![CI Python Linter - models.py](/readme-docs/events/events-python-linter-models.png)
+
+events/tests.py
+
+![CI Python Linter - tests.py](/readme-docs/events/events-python-linter-tests.png)
+
+events/urls.py
+
+![CI Python Linter - urls.py](/readme-docs/events/events-python-linter-urls.png)
+
+events/views.py
+
+![CI Python Linter - views.py](/readme-docs/events/events-python-linter-views.png)
 
 ***[Rich's section]***
 
