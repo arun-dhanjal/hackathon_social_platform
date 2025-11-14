@@ -57,18 +57,43 @@
                 </div>
             </div>
         </div>
-        {% if is_paginated %}
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                {% if page_obj.has_previous %}
-                <li><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; PREV</a></li>
-                {% endif %}
-                {% if page_obj.has_next %}
-                <li><a href="?page={{ page_obj.next_page_number }}" class="page-link">NEXT &raquo;</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-        {% endif %}
+        <div class="row justify-content-center">
+            <div class="col-sm-10 col-md-8 col-lg-6 mb-4">
+            <!-- Pagination -->
+            {% if is_paginated %}
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <!-- Previous -->
+                        {% if page_obj.has_previous %}
+                            <li class="page-item flex-fill text-center">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&larr; Previous</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled flex-fill text-center">
+                                <span class="page-link">&larr; Previous</span>
+                            </li>
+                        {% endif %}
+
+                        <!-- Current page number -->
+                        <li class="page-item flex-fill text-center">
+                            <div class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div>
+                        </li>
+
+                        <!-- Next -->
+                        {% if page_obj.has_next %}
+                            <li class="page-item flex-fill text-center">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next &rarr;</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled flex-fill text-center">
+                                <span class="page-link">Next &rarr;</span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+            </div>
+        </div>
     {% else %}
         <div>
             <h1 class="my-2 py-2">
