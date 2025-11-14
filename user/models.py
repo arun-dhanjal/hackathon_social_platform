@@ -29,14 +29,14 @@ class UserProfile(models.Model):
         ('What is your favorite movie?', 'What is your favorite movie?'),
     ]
     
-    security_question_1 = models.CharField(max_length=200, choices=SECURITY_QUESTIONS)
-    security_answer_1 = models.CharField(max_length=100)
+    security_question_1 = models.CharField(max_length=200, choices=SECURITY_QUESTIONS, blank=True, default='')
+    security_answer_1 = models.CharField(max_length=100, blank=True, default='')
     
-    security_question_2 = models.CharField(max_length=200, choices=SECURITY_QUESTIONS)
-    security_answer_2 = models.CharField(max_length=100)
+    security_question_2 = models.CharField(max_length=200, choices=SECURITY_QUESTIONS, blank=True, default='')
+    security_answer_2 = models.CharField(max_length=100, blank=True, default='')
     
-    security_question_3 = models.CharField(max_length=200, choices=SECURITY_QUESTIONS)
-    security_answer_3 = models.CharField(max_length=100)
+    security_question_3 = models.CharField(max_length=200, choices=SECURITY_QUESTIONS, blank=True, default='')
+    security_answer_3 = models.CharField(max_length=100, blank=True, default='')
     
     # Additional fields for social platform
     date_joined = models.DateTimeField(default=timezone.now)

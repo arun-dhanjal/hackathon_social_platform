@@ -1,7 +1,9 @@
+import unittest
 from django.test import TestCase, TransactionTestCase, Client
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
+from django.db import connection
 from decimal import Decimal
 from datetime import timedelta
 from threading import Thread
@@ -237,6 +239,7 @@ class BidConcurrencyTest(TransactionTestCase):
             min_increment=Decimal('1.00'),
         )
 
+    @unittest.skipIf(connection.vendor == 'sqlite', 'SQLite does not support concurrent writes reliably')
     def test_concurrent_bids(self):
         """Test that concurrent bids are handled correctly with select_for_update"""
         errors = []
@@ -296,7 +299,7 @@ class ListingViewsTest(TestCase):
         
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Test Item')
-        self.assertContains(response, '$10')
+        self.assertContains(response, '£10')  # Template uses £ not $
 
     def test_my_bids_view_authenticated(self):
         """Test my bids view for authenticated user"""

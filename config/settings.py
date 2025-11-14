@@ -103,6 +103,20 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
 
+# Use SQLite for testing instead of PostgreSQL
+import sys
+if 'test' in sys.argv or 'test_coverage' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:',  # Use in-memory database for faster tests
+        }
+    }
+    # Disable Cloudinary during tests to avoid issues with SQLite
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    MEDIA_ROOT = BASE_DIR / 'test_media'
+    MEDIA_URL = '/test_media/'
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 

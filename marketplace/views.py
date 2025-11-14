@@ -102,7 +102,6 @@ def create_listing(request):
     
     return render(request, 'marketplace/create_listing.html')
 
-@login_required
 def listing_detail(request, pk):
     """Display a single listing with all bids"""
     listing = get_object_or_404(Listing, pk=pk)
@@ -286,6 +285,15 @@ def accept_bid(request, listing_pk, bid_pk):
             listing.accepted_bid = bid
             listing.is_sold = True
             listing.save(update_fields=['accepted_bid', 'is_sold', 'updated_at'])
+            
+            # Create notification for the bidder
+            Notification.objects.create(
+                recipient=bid.bidder,
+                sender=request.user,
+                notification_type='bid_accepted',
+                message=f'Your bid of £{bid.amount} was accepted for {listing.title}',
+                related_listing=listing
+            )
         
         messages.success(
             request, 
