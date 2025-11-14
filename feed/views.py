@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.db import models
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
+from .search import search_all
 
 
 # Create your views here.
@@ -68,4 +69,31 @@ def post_detail(request, id):
             "comment_count": comment_count,
             "comment_form": comment_form,
         }
+    )
+
+
+def search_view(request):
+    """
+    Global search view across all content types.
+    Searches posts, events, marketplace items.
+    """
+    query = request.GET.get('q', '').strip()
+    
+    if query:
+        results = search_all(query)
+    else:
+        results = {
+            'posts': [],
+            'events': [],
+            'selling_posts': [],
+            'buying_posts': [],
+            'listings': [],
+            'total_count': 0,
+            'query': ''
+        }
+    
+    return render(
+        request,
+        "feed/search_results.html",
+        results
     )

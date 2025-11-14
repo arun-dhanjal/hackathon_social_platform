@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Search Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2>Search Results</h2>
+            {% if query %}
+            <p class="lead">
+                Found <strong>{{ total_count }}</strong> result{{ total_count|pluralize }} for "<strong>{{ query }}</strong>"
+            </p>
+            {% else %}
+            <p class="lead text-muted">Enter a search term to find posts, events, and marketplace items.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Search Form -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <form method="GET" action="{% url 'feed:search' %}" class="mb-4">
+                <div class="input-group input-group-lg">
+                    <input 
+                        type="text" 
+                        name="q" 
+                        class="form-control" 
+                        placeholder="Search posts, events, marketplace..." 
+                        value="{{ query }}"
+                        autofocus
+                    >
+                    <button class="btn btn-primary" type="submit">
+                        <i class="bi bi-search"></i> Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if query and total_count > 0 %}
+    
+    <!-- Community Posts Results -->
+    {% if posts %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3 class="mb-3">
+                <i class="bi bi-chat-left-text"></i> Community Posts 
+                <span class="badge bg-primary">{{ posts.count }}</span>
+            </h3>
+            <div class="row">
+                {% for post in posts %}
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        {% if post.image %}
+                        <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}" style="max-height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.content|truncatewords:30 }}</p>
+                            <a href="{% url 'feed:post_detail' post.id %}" class="btn btn-primary btn-sm">Read More</a>
+                        </div>
+                        <div class="card-footer text-muted small">
+                            By {{ post.author.username }} | {{ post.created_on|timesince }} ago
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Events Results -->
+    {% if events %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3 class="mb-3">
+                <i class="bi bi-calendar-event"></i> Events 
+                <span class="badge bg-success">{{ events.count }}</span>
+            </h3>
+            <div class="row">
+                {% for event in events %}
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        {% if event.featured_image %}
+                        <img src="{{ event.featured_image.url }}" class="card-img-top" alt="{{ event.title }}" style="max-height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ event.title }}</h5>
+                            <p class="card-text">
+                                <i class="bi bi-calendar3"></i> {{ event.date|date:"M d, Y H:i" }}<br>
+                                <i class="bi bi-geo-alt"></i> {{ event.location }}
+                            </p>
+                            <p class="card-text">{{ event.description|truncatewords:20 }}</p>
+                            <a href="{% url 'events:event_detail' event.slug %}" class="btn btn-success btn-sm">View Event</a>
+                        </div>
+                        <div class="card-footer text-muted small">
+                            Hosted by {{ event.host.username }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Marketplace - For Sale Results -->
+    {% if selling_posts %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3 class="mb-3">
+                <i class="bi bi-tag"></i> For Sale 
+                <span class="badge bg-success">{{ selling_posts.count }}</span>
+            </h3>
+            <div class="row">
+                {% for post in selling_posts %}
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="card h-100">
+                        {% if post.image %}
+                        <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}" style="max-height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title">{{ post.title }}</h5>
+                                {% if post.is_sold %}
+                                <span class="badge bg-danger">SOLD</span>
+                                {% endif %}
+                            </div>
+                            <p class="card-text">{{ post.description|truncatewords:15 }}</p>
+                            <h4 class="text-success">£{{ post.price }}</h4>
+                            <a href="{% url 'marketplace:selling_post_detail' post.pk %}" class="btn btn-primary btn-sm">View Details</a>
+                        </div>
+                        <div class="card-footer text-muted small">
+                            By {{ post.seller.username }} | {{ post.created_at|timesince }} ago
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Marketplace - Wanted Results -->
+    {% if buying_posts %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3 class="mb-3">
+                <i class="bi bi-search"></i> Wanted 
+                <span class="badge bg-info">{{ buying_posts.count }}</span>
+            </h3>
+            <div class="row">
+                {% for post in buying_posts %}
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="card h-100">
+                        {% if post.image %}
+                        <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}" style="max-height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.description|truncatewords:15 }}</p>
+                            <p><strong>Budget:</strong> <span class="text-success">£{{ post.min_price }}+</span></p>
+                        </div>
+                        <div class="card-footer text-muted small">
+                            By {{ post.buyer.username }} | {{ post.created_at|timesince }} ago
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Marketplace - Auctions Results -->
+    {% if listings %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <h3 class="mb-3">
+                <i class="bi bi-hammer"></i> Auctions 
+                <span class="badge bg-primary">{{ listings.count }}</span>
+            </h3>
+            <div class="row">
+                {% for listing in listings %}
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="card h-100">
+                        {% if listing.image %}
+                        <img src="{{ listing.image.url }}" class="card-img-top" alt="{{ listing.title }}" style="max-height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ listing.title }}</h5>
+                            <p class="card-text">{{ listing.description|truncatewords:15 }}</p>
+                            
+                            <div class="mb-2">
+                                <strong>Starting Price:</strong> £{{ listing.starting_price }}
+                            </div>
+                            
+                            {% with highest=listing.get_highest_bid %}
+                            {% if highest %}
+                            <div class="alert alert-success py-2 mb-2">
+                                <strong>Current Bid:</strong> £{{ highest.amount }}
+                            </div>
+                            {% endif %}
+                            {% endwith %}
+                            
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'marketplace:listing_detail' listing.pk %}" class="btn btn-primary btn-sm">View Auction</a>
+                            {% else %}
+                            <button class="btn btn-secondary btn-sm" disabled title="Login to view auction">View Auction</button>
+                            {% endif %}
+                        </div>
+                        <div class="card-footer text-muted small">
+                            By {{ listing.seller.username }} | {{ listing.created_at|timesince }} ago
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% elif query %}
+    <!-- No Results -->
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-warning">
+                <h4><i class="bi bi-exclamation-triangle"></i> No Results Found</h4>
+                <p>We couldn't find anything matching "{{ query }}". Try:</p>
+                <ul>
+                    <li>Using different keywords</li>
+                    <li>Checking your spelling</li>
+                    <li>Using more general terms</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
