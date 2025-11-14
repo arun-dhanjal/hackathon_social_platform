@@ -1,11 +1,16 @@
 from django.contrib import admin
-from .models import SellingPost, BuyingPost, MarketComment, Listing, Bid, Notification
+from .models import (
+    SellingPost, BuyingPost, MarketComment, Listing, Bid, Notification
+)
 
 
 @admin.register(Listing)
 class ListingAdmin(admin.ModelAdmin):
     """Admin interface for auction listings"""
-    list_display = ['title', 'seller', 'starting_price', 'current_price', 'ends_at', 'created_at']
+    list_display = [
+        'title', 'seller', 'starting_price',
+        'current_price', 'ends_at', 'created_at'
+    ]
     list_filter = ['created_at', 'ends_at']
     search_fields = ['title', 'description', 'seller__username']
     readonly_fields = ['created_at', 'updated_at', 'current_price']
@@ -14,7 +19,10 @@ class ListingAdmin(admin.ModelAdmin):
             'fields': ('seller', 'title', 'description', 'image')
         }),
         ('Pricing', {
-            'fields': ('starting_price', 'reserve_price', 'min_increment', 'current_price')
+            'fields': (
+                'starting_price', 'reserve_price',
+                'min_increment', 'current_price'
+            )
         }),
         ('Timing', {
             'fields': ('ends_at', 'created_at', 'updated_at')
@@ -59,8 +67,12 @@ class MarketCommentAdmin(admin.ModelAdmin):
 @admin.register(Notification)
 class NotificationAdmin(admin.ModelAdmin):
     """Admin interface for notifications"""
-    list_display = ['recipient', 'sender', 'notification_type', 'is_read', 'created_at']
+    list_display = [
+        'recipient', 'sender', 'notification_type',
+        'is_read', 'created_at'
+    ]
     list_filter = ['notification_type', 'is_read', 'created_at']
     search_fields = ['recipient__username', 'sender__username', 'message']
     readonly_fields = ['created_at']
+
 

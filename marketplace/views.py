@@ -11,7 +11,7 @@ def marketplace_feed(request):
     selling_posts = SellingPost.objects.all().order_by('-created_at')
     buying_posts = BuyingPost.objects.all().order_by('-created_at')
     listings = Listing.objects.all().order_by('-created_at')
-    
+
     # Get user's listings if authenticated
     my_listings = []
     my_selling_posts = []
@@ -20,7 +20,7 @@ def marketplace_feed(request):
         my_listings = Listing.objects.filter(seller=request.user).order_by('-created_at')
         my_selling_posts = SellingPost.objects.filter(seller=request.user).order_by('-created_at')
         my_buying_posts = BuyingPost.objects.filter(buyer=request.user).order_by('-created_at')
-    
+
     context = {
         'selling_posts': selling_posts,
         'buying_posts': buying_posts,
@@ -99,7 +99,7 @@ def create_listing(request):
             return redirect('marketplace:listing_detail', pk=listing.pk)
         except (ValueError, InvalidOperation) as e:
             messages.error(request, f'Invalid input: {str(e)}')
-    
+
     return render(request, 'marketplace/create_listing.html')
 
 def listing_detail(request, pk):
@@ -109,7 +109,7 @@ def listing_detail(request, pk):
     highest_bid = listing.get_highest_bid()
     minimum_bid = listing.get_minimum_bid()
     is_ended = listing.is_auction_ended()
-    
+
     context = {
         'listing': listing,
         'bids': bids,
@@ -127,7 +127,7 @@ def place_bid(request, pk):
         return redirect('marketplace:listing_detail', pk=pk)
 
     listing = get_object_or_404(Listing, pk=pk)
-    
+
     # Parse bid amount
     try:
         amount = Decimal(request.POST.get('amount', '0').strip())
@@ -150,12 +150,12 @@ def place_bid(request, pk):
         with transaction.atomic():
             # Lock the listing row so concurrent bidders serialize here
             listing = Listing.objects.select_for_update().get(pk=listing.pk)
-            
+
             # Check if listing has been sold
             if listing.is_sold:
                 messages.error(request, "This listing has already been sold.")
                 return redirect('marketplace:listing_detail', pk=pk)
-            
+
             # Check if auction has ended
             if listing.is_auction_ended():
                 messages.error(request, "This auction has ended.")
@@ -220,26 +220,26 @@ def commit_to_buy(request, pk):
     """Commit to buy a selling post"""
     if request.method != 'POST':
         return redirect('marketplace:selling_post_detail', pk=pk)
-    
+
     post = get_object_or_404(SellingPost, pk=pk)
-    
+
     # Can't buy your own post
     if post.seller == request.user:
         messages.error(request, "You cannot buy your own item.")
         return redirect('marketplace:selling_post_detail', pk=pk)
-    
+
     # Check if already sold
     if post.is_sold:
         messages.error(request, "This item has already been sold.")
         return redirect('marketplace:selling_post_detail', pk=pk)
-    
+
     # Mark as sold and assign buyer
     try:
         with transaction.atomic():
             post.buyer = request.user
             post.is_sold = True
             post.save(update_fields=['buyer', 'is_sold'])
-            
+
             # Create notification for seller
             Notification.objects.create(
                 recipient=post.seller,
@@ -248,7 +248,7 @@ def commit_to_buy(request, pk):
                 message=f"{request.user.username} has committed to buy your item '{post.title}' for £{post.price}.",
                 related_selling_post=post
             )
-        
+
         messages.success(
             request,
             f"You've committed to buy '{post.title}' for £{post.price}. "
@@ -256,7 +256,7 @@ def commit_to_buy(request, pk):
         )
     except Exception as e:
         messages.error(request, f"An error occurred: {str(e)}")
-    
+
     return redirect('marketplace:selling_post_detail', pk=pk)
 
 
@@ -265,27 +265,27 @@ def accept_bid(request, listing_pk, bid_pk):
     """Allow seller to accept a specific bid and mark listing as sold"""
     if request.method != 'POST':
         return redirect('marketplace:listing_detail', pk=listing_pk)
-    
+
     listing = get_object_or_404(Listing, pk=listing_pk)
     bid = get_object_or_404(Bid, pk=bid_pk, listing=listing)
-    
+
     # Only the seller can accept bids
     if listing.seller != request.user:
         messages.error(request, "You can only accept bids on your own listings.")
         return redirect('marketplace:listing_detail', pk=listing_pk)
-    
+
     # Check if already sold
     if listing.is_sold:
         messages.error(request, "This listing has already been sold.")
         return redirect('marketplace:listing_detail', pk=listing_pk)
-    
+
     # Accept the bid
     try:
         with transaction.atomic():
             listing.accepted_bid = bid
             listing.is_sold = True
             listing.save(update_fields=['accepted_bid', 'is_sold', 'updated_at'])
-            
+
             # Create notification for the bidder
             Notification.objects.create(
                 recipient=bid.bidder,
@@ -294,15 +294,15 @@ def accept_bid(request, listing_pk, bid_pk):
                 message=f'Your bid of £{bid.amount} was accepted for {listing.title}',
                 related_listing=listing
             )
-        
+
         messages.success(
-            request, 
+            request,
             f"You've accepted {bid.bidder.username}'s bid of £{bid.amount}. "
             f"Please contact them to complete the transaction."
         )
     except Exception as e:
         messages.error(request, f"An error occurred: {str(e)}")
-    
+
     return redirect('marketplace:listing_detail', pk=listing_pk)
 
 
@@ -311,7 +311,7 @@ def notifications(request):
     """Display all notifications for the current user"""
     user_notifications = Notification.objects.filter(recipient=request.user).order_by('-created_at')
     unread_count = user_notifications.filter(is_read=False).count()
-    
+
     context = {
         'notifications': user_notifications,
         'unread_count': unread_count,
@@ -332,18 +332,20 @@ def mark_notification_read(request, pk):
 def delete_listing(request, pk):
     """Allow seller to delete their listing if no bids have been placed"""
     listing = get_object_or_404(Listing, pk=pk)
-    
+
     # Only the seller can delete the listing
     if listing.seller != request.user:
         messages.error(request, "You can only delete your own listings.")
         return redirect('marketplace:listing_detail', pk=pk)
-    
+
     # Prevent deletion if bids exist
     if listing.bids.exists():
         messages.error(request, "Cannot delete listing with existing bids.")
         return redirect('marketplace:listing_detail', pk=pk)
-    
+
     # Delete the listing
     listing.delete()
     messages.success(request, "Listing deleted successfully.")
     return redirect('marketplace:my_listings')
+
+
