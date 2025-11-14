@@ -222,292 +222,6 @@ The back-end databases were designed at the start of the project with the intent
 
 ### Features
 
-***FEATURES STILL PENDING - EXAMPLES BELOW***
-
-#### Site header
-
-  ![< Site header logged out >](/readme-docs/feature-site-header-logged-out.png)
-
-  ![< Site header logged in >](/readme-docs/feature-site-header-logged-in.png)
-
-  * Site header contains site logo, site title, auth status, and auth buttons
-
-  * Site logo and header serve as navigation links to Feed page (essentially the home page)
-
-  * Auth area changes depending on authentication status: Sign Up and Log In if not authenticated; "Logged in as" message and Log Out button if authenticated
-
-  * Site header sticks to the top of the window on every page in the site
-
-#### Sign Up form
-
-  ![ Sign Up form ](/readme-docs/feature-sign-up-form.png)
-
-  * Clicking the Sign Up button on the site header redirects to a page with a Sign Up form
-
-  * Fields for username, email (optional), password, and password (again) are available
-
-  * When clicking Sign Up, incorrect credentials will bring up a validation errors and/or a validation message at the top of the screen
-
-  * Correct credentials will instead redirect to the Feed page, now with logged-in status
-
-#### Log In form
-
-  ![ Log In form ](/readme-docs/feature-log-in-form.png)
-
-  * Clicking the Log In button on the site header redirects to a page with a Log In form
-
-  * Fields for username and password are available
-
-  * When clicking Log In, incorrect credentials will bring up a validation errors and/or a validation message at the top of the screen
-
-  * Correct credentials will instead redirect to the Feed page, now with logged-in status
-
-#### Log Out confirmation
-
-  ![ Log Out confirmation ](/readme-docs/feature-log-out-confirmation.png)
-
-  * Clicking the Log Out button on the site header redirects to a page with a Log Out confirmation message and button
-
-  * Clicking the Log Out button will redirect to the Feed page, now with logged-out status
-
-#### Navigation icons
-
-  ![< Navigaton icons>](/readme-docs/feature-navigation-icons.png)
-
-  * Navigation icons allow for easy navigation between the three main areas of the site: Feed (home icon); Reviews (stars icon); and Leaderboards (trophy icon)
-
-  * Black when inactive, but red on hover
-
-  * Red when active, including underline to make current page status clear
-
-  * Navigation icons are at the top of every page, however they are not sticky like the site header, as this will take up too much of the viewport
-
-#### Feedback messages
-
-  ![ Feedback messages ](/readme-docs/feature-feedback-messages.png)
-
-  * Feedback messages appear at the top of the page (below the navigation icons) to provide the user with feedback following actions they have taken
-
-  * Actions include things such as: changing authentication status; creating content; updating content; deleting content; making a request that cannot be actioned
-
-#### Feed page
-
-  ![< Feed page >](/readme-docs/feature-feed-page.png)
-
-  * The Feed page is essentially the home page for this site, given that this is a social platform
-
-  * The Feed page consists of user-submitted posts, with the most recent at the top of the feed
-
-  * The Feed page is paginated such that only 5 posts show per page
-
-  * At the top of the first page there is a welcome message with a call-to-action button - these change depending on authentication status
-
-  * Each post consists of: the poster's name; posted date; edited date (if the post has been edited); text content (mandatory); image (optional); and a button to view the detail page of the post
-
-  * Posts that have been created by the logged-in user will also feature Edit and Delete buttons at the top right of the post
-
-#### Pagination buttons
-
-  ![< Pagination buttons >](/readme-docs/feature-pagination-buttons.png)
-
-  * Pagination buttons feature at the bottom of the following pages: Feed page; Puzzle List page; Leaderboards page
-
-  * Previous and Next buttons sit either side of a current page indicator
-
-  * The previous and next buttons will only be highlighted and clickable if there is actually a page to navigate to (i.e. there is a previous or next page based on your current page location)
-
-#### Create Post form
-
-  ![< Create Post form >](/readme-docs/feature-create-post-form.png)
-
-  * Clicking the New Post button on the Feed page redirects you to a page featuring the Create Post form
-
-  * This form will accept text in the body field, and allows for an image upload
-
-  * Clicking the submit button will redirect back to the Feed page, with the new post featuring at the top of the feed, appending approval by admin
-
-  * Unapproved posts will only show on the feed for the user who posted it - it will only show to other site users once the status has changed to approved
-
-#### Content pending approval
-
-  ![< Content pending approval >](/readme-docs/feature-content-pending-approval.png)
-
-  * Content will be "Pending approval" on first creation, and following any edit requests
-
-  * Content that is pending approval will be highlighted in a light yellow colour, with a "Pending approval" tag written in blue underneath the timestamp(s)
-
-  * This applies to: posts; comments; reviews
-
-#### Edit Post form
-
-  ![< Edit Post form >](/readme-docs/feature-edit-post-form.png)
-
-  * Clicking the Edit icon (a pencil) on your post will redirect you to a page containing the Edit Post form
-
-  * This form will be prepopulated with the data from the post, including the text and a preview of the attached image (if there was one)
-
-  * The text can be overwritten and the image can be replaced or removed
-
-  * After clicking the Save button, you will be redirected to the Post Detail page, with the post status now set to "Pending approval"
-
-#### Edited content
-
-  ![< Edited content >](/readme-docs/feature-edited-content.png)
-
-  * Content that has been edited will feature an *Edited timestamp under the created timestamp
-
-  * This applies to: posts; comments; reviews
-
-#### Delete Post modal
-
-  ![< Delete Post modal >](/readme-docs/feature-delete-post-modal.png)
-
-  * Clicking the Delete icon (a bin) on your post will bring up a modal to confirm your action
-
-  * The modal has options to cancel by clicking the X icon or the cancel button
-
-  * Clicking the Delete button will confirm the action, delete the post from the database, and redirect the user to the Feed page
-
-#### Post Detail page
-
-  ![< Post Detail page form >](/readme-docs/feature-post-detail-page.png)
-
-  * Clicking the View Post button on a post in the Feed page will redirect you to the specific detail page of that post
-
-  * This page features the same details from that post, excluding the View Post button
-
-  * Underneath the post will be a comments section, which consists of any posted comments and a comment form to add new comments (only visible if logged in)
-
-#### Comments section
-
-  ![< Comments section >](/readme-docs/feature-comments-section.png)
-
-  * Comments are listed in the comments section underneath the post in the post detail page
-
-  * Comments are ordered by date ascending - the earliest comments are at the top of the list
-
-  * Comments will be unapproved on first creation, and as with posts the unapproved comments will only be visible to the commenting user
-
-  * Each comment contains the following details: username; timestamp(s); pending approval tag (if applicable); comment text
-
-  * Comments can also be edited and deleted in the same way as posts
-
-#### Add Comment form
-
-  ![< Add Comment form >](/readme-docs/feature-add-comment-form.png)
-
-  * The Add Comment form below the list of comments features just one field to add text to your comment
-
-  * Clicking the Submit button will add the comment to the bottom of the list of comments, unapproved and pending approval
-
-#### Puzzle List page
-
-  ![< Puzzle List page >](/readme-docs/feature-puzzle-list-page.png)
-
-  * Clicking the stars icon in the icon navigation section will redirect you to the Puzzle List page
-
-  * This functions similarly to the Feed page in that you will see a paginated list of cards, however instead of posts it will be puzzle listings
-
-  * These puzzle listings will feature: the puzzle name; the puzzle category; the average rating from all of its puzzle reviews (denoted by filled stars); the total number of reviews (in brackets next to the stars); an image of the puzzle; a short puzzle description; and a button to see the detail page of the puzzle
-
-#### Puzzle Detail page
-
-  ![< Puzzle Detail page >](/readme-docs/feature-puzzle-detail-page.png)
-
-  * Clicking the See Reviews button will take you to the puzzle detail page, which features a list of reviews for that puzzle
-
-  * This page features the same details from puzzle listing, excluding the See Reviews button
-
-  * Underneath the post will be a reviews section, which consists of any posted reviews and a review form to add new reviews (only visible if logged in)
-
-#### Reviews section
-
-  ![< Reviews section >](/readme-docs/feature-reviews-section.png)
-
-  * Reviews are listed in the reviews section underneath the puzzle in the puzzle detail page
-
-  * Reviews are ordered by date ascending - the earliest reviews are at the top of the list
-
-  * Reviews will be unapproved on first creation, and as with posts and comments the unapproved reviews will only be visible to the reviewing user
-
-  * Each review contains the following details: username; submitted rating out of 5; timestamp(s); pending approval tag (if applicable); review text
-
-  * Reviews can also be edited and deleted in the same way as posts and comments
-
-#### Add Review form
-
-  ![< Add Review form >](/readme-docs/feature-add-review-form.png)
-
-  * The Add Review form below the list of reviews features two fields: rating and review text
-
-  * The rating can be selected as a number from 1 to 5, which will then translate into the star icons on the submitted review
-
-  * Clicking the Submit button will add the review to the bottom of the list of reviews, unapproved and pending approval
-
-#### Leaderboards page
-
-  ![< Leaderboards page >](/readme-docs/feature-leaderboards-page.png)
-
-  * Clicking the trophy icon in the icon navigation section will redirect you to the Leaderboards page
-
-  * This functions similarly to the Feed and Puzzle List pages in that you will see a paginated list of cards, however instead of posts or reviews it will be solve-time leaderboards
-
-  * A leaderboard will be available for every puzzle that featured on the Puzzle List page
-
-  * Each leaderboard will consist of the following: the puzzle name; a table of all submitted solve-times for that puzzle
-
-  * The table will consist of: rank; username; time (in hours, minutes, and seconds); and date of submission
-
-  * Entries will be ordered according to the fastest times i.e. the fastest time will be at the top of the list, ranked #1
-
-  * If a user is logged in and has submitted a time, their time will be highlighted in bold text
-
-  * In addition, the user will be able to update or delete their time submission
-
-  * Note that submissions and updates work different here: only one submission can be made per user per puzzle, and so users will not be able to submit a new time for a puzzle they have already submitted to - they must update that leaderboard
-
-#### Submit Time form
-
-  ![< Submit Time form >](/readme-docs/feature-submit-time-form.png)
-
-  * Clicking the Submit Time button redirects you to a page featuring the Submit Time form
-
-  * This form includes the following fields: puzzle (a dropdown including all puzzles from the Puzzle List page); hours; minutes; seconds
-
-  * The time fields have validation applied and will not allow for invalid times to be submitted
-
-  * After filling out the form correctly, clicking the Submit button will redirect you to the Leaderboards page, where your time will now be included in the relevant leaderboard
-
-#### Update Time form
-
-  ![< Update Time form >](/readme-docs/feature-update-time-form.png)
-
-  * Clicking the Update Time button redirects you to a page featuring the Update Time form
-
-  * This form includes the same fields as the Submit Time form, however the fields will be prepopulated with the current solve-time data
-
-  After updating the form and clicking the Save button, you will be redirected to the Leaderboards page with the new entry now featuring in the relevant leaderboard
-
-#### Delete Time modal
-
-  ![< Delete Time modal >](/readme-docs/feature-delete-time-modal.png)
-
-  * Clicking the Delete Time button on a leaderboard will bring up a modal to confirm your action
-
-  * The modal has options to cancel by clicking the X icon or the cancel button
-
-  * Clicking the Delete button will confirm the action, delete the time submission from the database, and redirect the user the Leaderboards page where the time submission will no longer feature on the leaderboard
-
-#### Site footer
-
-  ![ Site footer ](/readme-docs/feature-site-footer.png)
-
-  * Site footer that features at the bottom of every page in the site
-
-  * Contains minimal information about the application
-
-  * Retains same colour scheme as the site header for thematic consistency
-
 ***[Arun's section]***
 #### Site header
 
@@ -532,16 +246,69 @@ The back-end databases were designed at the start of the project with the intent
   * Retains same colour scheme as the site header for thematic consistency
 
 ***[Mortaza's section]***
-user/admin.py
-![Python linter user/admin.py screenshot](/readme-docs/python-linter-user-admin.png)
-
-user/models.py
-![Python linter user/admin.py screenshot](/readme-docs/python-linter-user-models.png)
-
 
 ***[Adam's section]***
 
 ***[Ysabela's section]***
+#### Events
+
+  <img src="readme-docs/events/events-feed.png" alt="All events - feed" width="70%">
+
+  * Show all events in an event feed
+
+#### Event Detail
+
+  <img src="readme-docs/events/event-detail.png" alt="Event details" width="70%">
+
+  * Show event details including date, time, location and description
+
+#### Event - Booking
+
+  <img src="readme-docs/events/event-booking-message.png" alt="Event details - booked message" width="70%">
+
+  * User can press the book button to book an event, which then shows a confimartion message at the top of the screen
+
+#### Event - Cancel
+
+  <img src="readme-docs/events/event-cancel.png" alt="Event details - cancel button" width="70%"><br><img src="readme-docs/events/event-cancel-modal.png" alt="Event details - cancel modal" width="70%">
+
+  * User can cancel their booked event
+
+#### My Events - Host Tab
+
+  <img src="readme-docs/events/my-events.png" alt="My Events - published events" width="70%"><br><img src="readme-docs/events/my-events-published-past.png" alt="My Events - published past events" width="70%">
+
+  * Show users hosted published and past published events
+
+#### My Events - Booked Tab
+
+  <img src="readme-docs/events/my-events-booked.png" alt="My Events - booked events" width="70%">
+
+  * Show users booked events
+
+#### My Events - Past Tab
+
+  <img src="readme-docs/events/my-events-booked-past.png" alt="My Events - booked past events" width="70%">
+
+  * Show users past booked events
+
+#### My Events - Host Event
+
+  <img src="readme-docs/events/my-events-host-form.png" alt="My Events - host event form" width="70%">
+
+  * Users can host their own event
+
+#### My Events - Edit Event
+
+  <img src="readme-docs/events/my-events-edit-event.png" alt="My Events - edit event form" width="70%">
+
+  * Users can edit their event
+
+#### My Events - Delete Event
+
+  <img src="readme-docs/events/my-events-delete-event.png" alt="My Events - delete event" width="70%">
+
+  * Users can delete their hosted event
 
 ***[Rich's section]***
 
@@ -716,53 +483,9 @@ Responsivity tests were carried out to ensure that the application displayed cor
 
 ## Validation
 
-Various validation software were used to validate and/or lint the code in each of the files written for this project, with any raised errors being fixed before closing off the project. The screenshots below show evidence of this:
+Various validation software were used to validate and/or lint the code in each of the files written for this project. Most errors or bugs were identified and fixed, however some remain and will need to fixed in a further iteration of this project. Screenshots evidencing validation process below:
 
 ### [W3C Validator: HTML](https://validator.w3.org/)
-
-***VALIDATION SCREENSHOTS PENDING - EXAMPLES BELOW***
-
-Feed page
-![HTML validation Feed page screenshot](/readme-docs/html-validation-feed-page.png)
-
-Sign Up page
-![HTML validation Sign Up page screenshot](/readme-docs/html-validation-sign-up-page.png)
-
-Log In page
-![HTML validation Log In page screenshot](/readme-docs/html-validation-log-in-page.png)
-
-Log Out page
-![HTML validation Log Out page screenshot](/readme-docs/html-validation-log-out-page.png)
-
-Create Post page
-![HTML validation Create Post page screenshot](/readme-docs/html-validation-create-post-page.png)
-
-Edit Post page
-![HTML validation Edit Post page screenshot](/readme-docs/html-validation-edit-post-page.png)
-
-Post Detail page
-![HTML validation Post Detail page screenshot](/readme-docs/html-validation-post-detail-page.png)
-
-Edit Comment page
-![HTML validation Edit Comment page screenshot](/readme-docs/html-validation-edit-comment-page.png)
-
-Puzzle List page
-![HTML validation Puzzle List page screenshot](/readme-docs/html-validation-puzzle-list-page.png)
-
-Puzzle Detail page
-![HTML validation Puzzle Detail page screenshot](/readme-docs/html-validation-puzzle-detail-page.png)
-
-Edit Review page
-![HTML validation Edit Review page screenshot](/readme-docs/html-validation-edit-review-page.png)
-
-Leaderboards page
-![HTML validation Leaderboards page screenshot](/readme-docs/html-validation-leaderboards-page.png)
-
-Submit Time page
-![HTML validation Submit Time page screenshot](/readme-docs/html-validation-submit-time-page.png)
-
-Update Time page
-![HTML validation Update Time page screenshot](/readme-docs/html-validation-update-time-page.png)
 
 ***[Arun's section]***
 
@@ -771,93 +494,90 @@ Update Time page
 ***[Adam's section]***
 
 ***[Ysabela's section]***
+Events
+
+![All events feed - html validation](/readme-docs/events/events-feed-html-val.png)
+
+Event detail
+
+![Event detail - html validation](/readme-docs/events/event-details-html-val.png)
+
+My Events
+
+![My events - html validation](/readme-docs/events/my-events-html-val.png)
 
 ***[Rich's section]***
 
 ### [W3C Validator: CSS](https://jigsaw.w3.org/css-validator/)
 
+style.css
 ![CSS validation screenshot](/readme-docs/css-validation.png)
+
+marketplace.css
+![CSS validation screenshot](/readme-docs/css-marketplace-validation.png)
 
 ### [CI Python Linter: Python](https://pep8ci.herokuapp.com/)
 
-config/asgi.py
-![Python linter config/asgi.py screenshot](/readme-docs/python-linter-config-asgi.png)
-
-config/settings.py
-![Python linter config/settings.py screenshot](/readme-docs/python-linter-config-settings.png)
-
-config/urls.py
-![Python linter config/urls.py screenshot](/readme-docs/python-linter-config-urls.png)
-
-config/wsgi.py
-![Python linter config/wsgi.py screenshot](/readme-docs/python-linter-config-wsgi.png)
-
-feed/admin.py
-![Python linter feed/admin.py screenshot](/readme-docs/python-linter-feed-admin.png)
-
-feed/apps.py
-![Python linter feed/apps.py screenshot](/readme-docs/python-linter-feed-apps.png)
-
-feed/forms.py
-![Python linter feed/forms.py screenshot](/readme-docs/python-linter-feed-forms.png)
-
-feed/models.py
-![Python linter feed/models.py screenshot](/readme-docs/python-linter-feed-models.png)
-
-feed/urls.py
-![Python linter feed/urls.py screenshot](/readme-docs/python-linter-feed-urls.png)
-
-feed/views.py
-![Python linter feed/views.py screenshot](/readme-docs/python-linter-feed-views.png)
-
-leaderboards/admin.py
-![Python linter leaderboards/admin.py screenshot](/readme-docs/python-linter-leaderboards-admin.png)
-
-leaderboards/apps.py
-![Python linter leaderboards/apps.py screenshot](/readme-docs/python-linter-leaderboards-apps.png)
-
-leaderboards/forms.py
-![Python linter leaderboards/forms.py screenshot](/readme-docs/python-linter-leaderboards-forms.png)
-
-leaderboards/models.py
-![Python linter leaderboards/models.py screenshot](/readme-docs/python-linter-leaderboards-models.png)
-
-leaderboards/urls.py
-![Python linter leaderboards/urls.py screenshot](/readme-docs/python-linter-leaderboards-urls.png)
-
-leaderboards/views.py
-![Python linter leaderboards/views.py screenshot](/readme-docs/python-linter-leaderboards-views.png)
-
-reviews/admin.py
-![Python linter reviews/admin.py screenshot](/readme-docs/python-linter-reviews-admin.png)
-
-reviews/apps.py
-![Python linter reviews/apps.py screenshot](/readme-docs/python-linter-reviews-apps.png)
-
-reviews/forms.py
-![Python linter reviews/forms.py screenshot](/readme-docs/python-linter-reviews-forms.png)
-
-reviews/models.py
-![Python linter reviews/models.py screenshot](/readme-docs/python-linter-reviews-models.png)
-
-reviews/urls.py
-![Python linter reviews/urls.py screenshot](/readme-docs/python-linter-reviews-urls.png)
-
-reviews/views.py
-![Python linter reviews/views.py screenshot](/readme-docs/python-linter-reviews-views.png)
-
-manage.py
-![Python linter manage.py screenshot](/readme-docs/python-linter-manage.png)
-
 ***[Mortaza's section]***
+
 user/admin.py
-![Python linter user/admin.py screenshot](/readme-docs/admin-py.png)
 
+![Python linter user/admin.py screenshot](/readme-docs/python-linter-user-admin.png)
 
+user/apps.py
+
+![Python linter user/apps.py screenshot](/readme-docs/python-linter-user-apps.png)
+
+user/forms.py
+
+![Python linter user/forms.py screenshot](/readme-docs/python-linter-user-forms.png)
+
+user/models.py
+
+![Python linter user/admin.py screenshot](/readme-docs/python-linter-user-models.png)
+
+user/signals.py
+
+![Python linter user/signals.py screenshot](/readme-docs/python-linter-user-signals.png)
+
+user/tests.py
+
+![Python linter user/tests.py screenshot](/readme-docs/python-linter-user-tests.png)
+
+user/urls.py
+
+![Python linter user/urls.py screenshot](/readme-docs/python-linter-user-urls.png)
+
+user/views.py
+
+![Python linter user/views.py screenshot](/readme-docs/python-linter-user-views.png)
 
 ***[Adam's section]***
 
 ***[Ysabela's section]***
+events/admin.py
+
+![CI Python Linter - admin.py](/readme-docs/events/events-python-linter-admin.png)
+
+events/forms.py
+
+![CI Python Linter - forms.py](/readme-docs/events/events-python-linter-forms.png)
+
+events/models.py
+
+![CI Python Linter - models.py](/readme-docs/events/events-python-linter-models.png)
+
+events/tests.py
+
+![CI Python Linter - tests.py](/readme-docs/events/events-python-linter-tests.png)
+
+events/urls.py
+
+![CI Python Linter - urls.py](/readme-docs/events/events-python-linter-urls.png)
+
+events/views.py
+
+![CI Python Linter - views.py](/readme-docs/events/events-python-linter-views.png)
 
 ***[Rich's section]***
 
