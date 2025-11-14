@@ -94,7 +94,7 @@
             </div>
             {% elif not user.is_authenticated %}
             <div class="alert alert-info">
-                Please <a href="{% url 'login' %}">login</a> to place a bid.
+                Please <a href="{% url 'account_login' %}">login</a> to place a bid.
             </div>
             {% endif %}
         </div>
