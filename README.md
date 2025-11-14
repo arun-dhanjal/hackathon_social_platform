@@ -535,8 +535,27 @@ The back-end databases were designed at the start of the project with the intent
 user/admin.py
 ![Python linter user/admin.py screenshot](/readme-docs/python-linter-user-admin.png)
 
+user/apps.py
+![Python linter user/apps.py screenshot](/readme-docs/python-linter-user-apps.png)
+
+user/forms.py
+![Python linter user/forms.py screenshot](/readme-docs/python-linter-user-forms.png)
+
 user/models.py
 ![Python linter user/admin.py screenshot](/readme-docs/python-linter-user-models.png)
+
+user/signals.py
+![Python linter user/signals.py screenshot](/readme-docs/python-linter-user-signals.png)
+
+user/tests.py
+![Python linter user/tests.py screenshot](/readme-docs/python-linter-user-tests.png)
+
+user/urls.py
+![Python linter user/urls.py screenshot](/readme-docs/python-linter-user-urls.png)
+
+user/views.py
+![Python linter user/views.py screenshot](/readme-docs/python-linter-user-views.png)
+
 
 
 ***[Adam's section]***
