@@ -105,3 +105,4 @@ class Migration(migrations.Migration):
             index=models.Index(fields=['bidder', '-created_at'], name='marketplace_bidder__afeda6_idx'),
         ),
     ]
+
